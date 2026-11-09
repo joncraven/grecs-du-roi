@@ -67,6 +67,17 @@ Measured gap (t_a8519b7b experiment, not opinion):
 - Safari harness: enable `safaridriver`, extend existing Playwright matrix → Chromium+Firefox+Safari screenshots as CI gate (closes the standing "Safari not instrumented" caveat).
 
 ### Phase 2.1 — Slanted cursive masters (1–2 weeks)
+- **STATUS (2026-11-09, t_480a0018): DONE.** Separate face
+  `src/fonts/grecs-roi-greek-cursive.otf/.woff2` (upright derivative ships
+  unchanged). Builder `tools/cursive_masters.py` (wired into
+  `build_typography.py`), assertions `tools/qa_cursive.py` (26/26 PASS:
+  HB on/off per alternate, liga regression, zero tofu over 4262 corpus
+  words, 0-PUA cmap, true-master shear audit, upright-mark audit),
+  side-by-side `src/cursive-compare.html` + `qa-evidence/cursive-compare-*.png`.
+  feaLib pitfall recorded: rules bind to the CURRENT script block only —
+  register named lookups explicitly per script (DFLT/grek/latn).
+  Cursive face closes the U+02BC keraia + lunate-sigma cmap gaps upstream;
+  Phase 2.2 draws its fused ligatures on these masters.
 - Redraw the 431-symbol Gazis-derivative Greek set slanted as true masters (interpolation helper: slant existing outlines → redraw joins/opticals; no `faux-italic` shears in the shipped font).
 - Positional alternates: final-medial-initial σ, lunate σ, ρ with descender variants, ε/θ cursive variants — registered as `calt`/`locl` under `grek`.
 - Verification: HarfBuzz on/off + side-by-side against scan crops at 200% zoom; tofu = zero.
