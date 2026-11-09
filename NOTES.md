@@ -37,15 +37,18 @@ itself asked for (chicken-and-egg). Diagnosis: comment 1042 on t_c29b4aac.
 
 ## What remains
 
-- **t_5d81959b's card-creation work**: the Phase-2 implementation cards were
-  already cut via t_b16a2c44; t_5d81959b itself sits `blocked` and needs a
-  human/dispatcher **unblock** to re-spawn now that the git blocker is gone.
-  Its acceptance (cards + `==> human` decision gates) may already be satisfied
-  by the t_b16a2c44 cut — check before doing it twice.
-- The `==> human` decisions in `docs/phase2-plan.md` still need human answers
-  before the Phase-2 implementation cards can run.
-- Working-tree caveat at time of writing: untracked
-  `corpus/iliad_a1_117.json` in the main checkout (someone's in-flight data).
+- ~~t_5d81959b's card-creation work~~ **RESOLVED 2026-11-09 (t_4899f8ed):**
+  verified its acceptance is satisfied by the t_b16a2c44 cut — five Phase-2
+  cards exist on the board (t_c33604f9 2.0, t_480a0018 2.1, t_a130c5fc 2.2,
+  t_8e2d4b30 2.3/2.4, t_1bdfa688 2.5) with parent/child deps; all three
+  `==> human` annotations in `docs/phase2-plan.md` are answered (D1=C and
+  D2=John 1 recorded APPROVED §3; the GitHub-repo addition is t_1bdfa688).
+- ~~The `==> human` decisions~~ **ANSWERED:** plan header is
+  `Status: APPROVED`; Phase-2 dispatch is live (2.0 running, 2.3/2.4 ready).
+- Working-tree caveat: untracked `corpus/*.json` (iliad_a1_117,
+  hymn_delos_callimachus) belong to in-flight Phase-2.0 (t_c33604f9) —
+  that worker commits them.
+- `.worktrees/` is gitignored; the dispatcher materializes/removes them per task.
 
 ## Repo map
 

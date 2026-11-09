@@ -1,6 +1,9 @@
 # macOS
 .DS_Store
 
+# Kanban dispatcher worktrees (materialized inside the repo per task)
+.worktrees/
+
 # Emacs backup / auto-save files
 *~
 .#*
