@@ -98,8 +98,10 @@ None.
 ### Minor
 
 1a. **Showcase -ος sequence is accented, so it never ligates.** Card example `θεός` and passage `μέθοδός` shape as `omicrontonos + uni03C2` with features on *or* off. Unaccented `μέθοδος` / `ος` correctly become `omicronsigma`. Wikipedia’s 1566 sample is specifically μέθοδος. **Fix:** use `μέθοδος` (and `θεος` or a word whose ο is unaccented) in the example line and the decree sentence, or add GSUB for `omicrontonos+sigma/ς`.
+   > **RESOLVED (2026-11-10, t_a130c5fc / Phase 2.2):** the stronger fix shipped — the cursive face carries `omicrontonos+σ/ς → omicronsigma.tonos` and `ὸ+σ/ς → omicronsigma.varia` as real fused glyphs carrying the accent contour; asserted in `tools/qa_cursive.py` (`1a:` checks). `θεός` now fuses.
 
 1. **Four named ligatures are raster in the large cell** (`γερ`, `μω`, `οὖν`, `φησὶ`). Wikipedia historical *form* is shown via Commons PNG; DevTools feature-off does not break those hero glyphs. Typed example lines and the Homer/decree passage *do* ligate via composite GSUB (`liga_ger` etc.), which are side-by-side CFF joins, not the Wikipedia cuts. Documented in README. **Fix:** keep PNG as a “historical form” inset; make the large cell the live GSUB string so toggle-off is visible on the card itself.
+   > **RESOLVED (2026-11-10, t_a130c5fc / Phase 2.2):** all four hero cells are live GSUB text in the cursive face; the Commons PNGs are reference links in the note line. `tools/qa_fusion_toggle.py` proves toggle-off unfuses each probe in Chromium+Firefox+WebKit and fails if a hero cell regresses to `<img>`.
 
 2. **Face mix inside the grid.** Live Gazis-derived cuts (εῖ, καὶ, ος) sit next to scanned minuscule charts and Gentium/Cardo/Noto fallbacks (Ϗ, Ȣ/ȣ, Ꙋ/ꙋ, Latin-looking Ϝ). No tofu, but the royal texture is not one face. **Fix:** subset a single display face for the Unicode fallbacks, or label fallback cards more loudly than the current note line.
 

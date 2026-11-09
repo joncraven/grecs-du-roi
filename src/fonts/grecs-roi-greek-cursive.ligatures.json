@@ -1,0 +1,1686 @@
+{
+  "engine": "tools/ligature_engine.py",
+  "overlap": 0.18,
+  "cap": 150,
+  "projected_word_coverage": 97.25,
+  "ligatures": [
+    {
+      "seq": "ον",
+      "glyph": "lig2_omicron_nu",
+      "parts": [
+        "omicron",
+        "nu"
+      ],
+      "advance": 848,
+      "rules": 1
+    },
+    {
+      "seq": "οι",
+      "glyph": "lig2_omicron_iota",
+      "parts": [
+        "omicron",
+        "iota"
+      ],
+      "advance": 679,
+      "rules": 1
+    },
+    {
+      "seq": "αι",
+      "glyph": "lig2_alpha_iota",
+      "parts": [
+        "alpha",
+        "iota"
+      ],
+      "advance": 801,
+      "rules": 1
+    },
+    {
+      "seq": "δ᾽",
+      "glyph": "lig2_delta_uni1FBD",
+      "parts": [
+        "delta",
+        "uni1FBD"
+      ],
+      "advance": 723,
+      "rules": 1
+    },
+    {
+      "seq": "ὸν",
+      "glyph": "lig2_uni1F78_nu",
+      "parts": [
+        "uni1F78",
+        "nu"
+      ],
+      "advance": 823,
+      "rules": 1
+    },
+    {
+      "seq": "τε",
+      "glyph": "lig2_tau_epsilon",
+      "parts": [
+        "tau",
+        "epsilon"
+      ],
+      "advance": 915,
+      "rules": 1
+    },
+    {
+      "seq": "τι",
+      "glyph": "lig2_tau_iota",
+      "parts": [
+        "tau",
+        "iota"
+      ],
+      "advance": 765,
+      "rules": 1
+    },
+    {
+      "seq": "το",
+      "glyph": "lig2_tau_omicron",
+      "parts": [
+        "tau",
+        "omicron"
+      ],
+      "advance": 947,
+      "rules": 1
+    },
+    {
+      "seq": "εν",
+      "glyph": "lig2_epsilon_nu",
+      "parts": [
+        "epsilon",
+        "nu"
+      ],
+      "advance": 822,
+      "rules": 1
+    },
+    {
+      "seq": "ων",
+      "glyph": "lig2_omega_nu",
+      "parts": [
+        "omega",
+        "nu"
+      ],
+      "advance": 996,
+      "rules": 1
+    },
+    {
+      "seq": "αν",
+      "glyph": "lig2_alpha_nu",
+      "parts": [
+        "alpha",
+        "nu"
+      ],
+      "advance": 970,
+      "rules": 1
+    },
+    {
+      "seq": "δὲ",
+      "glyph": "lig2_delta_uni1F72",
+      "parts": [
+        "delta",
+        "uni1F72"
+      ],
+      "advance": 996,
+      "rules": 1
+    },
+    {
+      "seq": "ης",
+      "glyph": "lig2_eta_uni03C2",
+      "parts": [
+        "eta",
+        "uni03C2"
+      ],
+      "advance": 823,
+      "rules": 2
+    },
+    {
+      "seq": "ὸς",
+      "glyph": "lig2_uni1F78_uni03C2",
+      "parts": [
+        "uni1F78",
+        "uni03C2"
+      ],
+      "advance": 810,
+      "rules": 2
+    },
+    {
+      "seq": "ας",
+      "glyph": "lig2_alpha_uni03C2",
+      "parts": [
+        "alpha",
+        "uni03C2"
+      ],
+      "advance": 957,
+      "rules": 2
+    },
+    {
+      "seq": "ιν",
+      "glyph": "lig2_iota_nu",
+      "parts": [
+        "iota",
+        "nu"
+      ],
+      "advance": 699,
+      "rules": 1
+    },
+    {
+      "seq": "αὐτ",
+      "glyph": "lig2_alpha_uni1F50_tau",
+      "parts": [
+        "alpha",
+        "uni1F50",
+        "tau"
+      ],
+      "advance": 1496,
+      "rules": 1
+    },
+    {
+      "seq": "ην",
+      "glyph": "lig2_eta_nu",
+      "parts": [
+        "eta",
+        "nu"
+      ],
+      "advance": 836,
+      "rules": 1
+    },
+    {
+      "seq": "ἐν",
+      "glyph": "lig2_uni1F10_nu",
+      "parts": [
+        "uni1F10",
+        "nu"
+      ],
+      "advance": 797,
+      "rules": 1
+    },
+    {
+      "seq": "τ᾽",
+      "glyph": "lig2_tau_uni1FBD",
+      "parts": [
+        "tau",
+        "uni1FBD"
+      ],
+      "advance": 612,
+      "rules": 1
+    },
+    {
+      "seq": "ες",
+      "glyph": "lig2_epsilon_uni03C2",
+      "parts": [
+        "epsilon",
+        "uni03C2"
+      ],
+      "advance": 809,
+      "rules": 2
+    },
+    {
+      "seq": "πα",
+      "glyph": "lig2_pi_alpha",
+      "parts": [
+        "pi",
+        "alpha"
+      ],
+      "advance": 1207,
+      "rules": 1
+    },
+    {
+      "seq": "ὲν",
+      "glyph": "lig2_uni1F72_nu",
+      "parts": [
+        "uni1F72",
+        "nu"
+      ],
+      "advance": 797,
+      "rules": 1
+    },
+    {
+      "seq": "σε",
+      "glyph": "lig2_sigma_epsilon",
+      "parts": [
+        "sigma",
+        "epsilon"
+      ],
+      "advance": 875,
+      "rules": 2
+    },
+    {
+      "seq": "ερ",
+      "glyph": "lig2_epsilon_rho",
+      "parts": [
+        "epsilon",
+        "rho"
+      ],
+      "advance": 861,
+      "rules": 1
+    },
+    {
+      "seq": "τα",
+      "glyph": "lig2_tau_alpha",
+      "parts": [
+        "tau",
+        "alpha"
+      ],
+      "advance": 1096,
+      "rules": 1
+    },
+    {
+      "seq": "θε",
+      "glyph": "lig2_theta_epsilon",
+      "parts": [
+        "theta",
+        "epsilon"
+      ],
+      "advance": 1231,
+      "rules": 1
+    },
+    {
+      "seq": "ἐπ",
+      "glyph": "lig2_uni1F10_pi",
+      "parts": [
+        "uni1F10",
+        "pi"
+      ],
+      "advance": 1051,
+      "rules": 1
+    },
+    {
+      "seq": "ῶν",
+      "glyph": "lig2_uni1FF6_nu",
+      "parts": [
+        "uni1FF6",
+        "nu"
+      ],
+      "advance": 972,
+      "rules": 1
+    },
+    {
+      "seq": "ῆς",
+      "glyph": "lig2_uni1FC6_uni03C2",
+      "parts": [
+        "uni1FC6",
+        "uni03C2"
+      ],
+      "advance": 798,
+      "rules": 2
+    },
+    {
+      "seq": "ρα",
+      "glyph": "lig2_rho_alpha",
+      "parts": [
+        "rho",
+        "alpha"
+      ],
+      "advance": 1031,
+      "rules": 1
+    },
+    {
+      "seq": "με",
+      "glyph": "lig2_uni03BC_epsilon",
+      "parts": [
+        "uni03BC",
+        "epsilon"
+      ],
+      "advance": 1048,
+      "rules": 1
+    },
+    {
+      "seq": "οἱ",
+      "glyph": "lig2_omicron_uni1F31",
+      "parts": [
+        "omicron",
+        "uni1F31"
+      ],
+      "advance": 649,
+      "rules": 1
+    },
+    {
+      "seq": "ὴν",
+      "glyph": "lig2_uni1F74_nu",
+      "parts": [
+        "uni1F74",
+        "nu"
+      ],
+      "advance": 811,
+      "rules": 1
+    },
+    {
+      "seq": "ἀπ",
+      "glyph": "lig2_uni1F00_pi",
+      "parts": [
+        "uni1F00",
+        "pi"
+      ],
+      "advance": 1199,
+      "rules": 1
+    },
+    {
+      "seq": "να",
+      "glyph": "lig2_nu_alpha",
+      "parts": [
+        "nu",
+        "alpha"
+      ],
+      "advance": 999,
+      "rules": 1
+    },
+    {
+      "seq": "τὰ",
+      "glyph": "lig2_tau_uni1F70",
+      "parts": [
+        "tau",
+        "uni1F70"
+      ],
+      "advance": 1066,
+      "rules": 1
+    },
+    {
+      "seq": "σὺ",
+      "glyph": "lig2_sigma_uni1F7A",
+      "parts": [
+        "sigma",
+        "uni1F7A"
+      ],
+      "advance": 932,
+      "rules": 2
+    },
+    {
+      "seq": "γε",
+      "glyph": "lig2_gamma_epsilon",
+      "parts": [
+        "gamma",
+        "epsilon"
+      ],
+      "advance": 941,
+      "rules": 1
+    },
+    {
+      "seq": "ἐκ",
+      "glyph": "lig2_uni1F10_kappa",
+      "parts": [
+        "uni1F10",
+        "kappa"
+      ],
+      "advance": 878,
+      "rules": 1
+    },
+    {
+      "seq": "ὰρ",
+      "glyph": "lig2_uni1F70_rho",
+      "parts": [
+        "uni1F70",
+        "rho"
+      ],
+      "advance": 984,
+      "rules": 1
+    },
+    {
+      "seq": "τί",
+      "glyph": "lig2_tau_iotatonos",
+      "parts": [
+        "tau",
+        "iotatonos"
+      ],
+      "advance": 735,
+      "rules": 1
+    },
+    {
+      "seq": "λα",
+      "glyph": "lig2_lambda_alpha",
+      "parts": [
+        "lambda",
+        "alpha"
+      ],
+      "advance": 1222,
+      "rules": 1
+    },
+    {
+      "seq": "ἦν",
+      "glyph": "lig2_uni1F26_nu",
+      "parts": [
+        "uni1F26",
+        "nu"
+      ],
+      "advance": 811,
+      "rules": 1
+    },
+    {
+      "seq": "κα",
+      "glyph": "lig2_kappa_alpha",
+      "parts": [
+        "kappa",
+        "alpha"
+      ],
+      "advance": 1066,
+      "rules": 1
+    },
+    {
+      "seq": "τῷ",
+      "glyph": "lig2_tau_uni1FF7",
+      "parts": [
+        "tau",
+        "uni1FF7"
+      ],
+      "advance": 1098,
+      "rules": 1
+    },
+    {
+      "seq": "γὼ",
+      "glyph": "lig2_gamma_uni1F7C",
+      "parts": [
+        "gamma",
+        "uni1F7C"
+      ],
+      "advance": 1124,
+      "rules": 1
+    },
+    {
+      "seq": "τὸ",
+      "glyph": "lig2_tau_uni1F78",
+      "parts": [
+        "tau",
+        "uni1F78"
+      ],
+      "advance": 917,
+      "rules": 1
+    },
+    {
+      "seq": "σσ",
+      "glyph": "lig2_sigma_sigma",
+      "parts": [
+        "sigma",
+        "sigma"
+      ],
+      "advance": 963,
+      "rules": 4
+    },
+    {
+      "seq": "ρη",
+      "glyph": "lig2_rho_eta",
+      "parts": [
+        "rho",
+        "eta"
+      ],
+      "advance": 867,
+      "rules": 1
+    },
+    {
+      "seq": "μα",
+      "glyph": "lig2_uni03BC_alpha",
+      "parts": [
+        "uni03BC",
+        "alpha"
+      ],
+      "advance": 1229,
+      "rules": 1
+    },
+    {
+      "seq": "ὡς",
+      "glyph": "lig2_uni1F61_uni03C2",
+      "parts": [
+        "uni1F61",
+        "uni03C2"
+      ],
+      "advance": 959,
+      "rules": 2
+    },
+    {
+      "seq": "δι",
+      "glyph": "lig2_delta_iota",
+      "parts": [
+        "delta",
+        "iota"
+      ],
+      "advance": 876,
+      "rules": 1
+    },
+    {
+      "seq": "λε",
+      "glyph": "lig2_lambda_epsilon",
+      "parts": [
+        "lambda",
+        "epsilon"
+      ],
+      "advance": 1041,
+      "rules": 1
+    },
+    {
+      "seq": "μέ",
+      "glyph": "lig2_uni03BC_epsilontonos",
+      "parts": [
+        "uni03BC",
+        "epsilontonos"
+      ],
+      "advance": 1018,
+      "rules": 1
+    },
+    {
+      "seq": "πο",
+      "glyph": "lig2_pi_omicron",
+      "parts": [
+        "pi",
+        "omicron"
+      ],
+      "advance": 1058,
+      "rules": 1
+    },
+    {
+      "seq": "τῇ",
+      "glyph": "lig2_tau_uni1FC7",
+      "parts": [
+        "tau",
+        "uni1FC7"
+      ],
+      "advance": 902,
+      "rules": 1
+    },
+    {
+      "seq": "πρ",
+      "glyph": "lig2_pi_rho",
+      "parts": [
+        "pi",
+        "rho"
+      ],
+      "advance": 1084,
+      "rules": 1
+    },
+    {
+      "seq": "ρε",
+      "glyph": "lig2_rho_epsilon",
+      "parts": [
+        "rho",
+        "epsilon"
+      ],
+      "advance": 850,
+      "rules": 1
+    },
+    {
+      "seq": "δε",
+      "glyph": "lig2_delta_epsilon",
+      "parts": [
+        "delta",
+        "epsilon"
+      ],
+      "advance": 1026,
+      "rules": 1
+    },
+    {
+      "seq": "θι",
+      "glyph": "lig2_theta_iota",
+      "parts": [
+        "theta",
+        "iota"
+      ],
+      "advance": 1081,
+      "rules": 1
+    },
+    {
+      "seq": "θ᾽",
+      "glyph": "lig2_theta_uni1FBD",
+      "parts": [
+        "theta",
+        "uni1FBD"
+      ],
+      "advance": 928,
+      "rules": 1
+    },
+    {
+      "seq": "ρυ",
+      "glyph": "lig2_rho_upsilon",
+      "parts": [
+        "rho",
+        "upsilon"
+      ],
+      "advance": 937,
+      "rules": 1
+    },
+    {
+      "seq": "ἀν",
+      "glyph": "lig2_uni1F00_nu",
+      "parts": [
+        "uni1F00",
+        "nu"
+      ],
+      "advance": 945,
+      "rules": 1
+    },
+    {
+      "seq": "αἱ",
+      "glyph": "lig2_alpha_uni1F31",
+      "parts": [
+        "alpha",
+        "uni1F31"
+      ],
+      "advance": 771,
+      "rules": 1
+    },
+    {
+      "seq": "δή",
+      "glyph": "lig2_delta_etatonos",
+      "parts": [
+        "delta",
+        "etatonos"
+      ],
+      "advance": 1013,
+      "rules": 1
+    },
+    {
+      "seq": "ἄρ",
+      "glyph": "lig2_uni1F04_rho",
+      "parts": [
+        "uni1F04",
+        "rho"
+      ],
+      "advance": 984,
+      "rules": 1
+    },
+    {
+      "seq": "ὑπ",
+      "glyph": "lig2_uni1F51_pi",
+      "parts": [
+        "uni1F51",
+        "pi"
+      ],
+      "advance": 1122,
+      "rules": 1
+    },
+    {
+      "seq": "σι",
+      "glyph": "lig2_sigma_iota",
+      "parts": [
+        "sigma",
+        "iota"
+      ],
+      "advance": 725,
+      "rules": 2
+    },
+    {
+      "seq": "νῦν",
+      "glyph": "lig2_nu_uni1FE6_nu",
+      "parts": [
+        "nu",
+        "uni1FE6",
+        "nu"
+      ],
+      "advance": 1246,
+      "rules": 1
+    },
+    {
+      "seq": "πω",
+      "glyph": "lig2_pi_omega",
+      "parts": [
+        "pi",
+        "omega"
+      ],
+      "advance": 1239,
+      "rules": 1
+    },
+    {
+      "seq": "δέ",
+      "glyph": "lig2_delta_epsilontonos",
+      "parts": [
+        "delta",
+        "epsilontonos"
+      ],
+      "advance": 996,
+      "rules": 1
+    },
+    {
+      "seq": "ια",
+      "glyph": "lig2_iota_alpha",
+      "parts": [
+        "iota",
+        "alpha"
+      ],
+      "advance": 861,
+      "rules": 1
+    },
+    {
+      "seq": "κε",
+      "glyph": "lig2_kappa_epsilon",
+      "parts": [
+        "kappa",
+        "epsilon"
+      ],
+      "advance": 885,
+      "rules": 1
+    },
+    {
+      "seq": "Λητ",
+      "glyph": "lig2_Lambda_eta_tau",
+      "parts": [
+        "Lambda",
+        "eta",
+        "tau"
+      ],
+      "advance": 1463,
+      "rules": 1
+    },
+    {
+      "seq": "γ᾽",
+      "glyph": "lig2_gamma_uni1FBD",
+      "parts": [
+        "gamma",
+        "uni1FBD"
+      ],
+      "advance": 638,
+      "rules": 1
+    },
+    {
+      "seq": "ἐξ",
+      "glyph": "lig2_uni1F10_xi",
+      "parts": [
+        "uni1F10",
+        "xi"
+      ],
+      "advance": 1062,
+      "rules": 1
+    },
+    {
+      "seq": "άρ",
+      "glyph": "lig2_alphatonos_rho",
+      "parts": [
+        "alphatonos",
+        "rho"
+      ],
+      "advance": 984,
+      "rules": 1
+    },
+    {
+      "seq": "φί",
+      "glyph": "lig2_phi_iotatonos",
+      "parts": [
+        "phi",
+        "iotatonos"
+      ],
+      "advance": 884,
+      "rules": 1
+    },
+    {
+      "seq": "δα",
+      "glyph": "lig2_delta_alpha",
+      "parts": [
+        "delta",
+        "alpha"
+      ],
+      "advance": 1207,
+      "rules": 1
+    },
+    {
+      "seq": "ᾶς",
+      "glyph": "lig2_uni1FB6_uni03C2",
+      "parts": [
+        "uni1FB6",
+        "uni03C2"
+      ],
+      "advance": 932,
+      "rules": 2
+    },
+    {
+      "seq": "μή",
+      "glyph": "lig2_uni03BC_etatonos",
+      "parts": [
+        "uni03BC",
+        "etatonos"
+      ],
+      "advance": 1035,
+      "rules": 1
+    },
+    {
+      "seq": "νύ",
+      "glyph": "lig2_nu_upsilontonos",
+      "parts": [
+        "nu",
+        "upsilontonos"
+      ],
+      "advance": 875,
+      "rules": 1
+    },
+    {
+      "seq": "κ᾽",
+      "glyph": "lig2_kappa_uni1FBD",
+      "parts": [
+        "kappa",
+        "uni1FBD"
+      ],
+      "advance": 582,
+      "rules": 1
+    },
+    {
+      "seq": "δύ",
+      "glyph": "lig2_delta_upsilontonos",
+      "parts": [
+        "delta",
+        "upsilontonos"
+      ],
+      "advance": 1083,
+      "rules": 1
+    },
+    {
+      "seq": "ὰς",
+      "glyph": "lig2_uni1F70_uni03C2",
+      "parts": [
+        "uni1F70",
+        "uni03C2"
+      ],
+      "advance": 932,
+      "rules": 2
+    },
+    {
+      "seq": "ρέ",
+      "glyph": "lig2_rho_epsilontonos",
+      "parts": [
+        "rho",
+        "epsilontonos"
+      ],
+      "advance": 820,
+      "rules": 1
+    },
+    {
+      "seq": "ἂν",
+      "glyph": "lig2_uni1F02_nu",
+      "parts": [
+        "uni1F02",
+        "nu"
+      ],
+      "advance": 945,
+      "rules": 1
+    },
+    {
+      "seq": "αἳ",
+      "glyph": "lig2_alpha_uni1F33",
+      "parts": [
+        "alpha",
+        "uni1F33"
+      ],
+      "advance": 771,
+      "rules": 1
+    },
+    {
+      "seq": "ὣς",
+      "glyph": "lig2_uni1F63_uni03C2",
+      "parts": [
+        "uni1F63",
+        "uni03C2"
+      ],
+      "advance": 959,
+      "rules": 2
+    },
+    {
+      "seq": "οἳ",
+      "glyph": "lig2_omicron_uni1F33",
+      "parts": [
+        "omicron",
+        "uni1F33"
+      ],
+      "advance": 649,
+      "rules": 1
+    },
+    {
+      "seq": "δὴ",
+      "glyph": "lig2_delta_uni1F74",
+      "parts": [
+        "delta",
+        "uni1F74"
+      ],
+      "advance": 1013,
+      "rules": 1
+    },
+    {
+      "seq": "ὃς",
+      "glyph": "lig2_uni1F43_uni03C2",
+      "parts": [
+        "uni1F43",
+        "uni03C2"
+      ],
+      "advance": 810,
+      "rules": 2
+    },
+    {
+      "seq": "ἐς",
+      "glyph": "lig2_uni1F10_uni03C2",
+      "parts": [
+        "uni1F10",
+        "uni03C2"
+      ],
+      "advance": 784,
+      "rules": 2
+    },
+    {
+      "seq": "ῶς",
+      "glyph": "lig2_uni1FF6_uni03C2",
+      "parts": [
+        "uni1FF6",
+        "uni03C2"
+      ],
+      "advance": 959,
+      "rules": 2
+    },
+    {
+      "seq": "Δι",
+      "glyph": "lig2_uni0394_iota",
+      "parts": [
+        "uni0394",
+        "iota"
+      ],
+      "advance": 900,
+      "rules": 1
+    },
+    {
+      "seq": "ἐφ",
+      "glyph": "lig2_uni1F10_phi",
+      "parts": [
+        "uni1F10",
+        "phi"
+      ],
+      "advance": 1097,
+      "rules": 1
+    },
+    {
+      "seq": "ἐμ",
+      "glyph": "lig2_uni1F10_uni03BC",
+      "parts": [
+        "uni1F10",
+        "uni03BC"
+      ],
+      "advance": 1077,
+      "rules": 1
+    },
+    {
+      "seq": "δη",
+      "glyph": "lig2_delta_eta",
+      "parts": [
+        "delta",
+        "eta"
+      ],
+      "advance": 1043,
+      "rules": 1
+    },
+    {
+      "seq": "σω",
+      "glyph": "lig2_sigma_omega",
+      "parts": [
+        "sigma",
+        "omega"
+      ],
+      "advance": 1088,
+      "rules": 2
+    },
+    {
+      "seq": "υρ",
+      "glyph": "lig2_upsilon_rho",
+      "parts": [
+        "upsilon",
+        "rho"
+      ],
+      "advance": 932,
+      "rules": 1
+    },
+    {
+      "seq": "τό",
+      "glyph": "lig2_tau_omicrontonos",
+      "parts": [
+        "tau",
+        "omicrontonos"
+      ],
+      "advance": 917,
+      "rules": 1
+    },
+    {
+      "seq": "κλ",
+      "glyph": "lig2_kappa_lambda",
+      "parts": [
+        "kappa",
+        "lambda"
+      ],
+      "advance": 1176,
+      "rules": 1
+    },
+    {
+      "seq": "νη",
+      "glyph": "lig2_nu_eta",
+      "parts": [
+        "nu",
+        "eta"
+      ],
+      "advance": 835,
+      "rules": 1
+    },
+    {
+      "seq": "ΗΦΙΣ",
+      "glyph": "lig2_Eta_Phi_Iota_Sigma",
+      "parts": [
+        "Eta",
+        "Phi",
+        "Iota",
+        "Sigma"
+      ],
+      "advance": 2154,
+      "rules": 1
+    },
+    {
+      "seq": "Καὶ",
+      "glyph": "lig2_Kappa_alpha_uni1F76",
+      "parts": [
+        "Kappa",
+        "alpha",
+        "uni1F76"
+      ],
+      "advance": 1338,
+      "rules": 1
+    },
+    {
+      "seq": "μῖν",
+      "glyph": "lig2_uni03BC_uni1FD6_nu",
+      "parts": [
+        "uni03BC",
+        "uni1FD6",
+        "nu"
+      ],
+      "advance": 1281,
+      "rules": 1
+    },
+    {
+      "seq": "αἵ",
+      "glyph": "lig2_alpha_uni1F35",
+      "parts": [
+        "alpha",
+        "uni1F35"
+      ],
+      "advance": 771,
+      "rules": 1
+    },
+    {
+      "seq": "ὕτ",
+      "glyph": "lig2_uni1F55_tau",
+      "parts": [
+        "uni1F55",
+        "tau"
+      ],
+      "advance": 986,
+      "rules": 1
+    },
+    {
+      "seq": "Τί",
+      "glyph": "lig2_Tau_iotatonos",
+      "parts": [
+        "Tau",
+        "iotatonos"
+      ],
+      "advance": 841,
+      "rules": 1
+    },
+    {
+      "seq": "σύ",
+      "glyph": "lig2_sigma_upsilontonos",
+      "parts": [
+        "sigma",
+        "upsilontonos"
+      ],
+      "advance": 932,
+      "rules": 2
+    },
+    {
+      "seq": "ῃς",
+      "glyph": "lig2_uni1FC3_uni03C2",
+      "parts": [
+        "uni1FC3",
+        "uni03C2"
+      ],
+      "advance": 798,
+      "rules": 2
+    },
+    {
+      "seq": "ὺν",
+      "glyph": "lig2_uni1F7A_nu",
+      "parts": [
+        "uni1F7A",
+        "nu"
+      ],
+      "advance": 868,
+      "rules": 1
+    },
+    {
+      "seq": "ἕν",
+      "glyph": "lig2_uni1F15_nu",
+      "parts": [
+        "uni1F15",
+        "nu"
+      ],
+      "advance": 797,
+      "rules": 1
+    },
+    {
+      "seq": "κη",
+      "glyph": "lig2_kappa_eta",
+      "parts": [
+        "kappa",
+        "eta"
+      ],
+      "advance": 902,
+      "rules": 1
+    },
+    {
+      "seq": "τά",
+      "glyph": "lig2_tau_alphatonos",
+      "parts": [
+        "tau",
+        "alphatonos"
+      ],
+      "advance": 1066,
+      "rules": 1
+    },
+    {
+      "seq": "ζε",
+      "glyph": "lig2_zeta_epsilon",
+      "parts": [
+        "zeta",
+        "epsilon"
+      ],
+      "advance": 1067,
+      "rules": 1
+    },
+    {
+      "seq": "φι",
+      "glyph": "lig2_phi_iota",
+      "parts": [
+        "phi",
+        "iota"
+      ],
+      "advance": 914,
+      "rules": 1
+    },
+    {
+      "seq": "κέ",
+      "glyph": "lig2_kappa_epsilontonos",
+      "parts": [
+        "kappa",
+        "epsilontonos"
+      ],
+      "advance": 855,
+      "rules": 1
+    },
+    {
+      "seq": "σα",
+      "glyph": "lig2_sigma_alpha",
+      "parts": [
+        "sigma",
+        "alpha"
+      ],
+      "advance": 1056,
+      "rules": 2
+    },
+    {
+      "seq": "ἔφη",
+      "glyph": "lig2_uni1F14_phi_eta",
+      "parts": [
+        "uni1F14",
+        "phi",
+        "eta"
+      ],
+      "advance": 1418,
+      "rules": 1
+    },
+    {
+      "seq": "ἣν",
+      "glyph": "lig2_uni1F23_nu",
+      "parts": [
+        "uni1F23",
+        "nu"
+      ],
+      "advance": 811,
+      "rules": 1
+    },
+    {
+      "seq": "ῥα",
+      "glyph": "lig2_uni1FE5_alpha",
+      "parts": [
+        "uni1FE5",
+        "alpha"
+      ],
+      "advance": 1007,
+      "rules": 1
+    },
+    {
+      "seq": "ὥς",
+      "glyph": "lig2_uni1F65_uni03C2",
+      "parts": [
+        "uni1F65",
+        "uni03C2"
+      ],
+      "advance": 959,
+      "rules": 2
+    },
+    {
+      "seq": "ὃν",
+      "glyph": "lig2_uni1F43_nu",
+      "parts": [
+        "uni1F43",
+        "nu"
+      ],
+      "advance": 823,
+      "rules": 1
+    },
+    {
+      "seq": "Τῇ",
+      "glyph": "lig2_Tau_uni1FC7",
+      "parts": [
+        "Tau",
+        "uni1FC7"
+      ],
+      "advance": 1008,
+      "rules": 1
+    },
+    {
+      "seq": "οἷ",
+      "glyph": "lig2_omicron_uni1F37",
+      "parts": [
+        "omicron",
+        "uni1F37"
+      ],
+      "advance": 649,
+      "rules": 1
+    },
+    {
+      "seq": "βῳ",
+      "glyph": "lig2_beta_uni1FF3",
+      "parts": [
+        "beta",
+        "uni1FF3"
+      ],
+      "advance": 1233,
+      "rules": 1
+    },
+    {
+      "seq": "τῶ",
+      "glyph": "lig2_tau_uni1FF6",
+      "parts": [
+        "tau",
+        "uni1FF6"
+      ],
+      "advance": 1098,
+      "rules": 1
+    },
+    {
+      "seq": "ωρ",
+      "glyph": "lig2_omega_rho",
+      "parts": [
+        "omega",
+        "rho"
+      ],
+      "advance": 1035,
+      "rules": 1
+    },
+    {
+      "seq": "ἁλ",
+      "glyph": "lig2_uni1F01_lambda",
+      "parts": [
+        "uni1F01",
+        "lambda"
+      ],
+      "advance": 1217,
+      "rules": 1
+    },
+    {
+      "seq": "μὴ",
+      "glyph": "lig2_uni03BC_uni1F74",
+      "parts": [
+        "uni03BC",
+        "uni1F74"
+      ],
+      "advance": 1035,
+      "rules": 1
+    },
+    {
+      "seq": "ὺς",
+      "glyph": "lig2_uni1F7A_uni03C2",
+      "parts": [
+        "uni1F7A",
+        "uni03C2"
+      ],
+      "advance": 855,
+      "rules": 2
+    },
+    {
+      "seq": "μῳ",
+      "glyph": "lig2_uni03BC_uni1FF3",
+      "parts": [
+        "uni03BC",
+        "uni1FF3"
+      ],
+      "advance": 1231,
+      "rules": 1
+    },
+    {
+      "seq": "ρῳ",
+      "glyph": "lig2_rho_uni1FF3",
+      "parts": [
+        "rho",
+        "uni1FF3"
+      ],
+      "advance": 1033,
+      "rules": 1
+    },
+    {
+      "seq": "σέ",
+      "glyph": "lig2_sigma_epsilontonos",
+      "parts": [
+        "sigma",
+        "epsilontonos"
+      ],
+      "advance": 845,
+      "rules": 2
+    },
+    {
+      "seq": "γν",
+      "glyph": "lig2_gamma_nu",
+      "parts": [
+        "gamma",
+        "nu"
+      ],
+      "advance": 960,
+      "rules": 1
+    },
+    {
+      "seq": "ήν",
+      "glyph": "lig2_etatonos_nu",
+      "parts": [
+        "etatonos",
+        "nu"
+      ],
+      "advance": 811,
+      "rules": 1
+    },
+    {
+      "seq": "αἰ",
+      "glyph": "lig2_alpha_uni1F30",
+      "parts": [
+        "alpha",
+        "uni1F30"
+      ],
+      "advance": 771,
+      "rules": 1
+    },
+    {
+      "seq": "υκ",
+      "glyph": "lig2_upsilon_kappa",
+      "parts": [
+        "upsilon",
+        "kappa"
+      ],
+      "advance": 974,
+      "rules": 1
+    },
+    {
+      "seq": "ία",
+      "glyph": "lig2_iotatonos_alpha",
+      "parts": [
+        "iotatonos",
+        "alpha"
+      ],
+      "advance": 836,
+      "rules": 1
+    },
+    {
+      "seq": "γα",
+      "glyph": "lig2_gamma_alpha",
+      "parts": [
+        "gamma",
+        "alpha"
+      ],
+      "advance": 1122,
+      "rules": 1
+    },
+    {
+      "seq": "ις",
+      "glyph": "lig2_iota_uni03C2",
+      "parts": [
+        "iota",
+        "uni03C2"
+      ],
+      "advance": 686,
+      "rules": 2
+    },
+    {
+      "seq": "σθ",
+      "glyph": "lig2_sigma_theta",
+      "parts": [
+        "sigma",
+        "theta"
+      ],
+      "advance": 1397,
+      "rules": 2
+    },
+    {
+      "seq": "νέᾳ",
+      "glyph": "lig2_nu_epsilontonos_uni1FB3",
+      "parts": [
+        "nu",
+        "epsilontonos",
+        "uni1FB3"
+      ],
+      "advance": 1306,
+      "rules": 1
+    },
+    {
+      "seq": "υἷα",
+      "glyph": "lig2_upsilon_uni1F37_alpha",
+      "parts": [
+        "upsilon",
+        "uni1F37",
+        "alpha"
+      ],
+      "advance": 1269,
+      "rules": 1
+    },
+    {
+      "seq": "σοὶ",
+      "glyph": "lig2_sigma_omicron_uni1F76",
+      "parts": [
+        "sigma",
+        "omicron",
+        "uni1F76"
+      ],
+      "advance": 1083,
+      "rules": 2
+    },
+    {
+      "seq": "ἐγώ",
+      "glyph": "lig2_uni1F10_gamma_omegatonos",
+      "parts": [
+        "uni1F10",
+        "gamma",
+        "omegatonos"
+      ],
+      "advance": 1461,
+      "rules": 1
+    },
+    {
+      "seq": "ζωὴ",
+      "glyph": "lig2_zeta_omega_uni1F74",
+      "parts": [
+        "zeta",
+        "omega",
+        "uni1F74"
+      ],
+      "advance": 1591,
+      "rules": 1
+    },
+    {
+      "seq": "Θήβ",
+      "glyph": "lig2_Theta_etatonos_beta",
+      "parts": [
+        "Theta",
+        "etatonos",
+        "beta"
+      ],
+      "advance": 1702,
+      "rules": 1
+    },
+    {
+      "seq": "όσ",
+      "glyph": "omicronsigma.tonos",
+      "parts": [
+        "omicrontonos",
+        "sigma"
+      ],
+      "advance": 917,
+      "punchlist": true
+    },
+    {
+      "seq": "ὸσ",
+      "glyph": "omicronsigma.varia",
+      "parts": [
+        "uni1F7C",
+        "sigma"
+      ],
+      "advance": 917,
+      "punchlist": true
+    },
+    {
+      "seq": "ουν",
+      "glyph": "lig2_omicron_upsilon_nu",
+      "parts": [
+        "omicron",
+        "upsilon",
+        "nu"
+      ],
+      "advance": 1281,
+      "gate": true
+    },
+    {
+      "seq": "ούν",
+      "glyph": "lig2_omicron_upsilontonos_nu",
+      "parts": [
+        "omicron",
+        "upsilontonos",
+        "nu"
+      ],
+      "advance": 1256,
+      "gate": true
+    },
+    {
+      "seq": "οὐν",
+      "glyph": "lig2_omicron_uni1F50_nu",
+      "parts": [
+        "omicron",
+        "uni1F50",
+        "nu"
+      ],
+      "advance": 1256,
+      "gate": true
+    },
+    {
+      "seq": "οὑν",
+      "glyph": "lig2_omicron_uni1F51_nu",
+      "parts": [
+        "omicron",
+        "uni1F51",
+        "nu"
+      ],
+      "advance": 1256,
+      "gate": true
+    },
+    {
+      "seq": "οὒν",
+      "glyph": "lig2_omicron_uni1F52_nu",
+      "parts": [
+        "omicron",
+        "uni1F52",
+        "nu"
+      ],
+      "advance": 1256,
+      "gate": true
+    },
+    {
+      "seq": "οὓν",
+      "glyph": "lig2_omicron_uni1F53_nu",
+      "parts": [
+        "omicron",
+        "uni1F53",
+        "nu"
+      ],
+      "advance": 1256,
+      "gate": true
+    },
+    {
+      "seq": "οὔν",
+      "glyph": "lig2_omicron_uni1F54_nu",
+      "parts": [
+        "omicron",
+        "uni1F54",
+        "nu"
+      ],
+      "advance": 1256,
+      "gate": true
+    },
+    {
+      "seq": "οὕν",
+      "glyph": "lig2_omicron_uni1F55_nu",
+      "parts": [
+        "omicron",
+        "uni1F55",
+        "nu"
+      ],
+      "advance": 1256,
+      "gate": true
+    },
+    {
+      "seq": "οὗν",
+      "glyph": "lig2_omicron_uni1F57_nu",
+      "parts": [
+        "omicron",
+        "uni1F57",
+        "nu"
+      ],
+      "advance": 1256,
+      "gate": true
+    },
+    {
+      "seq": "οόν",
+      "glyph": "lig2_omicron_uni1F79_nu",
+      "parts": [
+        "omicron",
+        "uni1F79",
+        "nu"
+      ],
+      "advance": 1211,
+      "gate": true
+    },
+    {
+      "seq": "οὺν",
+      "glyph": "lig2_omicron_uni1F7A_nu",
+      "parts": [
+        "omicron",
+        "uni1F7A",
+        "nu"
+      ],
+      "advance": 1256,
+      "gate": true
+    },
+    {
+      "seq": "οῤν",
+      "glyph": "lig2_omicron_uni1FE4_nu",
+      "parts": [
+        "omicron",
+        "uni1FE4",
+        "nu"
+      ],
+      "advance": 1232,
+      "gate": true
+    },
+    {
+      "seq": "οῥν",
+      "glyph": "lig2_omicron_uni1FE5_nu",
+      "parts": [
+        "omicron",
+        "uni1FE5",
+        "nu"
+      ],
+      "advance": 1232,
+      "gate": true
+    }
+  ],
+  "hb_assert_failures": []
+}

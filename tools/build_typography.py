@@ -373,6 +373,18 @@ def main() -> int:
         report["cursive"] = {"built": False, "error": str(exc)}
         print("cursive build failed:", exc)
 
+    # Phase 2.2: ligature engine v2 — corpus-ranked fused ligatures drawn on
+    # the cursive masters and GSUB-injected (liga/dlig) in-place.
+    try:
+        import subprocess
+        subprocess.run(
+            [sys.executable, str(ROOT / "tools/ligature_engine.py")],
+            check=True, capture_output=True, text=True)
+        report["ligature_engine"] = {"built": True}
+    except Exception as exc:
+        report["ligature_engine"] = {"built": False, "error": str(exc)}
+        print("ligature engine build failed:", exc)
+
     # GFS Didot: Latin + polytonic Greek fallback (stigma small U+03DB, etc.)
     didot = TTFont(str(didot_src))
     rename_family(didot, "GFS Didot")

@@ -86,16 +86,19 @@ def test_positional(font):
         return gnames(font, infos)
 
     # 1) lunate sigma: word-initial sigma becomes lunate under locl[grek]
-    seq = run("σιγα", SFEATS)
-    seq_off = run("σιγα", OFF)
+    #    (probes must avoid sequences the Phase-2.2 fusion engine fuses —
+    #    a fused sigma correctly disappears; these carriers keep the letter
+    #    context intact: σο/κσ/ρσ σφ σθ-adjacent forms checked below)
+    seq = run("σοφια", SFEATS)
+    seq_off = run("σοφια", OFF)
     check("lunateSigma" in seq, "locl[grek]: sigma -> lunateSigma (ON)")
     check("lunateSigma" not in seq_off,
           "locl[grek] OFF leaves sigma untouched")
 
     # 2) medial vs final sigma forms
-    seq = run("ασιν", SFEATS)          # sigma medial (alpha before, iota after)
+    seq = run("κσδ", SFEATS)           # sigma between κ and δ: no κσ/σδ fusion
     check("sigma.medial" in seq, "calt: medial sigma -> sigma.medial", str(seq))
-    seq = run("ο ΠΑΣ", SFEATS)         # final sigma after letter
+    seq = run("ο πασ", SFEATS)         # final sigma after letter
     # note: uppercase Pi is upright; use all-lower:
     seq = run("ο πασ", SFEATS)
     check("sigma.cursive" in seq, "calt: final sigma -> sigma.cursive", str(seq))
@@ -104,17 +107,17 @@ def test_positional(font):
           "calt OFF: sigma forms untouched")
 
     # 3) word-initial rho -> longtail
-    seq = run("απο ρητορ", SFEATS)     # rho after space = word-initial
+    seq = run("απο ρο", SFEATS)        # rho after space = word-initial
     check("rho.longtail" in seq, "calt: initial rho -> rho.longtail", str(seq))
-    check("rho.longtail" not in run("απο ρητορ", OFF),
+    check("rho.longtail" not in run("απο ρο", OFF),
           "calt OFF: rho untouched")
 
     # 4) cursive epsilon/theta inside words
-    seq = run("τιθεμεν", SFEATS)
+    seq = run("αθοπ", SFEATS)          # θ medial; αθ/θο not fused sequences
     check("theta.cursive" in seq, "calt: medial theta -> theta.cursive", str(seq))
     seq = run("πεπτωκα", SFEATS)
     check("epsilon.cursive" in seq, "calt: medial epsilon -> epsilon.cursive", str(seq))
-    check("theta.cursive" not in run("τιθεμεν", OFF)
+    check("theta.cursive" not in run("αθοπ", OFF)
           and "epsilon.cursive" not in run("πεπτωκα", OFF),
           "calt OFF: epsilon/theta untouched")
 
@@ -145,22 +148,39 @@ def test_liga_regression(font):
     check("omicronsigma" not in gnames(font, infos_off),
           "liga OFF: οϲ unfolded")
 
+    # punch-list minor 1a: -ος must fire AFTER an accented omicron
+    # (explicit escapes: U+03C2 final sigma ς, not the lunate U+03F2)
+    for txt, glyph in (("\u03CC\u03C2", "omicronsigma.tonos"),
+                       ("\u1F7C\u03C2", "omicronsigma.varia"),
+                       ("\u03CC\u03C3", "omicronsigma.tonos")):
+        infos, _ = shape(font, txt, SFEATS)
+        check(glyph in gnames(font, infos),
+              f"1a: '{txt}' -> {glyph} (accented omicron + final sigma)",
+              str(gnames(font, infos)))
+        infos_off, _ = shape(font, txt, OFF)
+        check(glyph not in gnames(font, infos_off),
+              f"1a OFF: '{txt}' unfolded")
+
 
 # ------------------------------------------------------------------ B. tofu
 def test_no_tofu(font):
-    corpus = sorted((ROOT / "corpus").glob("*.json"))
+    # share the corpus loader with fusion-coverage.py: the scan-collation
+    # file (john1_estienne1550.json) stores nested dicts/lists of apparatus
+    # which an old naive .values() walk turned into pseudo-words like
+    # 'Θ-signs,' — Latin furniture, not this face's responsibility.
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "fc", str(ROOT / "tools/fusion-coverage.py"))
+    fc = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(fc)
+    texts = fc.load_corpus(str(ROOT / "corpus"))
     words = []
-
-    def is_greek(ch):
-        return '\u0370' <= ch <= '\u03FF' or '\u1F00' <= ch <= '\u1FFF'
-
-    for p in corpus:
-        data = json.loads(p.read_text(encoding="utf-8"))
-        lines = data.get("lines_map") if isinstance(data, dict) else None
-        if lines is None:
-            lines = data
-        for v in lines.values():
-            words.extend(w for w in str(v).split() if any(is_greek(c) for c in w))
+    for lines in texts.values():
+        for line in lines:
+            for s, e in fc.words_of(line):
+                w = line[s:e]
+                if any(fc.is_greek(c) for c in w):
+                    words.append(w)
     bad = []
     for w in words:
         infos, _ = shape(font, w, SFEATS)

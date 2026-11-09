@@ -83,6 +83,38 @@ Measured gap (t_a8519b7b experiment, not opinion):
 - Verification: HarfBuzz on/off + side-by-side against scan crops at 200% zoom; tofu = zero.
 
 ### Phase 2.2 — Ligature engine v2: ≥60% fusion (2–3 weeks, the grind)
+- **STATUS (2026-11-10, t_a130c5fc): DONE.** Builder
+  `tools/ligature_engine.py` (wired into `build_typography.py` after
+  `cursive_masters.py`): corpus word frequency → greedy set-cover over
+  uncovered word *instances* (candidates len 2–4 inside letter runs) →
+  fused glyph = slanted part masters composed with an 18% join overlap,
+  accents riding their own slot → ONE feaLib rebuild (upstream 43 liga
+  rules + 165 corpus-ranked fusions + punch-list 1a + oun accent variants,
+  longest-first inside LIGA; `@L` extended with ligature glyphs so calt
+  position alternates see through joins). HarfBuzz asserts every ligature
+  fuses inside a real corpus carrier and disappears with features off
+  (0/165 failures). Measured: **words 97.3% / pairs 37.4%** (gate ≥60%,
+  baseline 32.6%) — `src/fonts/coverage.json`. Manifest
+  `src/fonts/grecs-roi-greek-cursive.ligatures.json`.
+  - Four hero cells (γερ μω οὖν φησὶ) now LIVE fused text in
+    `src/index.html`; the Commons PNGs are demoted to reference links.
+    The oὖν cell needed new 3-letter rules for *every* precomposed
+    upsilon accent (only two forms existed upstream).
+  - Punch-list minor 1a FIXED: `omicronsigma.tonos` / `omicronsigma.varia`
+    fuse ό+ς, ὸ+ς (σ and ς forms), accent contour lifted from the
+    accented master; asserted in `qa_cursive.py`.
+  - **WebKit/Safari toggle fix:** the upstream derivative registers liga
+    under `rlig` too, and CSS `rlig` cannot be switched off — WebKit
+    (strict, unlike Chromium/Firefox which allowed forcing) showed the
+    fusions permanently. The cursive face ships **without the rlig
+    registration** (liga+clig+dlig+hlig is the honest tag set for
+    historical fusions). New gate `tools/qa_fusion_toggle.py`: per-probe
+    A/B width shrink (fused ⇒ strictly shorter) in Chromium+Firefox+
+    WebKit + hero-cell no-img check + PUA copy check — 3/3 PASS. Real
+    Safari remains the standing human gate (`sudo safaridriver --enable`).
+  - feaLib pitfall learned: `calt`/`locl` context class `@L` must include
+    ligature TARGET glyphs, or positional alternates stop seeing through
+    fused pairs (`sub @L sigma'` dies after a preceding fused pair).
 - Rank candidate pairs/triplets by frequency in the corpus (top ~150 sequences cover the coverage gate — compute, don't guess).
 - Draw fused ligatures in order of coverage yield; each one goes through: outline → GSUB injection (feaLib, `liga`+`dlig`) → HarfBuzz assertion → coverage-metric bump recorded in `coverage.json`.
 - Real historical forms for γερ/μω/οὖν/φησὶ replace the PNG cells (PNGs stay as "historical reference" insets — punch-list minor 1).

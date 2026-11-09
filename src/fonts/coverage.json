@@ -128,6 +128,278 @@
       }
     },
     {
+      "font": "grecs-roi-greek-cursive",
+      "path": "/Volumes/RAID10/Projects/grecs-du-roi/src/fonts/grecs-roi-greek-cursive.otf",
+      "cmap_codepoints": 366,
+      "greek_codepoints": 311,
+      "gsub_ligature_counts": {
+        "calt": 0,
+        "clig": 238,
+        "dlig": 238,
+        "hlig": 238,
+        "liga": 238,
+        "locl": 0
+      },
+      "harfbuzz": true,
+      "pairs_total": 17916,
+      "pairs_covered": 6716,
+      "pairs_pct": 37.48604599240902,
+      "words_total": 4144,
+      "words_covered": 4033,
+      "words_pct": 97.32142857142857,
+      "top_fusions": [
+        {
+          "text": "το",
+          "count": 168
+        },
+        {
+          "text": "ον",
+          "count": 167
+        },
+        {
+          "text": "ος",
+          "count": 142
+        },
+        {
+          "text": "τα",
+          "count": 119
+        },
+        {
+          "text": "ου",
+          "count": 98
+        },
+        {
+          "text": "οι",
+          "count": 96
+        },
+        {
+          "text": "με",
+          "count": 92
+        },
+        {
+          "text": "ων",
+          "count": 90
+        },
+        {
+          "text": "θε",
+          "count": 88
+        },
+        {
+          "text": "σα",
+          "count": 88
+        },
+        {
+          "text": "τε",
+          "count": 81
+        },
+        {
+          "text": "πο",
+          "count": 71
+        },
+        {
+          "text": "κα",
+          "count": 65
+        },
+        {
+          "text": "μα",
+          "count": 64
+        },
+        {
+          "text": "σι",
+          "count": 63
+        },
+        {
+          "text": "ει",
+          "count": 62
+        },
+        {
+          "text": "μέ",
+          "count": 62
+        },
+        {
+          "text": "ρα",
+          "count": 61
+        },
+        {
+          "text": "αι",
+          "count": 59
+        },
+        {
+          "text": "στ",
+          "count": 58
+        },
+        {
+          "text": "δε",
+          "count": 57
+        },
+        {
+          "text": "ρε",
+          "count": 55
+        },
+        {
+          "text": "λε",
+          "count": 55
+        },
+        {
+          "text": "να",
+          "count": 54
+        },
+        {
+          "text": "τι",
+          "count": 52
+        }
+      ],
+      "required_seq_live": {
+        "γερ": true,
+        "μω": true,
+        "οὐ": true,
+        "φησ": true
+      },
+      "corpus_lines": 498,
+      "nomina_sacra_letters": {
+        "ΘΣ": true,
+        "ΚΣ": true,
+        "ΙΣ": true,
+        "ΧΣ": true
+      }
+    },
+    {
+      "font": "grecs-roi-greek-cursive",
+      "path": "/Volumes/RAID10/Projects/grecs-du-roi/src/fonts/grecs-roi-greek-cursive.woff2",
+      "cmap_codepoints": 366,
+      "greek_codepoints": 311,
+      "gsub_ligature_counts": {
+        "calt": 0,
+        "clig": 238,
+        "dlig": 238,
+        "hlig": 238,
+        "liga": 238,
+        "locl": 0
+      },
+      "harfbuzz": true,
+      "pairs_total": 17916,
+      "pairs_covered": 6716,
+      "pairs_pct": 37.48604599240902,
+      "words_total": 4144,
+      "words_covered": 4033,
+      "words_pct": 97.32142857142857,
+      "top_fusions": [
+        {
+          "text": "το",
+          "count": 168
+        },
+        {
+          "text": "ον",
+          "count": 167
+        },
+        {
+          "text": "ος",
+          "count": 142
+        },
+        {
+          "text": "τα",
+          "count": 119
+        },
+        {
+          "text": "ου",
+          "count": 98
+        },
+        {
+          "text": "οι",
+          "count": 96
+        },
+        {
+          "text": "με",
+          "count": 92
+        },
+        {
+          "text": "ων",
+          "count": 90
+        },
+        {
+          "text": "θε",
+          "count": 88
+        },
+        {
+          "text": "σα",
+          "count": 88
+        },
+        {
+          "text": "τε",
+          "count": 81
+        },
+        {
+          "text": "πο",
+          "count": 71
+        },
+        {
+          "text": "κα",
+          "count": 65
+        },
+        {
+          "text": "μα",
+          "count": 64
+        },
+        {
+          "text": "σι",
+          "count": 63
+        },
+        {
+          "text": "ει",
+          "count": 62
+        },
+        {
+          "text": "μέ",
+          "count": 62
+        },
+        {
+          "text": "ρα",
+          "count": 61
+        },
+        {
+          "text": "αι",
+          "count": 59
+        },
+        {
+          "text": "στ",
+          "count": 58
+        },
+        {
+          "text": "δε",
+          "count": 57
+        },
+        {
+          "text": "ρε",
+          "count": 55
+        },
+        {
+          "text": "λε",
+          "count": 55
+        },
+        {
+          "text": "να",
+          "count": 54
+        },
+        {
+          "text": "τι",
+          "count": 52
+        }
+      ],
+      "required_seq_live": {
+        "γερ": true,
+        "μω": true,
+        "οὐ": true,
+        "φησ": true
+      },
+      "corpus_lines": 498,
+      "nomina_sacra_letters": {
+        "ΘΣ": true,
+        "ΚΣ": true,
+        "ΙΣ": true,
+        "ΧΣ": true
+      }
+    },
+    {
       "font": "grecs-roi-greek",
       "path": "/Volumes/RAID10/Projects/grecs-du-roi/src/fonts/grecs-roi-greek.otf",
       "cmap_codepoints": 363,
@@ -224,11 +496,11 @@
           "count": 5
         },
         {
-          "text": "οὺ",
+          "text": "και",
           "count": 4
         },
         {
-          "text": "και",
+          "text": "οὺ",
           "count": 4
         },
         {
@@ -240,11 +512,11 @@
           "count": 3
         },
         {
-          "text": "οὖν",
+          "text": "οὖ",
           "count": 2
         },
         {
-          "text": "οὖ",
+          "text": "οὖν",
           "count": 2
         }
       ],
@@ -359,11 +631,11 @@
           "count": 5
         },
         {
-          "text": "οὺ",
+          "text": "και",
           "count": 4
         },
         {
-          "text": "και",
+          "text": "οὺ",
           "count": 4
         },
         {
@@ -375,11 +647,11 @@
           "count": 3
         },
         {
-          "text": "οὖν",
+          "text": "οὖ",
           "count": 2
         },
         {
-          "text": "οὖ",
+          "text": "οὖν",
           "count": 2
         }
       ],

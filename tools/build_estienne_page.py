@@ -123,6 +123,12 @@ HTML = f"""<!DOCTYPE html>
      tools/build_estienne_page.py — do not hand-edit. -->
 <style>
 @font-face {{
+  font-family: "GrecsRoi Greek Cursive";
+  src: url("fonts/grecs-roi-greek-cursive.woff2") format("woff2");
+  unicode-range: U+0370-03FF, U+1F00-1FFF, U+03F2, U+02BC;
+  font-display: block;
+}}
+@font-face {{
   font-family: "GrecsRoi Greek";
   src: url("fonts/grecs-roi-greek.woff2") format("woff2");
   unicode-range: U+0370-03FF, U+1F00-1FFF;
@@ -140,7 +146,7 @@ HTML = f"""<!DOCTYPE html>
 * {{ box-sizing: border-box; }}
 body {{
   margin: 0; background: #d3bd8c;
-  font-family: "GrecsRoi Greek", "GFS Didot", "Cardo", Georgia, "Times New Roman", serif;
+  font-family: "GrecsRoi Greek Cursive", "GrecsRoi Greek", "GFS Didot", "Cardo", Georgia, "Times New Roman", serif;
   color: var(--ink);
   font-feature-settings: "liga" 1, "clig" 1, "rlig" 1, "dlig" 1, "hlig" 1;
   font-variant-ligatures: contextual discretionary;
