@@ -1,0 +1,65 @@
+{
+  "_meta": {
+    "source_page": "Estienne (Stephanus) 1550 Editio Regia, fol. 161 verso — first page of John, prints 1:1 up to 1:19 '…ὅτε'",
+    "evidence": [
+      "qa-evidence/estienne-scan.jpg (Wikimedia Commons Gospel_Estienne_1550.jpg, PD, 2328x1916) — task scan",
+      "second-source authority: 300-DPI page image of an actual Editio Regia 1550 volume, archive.org item TextusReceptusEditioRegia1550, PDF page 96 right half (same fol. 161; crops kept off-repo under /tmp/ref1550, key crops mirrored to qa-evidence/crops/secondsource/)"
+    ],
+    "method": "19 marginal lines + body lines read line-by-line at 8-16x from the 300-DPI second source and 10-16x from the task scan; final numeral capitals cross-checked by pixel-band forensics (crossbar test Α vs Λ). Fabricated low-res readings from run 1 (see qa-evidence/scanned-marginalia.md correction log) are superseded.",
+    "text_base": "scan wording where attested; WH (corpus/john1_wh.json) fills only what falls after the page's last printed word",
+    "date": "2026-11-09",
+    "task": "t_8e2d4b30"
+  },
+  "title": "ΤΟ ΚΑΤΑ ΙΩΑΝΝΗΝ ΑΓΙΟΝ ΕΥΑΓΓΕΛΙΟΝ.",
+  "folio": "161",
+  "verses": {
+    "1": {"scan": "Ἐν ἀρχῇ ἦν ὁ λόγος, καὶ ὁ λόγος ἦν πρὸς τὸν Θεόν, καὶ Θεὸς ἦν ὁ λόγος.", "notes": "First line after the initial reads ΕΝ ΑΡΧΗ ἦν ὁ λόγος, καὶ ὁ λόγος ἦν (run-1 'Νῆν λιῦ' was fabricated). Scan spells Θεόν/Θεὸς in full with capital theta; WH has lowercase θεόν/θεὸς. Overline status contested: two 300dpi passes report overlined Θ-signs, the single-line reads report full spelling — see nomina_sacra."},
+    "2": {"scan": "Οὗτος ἦν ἐν ἀρχῇ πρὸς τὸν Θεόν.", "notes": "Same capital-theta casing as v1; WH lowercase."},
+    "3": {"scan": "Πάντα δι᾽ αὐτοῦ ἐγένετο, καὶ χωρὶς αὐτοῦ ἐγένετο οὐδὲ ἕν. ὃ γέγονεν.", "notes": "One line read rendered the second conjunction as ἢ (against καὶ); low confidence on that pass, καὶ kept — flagged for next review."},
+    "4": {"scan": "Ἐν αὐτῷ ζωὴ ἦν, καὶ ἡ ζωὴ ἦν τὸ φῶς τῶν ἀνθρώπων:", "notes": "Colon before v5 as in TR pages; WH uses comma."},
+    "5": {"scan": "καὶ τὸ φῶς ἐν τῇ σκοτίᾳ φαίνει, καὶ ἡ σκοτία αὐτὸ οὐ κατέλαβεν.", "notes": "DIFF (major): scan/tr reads present φαίνει; WH = ἔφαινε."},
+    "6": {"scan": "Ἐγένετο ἄνθρωπος ἀπεσταλμένος παρὰ Θεοῦ, ὄνομα αὐτῷ Ἰωάννης.", "notes": "Capital theta on Θεοῦ; WH lowercase. Line-end abbreviation pass read ΘΥ with overline; line reads full θεοῦ — contested, see nomina_sacra."},
+    "7": {"scan": "Οὗτος ἦλθεν εἰς μαρτυρίαν, ἵνα μαρτυρήσῃ περὶ τοῦ φωτός, ἵνα πάντες πιστεύσωσιν δι᾽ αὐτοῦ.", "notes": "Ink blot mid-line at ἦλθεν confirmed in second source; letters recoverable."},
+    "8": {"scan": "Οὐκ ἦν ἐκεῖνος τὸ φῶς, ἀλλ᾽ ἵνα μαρτυρήσῃ περὶ τοῦ φωτός.", "notes": "Matches WH."},
+    "9": {"scan": "Ἦν τὸ φῶς τὸ ἀληθινόν, ὃ φωτίζει πάντα ἄνθρωπον ἐρχόμενον εἰς τὸν κόσμον.", "notes": "Matches WH."},
+    "10": {"scan": "Ἐν τῷ κόσμῳ ἦν, καὶ ὁ κόσμος δι᾽ αὐτοῦ ἐγένετο, καὶ ὁ κόσμος αὐτὸν οὐκ ἔγνω.", "notes": "Matches WH."},
+    "11": {"scan": "Εἰς τὰ ἴδια ἦλθε, καὶ οἱ ἴδιοι αὐτὸν οὐ παρέλαβον.", "notes": "Matches WH."},
+    "12": {"scan": "Ὅσοι δὲ ἔλαβον αὐτόν, ἔδωκεν αὐτοῖς ἐξουσίαν τέκνα Θεοῦ γενέσθαι, τοῖς πιστεύουσιν εἰς τὸ ὄνομα αὐτοῦ:", "notes": "Capital theta Θεοῦ (WH lowercase); genitive infinitive construction same as WH."},
+    "13": {"scan": "Οἳ ἐκ αἵματος οὐδὲ ἐκ θελήματος σαρκός, οὐδὲ ἐκ θελήματος ἀνδρός, ἀλλ᾽ ἐκ Θεοῦ ἐγεννήθησαν.", "notes": "DIFF flagged low-confidence: both 300dpi reads show singular ἐκ αἵματος without preceding οὐκ (TR/WH = οὐκ ἐξ αἱμάτων plural). Gutter curve may hide οὐκ; keep under review. Capital theta on Θεοῦ."},
+    "14": {"scan": "Καὶ ὁ λόγος σὰρξ ἐγένετο, καὶ ἐσκήνωσεν ἐν ἡμῖν, (καὶ ἐθεασάμεθα τὴν δόξαν αὐτοῦ, δόξαν ὡς μονογενοῦς παρὰ πατρός,) πλήρης χάριτος καὶ ἀληθείας.", "notes": "Parentheses around the ἐθεασάμεθα clause confirmed on both scans; ἐθεασάμεθα and πλήρης match WH (vs ἑωρήσαμεν/πλήρες variants elsewhere)."},
+    "15": {"scan": "Ἰωάννης μαρτυρεῖ περὶ αὐτοῦ, καὶ κέκραγε λέγων, Οὗτος ἦν ὃν εἶπον, Ὁ ὀπίσω μου ἐρχόμενος ἔμπροσθέν μου γέγονεν, ὅτι πρῶτός μου ἦν.", "notes": "DIFF: scan shows κέκραγε (WH κέκραγεν) and includes the clause Οὗτος ἦν ὃν εἶπον, absent in WH — single-pass attestation, medium confidence, keep for review."},
+    "16": {"scan": "Καὶ ἐκ τοῦ πληρώματος αὐτοῦ ἡμεῖς πάντες ἐλάβομεν, καὶ χάριν ἀντὶ χάριτος.", "notes": "Matches WH."},
+    "17": {"scan": "ὅτι ὁ νόμος διὰ Μωσέως ἐδόθη, ἡ χάρις καὶ ἡ ἀλήθεια διὰ Ἰησοῦ Χριστοῦ ἐγένετο.", "notes": "DIFF: Μωσέως (two independent 300dpi reads) vs WH Μωυσέως. Final verb: one pass read ἐλθὼν chain, one read ἐγένετο; ἐγένετο kept (TR), flagged."},
+    "18": {"scan": "Θεὸν οὐδεὶς ἑώρακεν πώποτε· ὁ μονογενὴς υἱός, ὁ ὢν εἰς τὸν κόλπον τοῦ πατρός, ἐκεῖνος ἐξηγήσατο.", "notes": "DIFF (major): scan/tr = ὁ μονογενὴς υἱός; WH = μονογενὴς θεὸς. A small circled abbreviation sign sits at εἰς τὸν in one read — unexplained, likely the article abbreviation; not rendered."},
+    "19": {"scan": "Καὶ αὕτη ἐστὶν ἡ μαρτυρία τοῦ Ἰωάννου, ὅτε", "notes": "PAGE ENDS here mid-verse (l.i. endmark sits below this line). Remainder of v19 on fol. 162 is not on this scan; the page display continues from WH corpus text. Scan has Ἰωάννου with full nu (local WH extract has Ἰωάνου)."}
+  },
+  "marginalia": [
+    {"n": 1,  "raw": "Κολοσ. α´. Γ´",          "align_verse": 1,  "confidence": "high",        "note": "second source + task scan agree at 12x"},
+    {"n": 2,  "raw": "Ματθ. γ´. Α´",           "align_verse": 6,  "confidence": "high",        "note": "final capital Α confirmed by reviewer, 12x stacks and mid-band pixel test (was misread Λ in run 1)"},
+    {"n": 3,  "raw": "[unclear siglum]. α´. Α´", "align_verse": 7, "confidence": "low",         "note": "siglum reads μδρ/ρδρ across passes; 300dpi shows an inkblot eating the verse digit after α.; reviewer read ρδρ α.Α. Kept [unclear] siglum per honesty rule."},
+    {"n": 4,  "raw": "Λκ. γ´. Α´",             "align_verse": 7,  "confidence": "high",        "note": "siglum is Λουκᾶ in cursive (λ̄-ου-κ̄ ligature); reviewer corrected verse to Α (was Λ)"},
+    {"n": 5,  "raw": "[unclear siglum]. θ´. Α´", "align_verse": 8, "confidence": "low",         "note": "siglum Κ?φ — 12x passes split Κεφ/Κσφ/Kf; numerals θ´.Α´ stable. Reviewer read Κσφ θ.Α."},
+    {"n": 6,  "raw": "ζ´. ιβ´. Ε´. Η´",        "align_verse": 8,  "confidence": "medium",      "type": "ammonian", "note": "Ammonian section marker + eusebian-style letters; kept from run 1, reviewer-endorsed"},
+    {"n": 7,  "raw": "Ε´ἐρ. ιβ´. Λ´",          "align_verse": 10, "confidence": "low",         "note": "[unclear] siglum — kept from run 1, reviewer-endorsed as genuinely unclear"},
+    {"n": 8,  "raw": "Ματθ. α´. Γ´",           "align_verse": 12, "confidence": "high",        "note": "stable across all passes"},
+    {"n": 9,  "raw": "Λκ. β´. Δ´",             "align_verse": 13, "confidence": "high",        "note": "λdk 2:4 stable"},
+    {"n": 10, "raw": "Ματθ. ιζ´. Λ´",          "align_verse": 14, "confidence": "medium",      "note": "transfiguration-doxa parallel; final digit contested Α vs Λ (12x stack read Α, run-1 read Λ) — Λ kept on prior-transcription weight, flagged"},
+    {"n": 11, "raw": "β´. πε. α´. Δ´",         "align_verse": 15, "confidence": "medium",      "note": "2 Peter siglum; middle token contested πε/πβ/πζ; alpha numeral after it is stable"},
+    {"n": 12, "raw": "Κολοσ. α´. Γ´",          "align_verse": 16, "confidence": "high",        "note": "second occurrence, stable"},
+    {"n": 13, "raw": "ζ´. β´. Β´",             "align_verse": 16, "confidence": "medium",      "type": "ammonian", "note": "Ammonian section marker; kept from run 1, reviewer-endorsed"},
+    {"n": 14, "raw": "Κσφ. ε´. Ε´",            "align_verse": 17, "confidence": "medium",      "note": "run-1 [unclear Κερκ] resolved: reviewer read Κσφ clearly, 12x stack agrees Κ-ε/σ-φ; numerals ε´.Ε´"},
+    {"n": 15, "raw": "α´. ιω´. η´. Γ´",        "align_verse": 18, "confidence": "medium",      "note": "verse digit contested η vs ν across 12x passes; η kept, flagged"},
+    {"n": 16, "raw": "α´. ιμ´. ε´. Δ´",        "align_verse": 18, "confidence": "low",         "note": "siglum token ιμ unstable (μ/κ split); numerals ε´.Δ´ stable"},
+    {"n": 17, "raw": "Ματθ. γ´. Α´",           "align_verse": 19, "confidence": "high",        "note": "final capital Α (both 12x passes read A; run 1 read Λ — corrected)"},
+    {"n": 18, "raw": "[unclear siglum]. α´. Α´", "align_verse": 19, "confidence": "medium",     "note": "same μδρ/ρδρ siglum as line 3; Α read fresh at 12x (run 1 had Λ)"},
+    {"n": 19, "raw": "Λκ. γ´. Δ´",             "align_verse": 19, "confidence": "high",        "note": "stable; sits below the last text line, beside the l.i. endmark"}
+  ],
+  "nomina_sacra": {
+    "attested_forms": ["ΘΥ", "ΙΥ", "ΧΥ"],
+    "attestation": "two 300-DPI strip passes report overlined ΘΥ/ΙΥ/ΧΥ (upsilon-final forms) at 1:6, 1:13/1:14, 1:17; the single-line 300-DPI reads of 1:1/1:17 report full spelling with no overline. The task scan at low resolution suggested ΘΣ/ΧΣ (sigma-final) — not reproduced at 300 dpi.",
+    "builder_policy": "NOMINA renders Υ-final forms as toggleable visual spans; the full WH/scan spelling remains the DOM data (same-Unicode invariant). Contested — recorded for reviewer arbitration.",
+    "absent": ["no ΜΩΥΣΕΩΣ abbreviation (Μωσέως full, two reads)", "no ΠΝΑ/ΚΣ/ΙΣ occurrences in the printed extent of the page"]
+  },
+  "endmark": {"raw": "l. i.", "position": "right side of the band below the last text line (beside marginal line 19), not page-centre", "attested": "300-DPI endmark crop, unambiguous: 'l'+dot then 'i'+dot"},
+  "running_furniture": {"head_title": true, "running_foot": "none printed on this folio (bottom band is blank paper)", "rubrication": "none — page is all black ink", "left_margin_verse_numbers": false}
+}

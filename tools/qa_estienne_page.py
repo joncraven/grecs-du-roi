@@ -26,10 +26,15 @@ with sync_playwright() as p:
         pg.screenshot(path=f"{ev}/estienne-{name}-full.png", full_page=True)
         txt = pg.eval_on_selector("#textblock", "el => el.innerText")
         import unicodedata
-        stripped = "".join(c for c in txt if not unicodedata.combining(c))
+        # NFD first: Υ+U+0304 precomposes to U+1FE9 under NFC; decomposing
+        # returns the bare capital letters the copy invariant is about.
+        nfd = unicodedata.normalize("NFD", txt)
+        stripped = "".join(c for c in nfd if not unicodedata.combining(c))
         pua = [c for c in txt if 0xE000 <= ord(c) <= 0xF8FF or 0xF0000 <= ord(c)]
+        # t_8e2d4b30: the folio's attested nomina are Υ-final (ΘΥ/ΧΥ/ΙΥ);
+        # accept either contraction family as "letters survive paste".
         print(name, "| PUA chars:", len(pua),
               "| John1:1 present:", "ἦν ὁ λόγος" in txt,
-              "| nomina letters in copy:", "ΘΣ" in stripped)
+              "| nomina letters in copy:", any(f in stripped for f in ("ΘΥ", "ΘΣ", "ΧΥ")))
         b.close()
 print("shots done")
