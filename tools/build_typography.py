@@ -359,6 +359,20 @@ def main() -> int:
     report["gazis"] = patch_gazis(gazis_src, FONTS_DIR / "grecs-roi-greek.woff2")
     report["verify"] = verify_font(FONTS_DIR / "grecs-roi-greek.woff2")
 
+    # Phase 2.1: slanted cursive masters + positional alternates derived
+    # from the (just-rebuilt) upright face.  Separate file — the upright
+    # derivative keeps shipping as before.  tools/cursive_masters.py keeps
+    # the OFL attribution in its own name table.
+    try:
+        import subprocess
+        subprocess.run(
+            [sys.executable, str(ROOT / "tools/cursive_masters.py")],
+            check=True, capture_output=True, text=True)
+        report["cursive"] = {"built": True}
+    except Exception as exc:
+        report["cursive"] = {"built": False, "error": str(exc)}
+        print("cursive build failed:", exc)
+
     # GFS Didot: Latin + polytonic Greek fallback (stigma small U+03DB, etc.)
     didot = TTFont(str(didot_src))
     rename_family(didot, "GFS Didot")

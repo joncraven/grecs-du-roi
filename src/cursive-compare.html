@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<title>Phase 2.1 — slanted cursive masters vs scan</title>
+<style>
+@font-face {
+  font-family: "GrecsRoi Greek";
+  src: url("fonts/grecs-roi-greek.woff2") format("woff2");
+  font-display: block;
+}
+@font-face {
+  font-family: "GrecsRoi Greek Cursive";
+  src: url("fonts/grecs-roi-greek-cursive.woff2") format("woff2");
+  font-display: block;
+}
+body { background:#efe5c8; color:#2a2115; margin:0; padding:24px;
+       font-feature-settings: "liga" 1, "clig" 1, "rlig" 1, "dlig" 1, "hlig" 1, "calt" 1, "locl" 1;
+       font-variant-ligatures: contextual discretionary; }
+h2 { font-family: Georgia, serif; font-size: .95rem; margin: 18px 0 6px; color:#7c2d1c; }
+.upright { font-family: "GrecsRoi Greek"; font-size: 30px; }
+.cursive { font-family: "GrecsRoi Greek Cursive"; font-size: 30px; }
+.scan img { max-width: 100%; border:1px solid #b99f6c; }
+.note { font-family: Georgia, serif; font-size:.75rem; color:#453a27; }
+</style>
+</head>
+<body>
+<h2>1 · scan (Estienne 1550, fol. 161 line B01)</h2>
+<div class="scan"><img src="../qa-evidence/crops/body/B01.png" alt="scan line"></div>
+
+<h2>2 · current upright Gazis derivative (before)</h2>
+<div class="upright">Ἦν ἐν ἀρχῇ ὁ λόγος, καὶ ὁ λόγος ἦν πρὸς τὸν θεόν, καὶ θεὸς ἦν ὁ λόγος.</div>
+
+<h2>3 · Phase 2.1 slanted cursive masters (after)</h2>
+<div class="cursive">Ἦν ἐν ἀρχῇ ὁ λόγος, καὶ ὁ λόγος ἦν πρὸς τὸν θεόν, καὶ θεὸς ἦν ὁ λόγος.</div>
+
+<h2>4 · alternate inventory (cursive)</h2>
+<div class="cursive">
+  <div>lunate + positional σ:  σιγα  ἀσιν  ο πασ  ϲιγα</div>
+  <div>initial ρ longtail:    ρητωρ  απο ρητορ</div>
+  <div>medial ε / θ variants: πεπτωκα  τιθεμεν  ἀνθρώπους</div>
+  <div>liga regression:       γερ  μω  φησι  οϲ</div>
+</div>
+<p class="note">Unicode text is NFC polytonic (copyable). Built by tools/cursive_masters.py; asserted by tools/qa_cursive.py.</p>
+</body>
+</html>
