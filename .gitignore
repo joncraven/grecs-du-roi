@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+
+# Emacs backup / auto-save files
+*~
+.#*
+*#
+
+# Editors
+.idea/
+.vscode/
+*.swp
+
+# Local Python / virtualenv / build artifacts (not present yet; future-proofing)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+dist/
+build/
+node_modules/

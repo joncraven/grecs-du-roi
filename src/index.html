@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grecs du Roi — Royal Greek Typography</title>
+  <meta name="description"
+        content="A typographic specimen showcasing the Grecs du Roi typeface — Greek forms cut for royal manuscript revivals.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- ================================================================
+       SECTION 1 — HERO / TITLE
+       A full-viewport opening: the project name, a short tagline,
+       and an ornamental rule.  The visual centrepiece.
+       ================================================================ -->
+  <header class="hero" role="banner">
+    <div class="hero__inner">
+      <h1 class="hero__title">Grecs du Roi</h1>
+      <p class="hero__tagline">Royal Greek Typography · Specimen &amp; Ligature Showcase</p>
+      <p class="hero__links" style="margin-top:.6rem">
+        <a href="estienne-john1.html">Estienne 1550 · John 1 recreation</a> ·
+        <a href="estienne-compare.html">scan-vs-HTML overlay</a>
+      </p>
+      <div class="hero__rule" aria-hidden="true">❦</div>
+    </div>
+  </header>
+
+  <!-- ================================================================
+       SECTION 2 — LIGATURE SPECIMEN GRID
+       A CSS Grid of cards, one per named ligature or glyph group.
+       Each card shows the glyph large, its name, and a short note.
+       The grid is the core interactive area of the page.
+       ================================================================ -->
+  <main id="main">
+
+    <section class="specimens" aria-labelledby="specimens-heading">
+      <h2 id="specimens-heading" class="section-heading">Ligature Specimens</h2>
+      <p class="section-intro">
+        Each glyph set below is rendered in <em>Grecs du Roi</em>.
+        Hover or tap a card to reveal the feature name and Unicode range.
+        Typed Greek stays ordinary polytonic Unicode; OpenType
+        <code>liga</code>/<code>dlig</code>/<code>rlig</code>/<code>clig</code>
+        substitute the historical glyph.
+      </p>
+
+      <ul class="specimen-list">
+        <!-- 1. εῖ -->
+        <li class="specimen" data-feature="liga" data-range="Greek" lang="el">
+          <span class="specimen__glyph" aria-hidden="true">εῖ</span>
+          <h3 class="specimen__name">εῖ (-ei-)</h3>
+          <p class="specimen__code">no cp · GSUB liga ε + ῖ (U+03B5 U+1FD6)</p>
+          <p class="specimen__example">εἶναι · ἄειδε</p>
+          <p class="specimen__note">GFS Gazis historical <code>ei.per</code></p>
+        </li>
+        <!-- 2. γερ — historical form via Commons PNG; typed sequence still ligates -->
+        <li class="specimen" data-feature="dlig" data-range="Greek" lang="el">
+          <span class="specimen__glyph" aria-hidden="true">
+            <img src="glyphs/Greek_ligature_gamma-epsilon-rho.png" alt="">
+          </span>
+          <h3 class="specimen__name">γερ (-ger-)</h3>
+          <p class="specimen__code">no cp · GSUB dlig γ + ε + ρ</p>
+          <p class="specimen__example">γερ</p>
+          <p class="specimen__note">Wikipedia historical form; font joins the three letters</p>
+        </li>
+        <!-- 3. καὶ -->
+        <li class="specimen" data-feature="liga" data-range="Greek" lang="el">
+          <span class="specimen__glyph" aria-hidden="true">καὶ</span>
+          <h3 class="specimen__name">καὶ (kai)</h3>
+          <p class="specimen__code">composed κ+α+ὶ · also U+03D7 ϗ / U+03CF Ϗ</p>
+          <p class="specimen__example">καὶ ὁ λόγος</p>
+          <p class="specimen__note">GFS Gazis <code>kai</code> from kappa+alpha+iota</p>
+        </li>
+        <!-- 4. μω -->
+        <li class="specimen" data-feature="dlig" data-range="Greek" lang="el">
+          <span class="specimen__glyph" aria-hidden="true">
+            <img src="glyphs/Greek_ligature_mu-omega.png" alt="">
+          </span>
+          <h3 class="specimen__name">μω (-mō-)</h3>
+          <p class="specimen__code">no cp · GSUB dlig μ + ω (U+03BC U+03C9)</p>
+          <p class="specimen__example">μω</p>
+          <p class="specimen__note">Wikipedia historical form; not in upstream Gazis liga</p>
+        </li>
+        <!-- 5. ος -->
+        <li class="specimen" data-feature="liga" data-range="Greek" lang="el">
+          <span class="specimen__glyph" aria-hidden="true">ος</span>
+          <h3 class="specimen__name">ος (-os)</h3>
+          <p class="specimen__code">no cp · GSUB liga ο + σ / ο + ς</p>
+          <p class="specimen__example">μέθοδος · θεός</p>
+          <p class="specimen__note">GFS Gazis <code>omicronsigma</code></p>
+        </li>
+        <!-- 6. οὖν -->
+        <li class="specimen" data-feature="dlig" data-range="Greek" lang="el">
+          <span class="specimen__glyph" aria-hidden="true">
+            <img src="glyphs/Greek_ligature_oun.png" alt="">
+          </span>
+          <h3 class="specimen__name">οὖν (oûn)</h3>
+          <p class="specimen__code">no Greek cp · GSUB dlig ο + ὖ + ν</p>
+          <p class="specimen__example">οὖν</p>
+          <p class="specimen__note">Wikipedia historical form; Latin ȣ is a derived cousin</p>
+        </li>
+        <!-- 7. φησὶ -->
+        <li class="specimen" data-feature="dlig" data-range="Greek" lang="el">
+          <span class="specimen__glyph" aria-hidden="true">
+            <img src="glyphs/Greek_ligature_phesi.png" alt="">
+          </span>
+          <h3 class="specimen__name">φησὶ (phēsi)</h3>
+          <p class="specimen__code">no cp · GSUB dlig φ + η + σ + ὶ</p>
+          <p class="specimen__example">φησὶ</p>
+          <p class="specimen__note">Wikipedia historical form; four-letter discretionary ligature</p>
+        </li>
+        <!-- 8. stigma -->
+        <li class="specimen" data-feature="liga" data-range="Unicode" lang="el">
+          <span class="specimen__glyph" aria-hidden="true">ϛ Ϛ</span>
+          <h3 class="specimen__name">stigma</h3>
+          <p class="specimen__code">U+03DB ϛ · U+03DA Ϛ</p>
+          <p class="specimen__example">στ → ϛ · numeral 6</p>
+          <p class="specimen__note">Didot supplies small ϛ; Gazis liga also maps σ+τ → Ϛ</p>
+        </li>
+        <!-- 9. kai small -->
+        <li class="specimen" data-feature="liga" data-range="Unicode" lang="el">
+          <span class="specimen__glyph" aria-hidden="true">ϗ</span>
+          <h3 class="specimen__name">kai symbol</h3>
+          <p class="specimen__code">U+03D7</p>
+          <p class="specimen__example">ϗ (= καί)</p>
+          <p class="specimen__note">Precomposed kai; GFS Gazis cmap</p>
+        </li>
+        <!-- 10. kai capital -->
+        <li class="specimen" data-feature="liga" data-range="Unicode" lang="el">
+          <span class="specimen__glyph" aria-hidden="true">Ϗ</span>
+          <h3 class="specimen__name">kai capital</h3>
+          <p class="specimen__code">U+03CF</p>
+          <p class="specimen__example">Ϗ</p>
+          <p class="specimen__note">Gentium Plus unicode-range fallback</p>
+        </li>
+        <!-- 11–14 derived -->
+        <li class="specimen" data-feature="liga" data-range="Derived">
+          <span class="specimen__glyph" aria-hidden="true">Ȣ</span>
+          <h3 class="specimen__name">Latin OU capital</h3>
+          <p class="specimen__code">U+0222</p>
+          <p class="specimen__example">derived from ου, not Greek</p>
+          <p class="specimen__note">Cardo subset</p>
+        </li>
+        <li class="specimen" data-feature="liga" data-range="Derived">
+          <span class="specimen__glyph" aria-hidden="true">ȣ</span>
+          <h3 class="specimen__name">Latin OU small</h3>
+          <p class="specimen__code">U+0223</p>
+          <p class="specimen__example">derived from ου, not Greek</p>
+          <p class="specimen__note">Cardo subset</p>
+        </li>
+        <li class="specimen" data-feature="liga" data-range="Derived">
+          <span class="specimen__glyph" aria-hidden="true">Ꙋ</span>
+          <h3 class="specimen__name">Cyrillic UK capital</h3>
+          <p class="specimen__code">U+A64A</p>
+          <p class="specimen__example">derived from ου, not Greek</p>
+          <p class="specimen__note">Noto Serif subset</p>
+        </li>
+        <li class="specimen" data-feature="liga" data-range="Derived">
+          <span class="specimen__glyph" aria-hidden="true">ꙋ</span>
+          <h3 class="specimen__name">Cyrillic UK small</h3>
+          <p class="specimen__code">U+A64B</p>
+          <p class="specimen__example">derived from ου, not Greek</p>
+          <p class="specimen__note">Noto Serif subset</p>
+        </li>
+        <!-- 16 alphabetic reference charts (Wikimedia) -->
+        <li class="specimen" data-feature="liga" data-range="Alphabet">
+          <span class="specimen__glyph" aria-hidden="true"><img src="glyphs/Greek_minuscule_Alpha_with_ligatures.png" alt=""></span>
+          <h3 class="specimen__name">alpha pairs</h3>
+          <p class="specimen__code">no single cp · Wikimedia chart</p>
+          <p class="specimen__example">αο · αυ · αι</p>
+          <p class="specimen__note">Conventional minuscule ligature set</p>
+        </li>
+        <li class="specimen" data-feature="liga" data-range="Alphabet">
+          <span class="specimen__glyph" aria-hidden="true"><img src="glyphs/Greek_minuscule_Kappa_with_ligatures.png" alt=""></span>
+          <h3 class="specimen__name">kappa pairs</h3>
+          <p class="specimen__code">no single cp · Wikimedia chart</p>
+          <p class="specimen__example">κα · και</p>
+          <p class="specimen__note">Conventional minuscule ligature set</p>
+        </li>
+        <li class="specimen" data-feature="liga" data-range="Alphabet">
+          <span class="specimen__glyph" aria-hidden="true"><img src="glyphs/Greek_minuscule_Rho_with_ligatures.png" alt=""></span>
+          <h3 class="specimen__name">rho pairs</h3>
+          <p class="specimen__code">no single cp · Wikimedia chart</p>
+          <p class="specimen__example">ρρ · ρχ</p>
+          <p class="specimen__note">Conventional minuscule ligature set</p>
+        </li>
+        <li class="specimen" data-feature="liga" data-range="Alphabet">
+          <span class="specimen__glyph" aria-hidden="true"><img src="glyphs/Greek_minuscule_Gamma_with_ligatures.png" alt=""></span>
+          <h3 class="specimen__name">gamma pairs</h3>
+          <p class="specimen__code">no single cp · Wikimedia chart</p>
+          <p class="specimen__example">γγ · γερ</p>
+          <p class="specimen__note">Conventional minuscule ligature set</p>
+        </li>
+        <li class="specimen" data-feature="liga" data-range="Alphabet">
+          <span class="specimen__glyph" aria-hidden="true"><img src="glyphs/Greek_minuscule_Lambda_with_ligatures.png" alt=""></span>
+          <h3 class="specimen__name">lambda pairs</h3>
+          <p class="specimen__code">no single cp · Wikimedia chart</p>
+          <p class="specimen__example">λλ</p>
+          <p class="specimen__note">Gazis also ligates λλ in running text</p>
+        </li>
+        <li class="specimen" data-feature="liga" data-range="Alphabet">
+          <span class="specimen__glyph" aria-hidden="true"><img src="glyphs/Greek_minuscule_Sigma_with_ligatures.png" alt=""></span>
+          <h3 class="specimen__name">sigma pairs</h3>
+          <p class="specimen__code">no single cp · Wikimedia chart</p>
+          <p class="specimen__example">στ · σσ</p>
+          <p class="specimen__note">στ also substitutes to stigma</p>
+        </li>
+        <li class="specimen" data-feature="liga" data-range="Alphabet">
+          <span class="specimen__glyph" aria-hidden="true"><img src="glyphs/Greek_minuscule_Delta_with_ligatures.png" alt=""></span>
+          <h3 class="specimen__name">delta pairs</h3>
+          <p class="specimen__code">no single cp · Wikimedia chart</p>
+          <p class="specimen__example">δδ</p>
+          <p class="specimen__note">Conventional minuscule ligature set</p>
+        </li>
+        <li class="specimen" data-feature="liga" data-range="Alphabet">
+          <span class="specimen__glyph" aria-hidden="true"><img src="glyphs/Greek_minuscule_Mu_with_ligatures.png" alt=""></span>
+          <h3 class="specimen__name">mu pairs</h3>
+          <p class="specimen__code">no single cp · Wikimedia chart</p>
+          <p class="specimen__example">μω · μν</p>
+          <p class="specimen__note">Conventional minuscule ligature set</p>
+        </li>
+        <li class="specimen" data-feature="liga" data-range="Alphabet">
+          <span class="specimen__glyph" aria-hidden="true"><img src="glyphs/Greek_minuscule_Tau_with_ligatures.png" alt=""></span>
+          <h3 class="specimen__name">tau pairs</h3>
+          <p class="specimen__code">no single cp · Wikimedia chart</p>
+          <p class="specimen__example">ττ · στ</p>
+          <p class="specimen__note">Conventional minuscule ligature set</p>
+        </li>
+        <li class="specimen" data-feature="liga" data-range="Alphabet">
+          <span class="specimen__glyph" aria-hidden="true"><img src="glyphs/Greek_minuscule_Epsilon_with_ligatures.png" alt=""></span>
+          <h3 class="specimen__name">epsilon pairs</h3>
+          <p class="specimen__code">no single cp · Wikimedia chart</p>
+          <p class="specimen__example">ει · εῖ</p>
+          <p class="specimen__note">Matches Gazis ei ligature family</p>
+        </li>
+        <li class="specimen" data-feature="liga" data-range="Alphabet">
+          <span class="specimen__glyph" aria-hidden="true"><img src="glyphs/Greek_minuscule_Nu_with_ligatures.png" alt=""></span>
+          <h3 class="specimen__name">nu pairs</h3>
+          <p class="specimen__code">no single cp · Wikimedia chart</p>
+          <p class="specimen__example">ντ · οὖν</p>
+          <p class="specimen__note">Conventional minuscule ligature set</p>
+        </li>
+        <li class="specimen" data-feature="liga" data-range="Alphabet">
+          <span class="specimen__glyph" aria-hidden="true"><img src="glyphs/Greek_minuscule_Upsilon_with_ligatures.png" alt=""></span>
+          <h3 class="specimen__name">upsilon pairs</h3>
+          <p class="specimen__code">no single cp · Wikimedia chart</p>
+          <p class="specimen__example">ου · υι</p>
+          <p class="specimen__note">Gazis ligates ου and υι</p>
+        </li>
+        <li class="specimen" data-feature="liga" data-range="Alphabet">
+          <span class="specimen__glyph" aria-hidden="true"><img src="glyphs/Greek_minuscule_Eta_with_ligatures.png" alt=""></span>
+          <h3 class="specimen__name">eta pairs</h3>
+          <p class="specimen__code">no single cp · Wikimedia chart</p>
+          <p class="specimen__example">ησ · φησὶ</p>
+          <p class="specimen__note">Conventional minuscule ligature set</p>
+        </li>
+        <li class="specimen" data-feature="liga" data-range="Alphabet">
+          <span class="specimen__glyph" aria-hidden="true"><img src="glyphs/Greek_minuscule_Omikron_with_ligatures.png" alt=""></span>
+          <h3 class="specimen__name">omicron pairs</h3>
+          <p class="specimen__code">no single cp · Wikimedia chart</p>
+          <p class="specimen__example">ου · ος · οὖν</p>
+          <p class="specimen__note">Matches Gazis ou / omicronsigma</p>
+        </li>
+        <li class="specimen" data-feature="liga" data-range="Alphabet">
+          <span class="specimen__glyph" aria-hidden="true"><img src="glyphs/Greek_minuscule_Phi_with_ligatures.png" alt=""></span>
+          <h3 class="specimen__name">phi pairs</h3>
+          <p class="specimen__code">no single cp · Wikimedia chart</p>
+          <p class="specimen__example">φη · φησὶ</p>
+          <p class="specimen__note">Conventional minuscule ligature set</p>
+        </li>
+        <li class="specimen" data-feature="liga" data-range="Alphabet">
+          <span class="specimen__glyph" aria-hidden="true"><img src="glyphs/Greek_minuscule_Theta_with_ligatures.png" alt=""></span>
+          <h3 class="specimen__name">theta pairs</h3>
+          <p class="specimen__code">no single cp · Wikimedia chart</p>
+          <p class="specimen__example">θθ</p>
+          <p class="specimen__note">Conventional minuscule ligature set</p>
+        </li>
+        <li class="specimen" data-feature="liga" data-range="Alphabet">
+          <span class="specimen__glyph" aria-hidden="true"><img src="glyphs/Greek_minuscule_Pi_with_ligatures.png" alt=""></span>
+          <h3 class="specimen__name">pi pairs</h3>
+          <p class="specimen__code">no single cp · Wikimedia chart</p>
+          <p class="specimen__example">ππ · πρ</p>
+          <p class="specimen__note">Conventional minuscule ligature set</p>
+        </li>
+        <li class="specimen" data-feature="liga" data-range="Alphabet">
+          <span class="specimen__glyph" aria-hidden="true"><img src="glyphs/Greek_minuscule_Omega_with_ligatures.png" alt=""></span>
+          <h3 class="specimen__name">omega pairs</h3>
+          <p class="specimen__code">no single cp · Wikimedia chart</p>
+          <p class="specimen__example">ωμ · μω</p>
+          <p class="specimen__note">Conventional minuscule ligature set</p>
+        </li>
+        <!-- sidebar archaic mentions -->
+        <li class="specimen" data-feature="liga" data-range="Archaic" lang="el">
+          <span class="specimen__glyph" aria-hidden="true">Ϝ</span>
+          <h3 class="specimen__name">digamma / wau</h3>
+          <p class="specimen__code">U+03DC Ϝ</p>
+          <p class="specimen__example">conflated with stigma as numeral 6</p>
+          <p class="specimen__note">Archaic letter, not a ligature proper</p>
+        </li>
+        <li class="specimen" data-feature="liga" data-range="Archaic" lang="el">
+          <span class="specimen__glyph" aria-hidden="true">ϟ Ϡ</span>
+          <h3 class="specimen__name">koppa · sampi</h3>
+          <p class="specimen__code">U+03DF ϟ · U+03E0 Ϡ</p>
+          <p class="specimen__example">numeral 90 · numeral 900</p>
+          <p class="specimen__note">Sidebar “Ligatures” companions on Wikipedia</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ================================================================
+         SECTION 3 — SAMPLE PASSAGES
+         Two literary blocks: one Greek, one Latin (or Greek transliteration)
+         to demonstrate the typeface in running text, not just isolated
+         glyphs.  Each passage should include:
+           - a blockquote element for the quoted text
+           - a <cite> tag for the source
+           - a running head / section label above
+         ================================================================ -->
+    <section class="passages" aria-labelledby="passages-heading">
+      <h2 id="passages-heading" class="section-heading">Sample Passages</h2>
+
+      <article class="passage passage--greek" lang="el">
+        <h3 class="passage__label">Greek</h3>
+        <blockquote class="passage__quote">
+          <p>
+            μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος οὐλομένην, ἣ μυρί᾽ Ἀχαιοῖς ἄλγε᾽ ἔθηκε.
+          </p>
+          <p>
+            καὶ ὁ βασιλεὺς φησὶ οὖν ὅτι ὁ λόγος μέθοδός ἐστι τῆς ἀληθείας.
+          </p>
+        </blockquote>
+        <cite class="passage__cite">— Ὅμηρος, Ἰλιάς 1.1–2 · royal-decree pastiche</cite>
+        <p class="passage__gloss">
+          “mēnin aeide thea … kai ho basileus phēsi oun …”
+        </p>
+        <p class="passage__translation">
+          “Sing, goddess, the wrath of Achilles son of Peleus… And the king says, therefore, that the word is a method of truth.”
+          Select and copy the Greek: the clipboard holds ordinary polytonic letters, not Private-Use glyphs.
+        </p>
+      </article>
+
+      <article class="passage passage--latin">
+        <h3 class="passage__label">Latin</h3>
+        <blockquote class="passage__quote">
+          <p>
+            Verba volant, scripta manent.
+          </p>
+        </blockquote>
+        <cite class="passage__cite">— Seneca, Ep. 9.13</cite>
+        <p class="passage__translation">
+          “Spoken words fly, written words remain.”
+        </p>
+      </article>
+    </section>
+
+  </main>
+
+  <!-- ================================================================
+       FOOTER — CREDITS
+       Project attribution, font licence note, and copyright year.
+       ================================================================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__inner">
+      <p class="footer__credit">
+        Grecs du Roi · A typographic specimen for Greek &amp; Latin
+        ligatures and royal manuscript revivals.
+      </p>
+      <p class="footer__legal">
+        Faces: GrecsRoi Greek (OFL derivative of GFS Gazis) · GFS Didot · Cardo · Gentium Plus · Noto Serif.
+        Historical charts: Wikimedia Commons, CC BY-SA. 2026.
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

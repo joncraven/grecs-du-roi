@@ -1,0 +1,741 @@
+/* ================================================================
+   GRECS DU ROI — styles.css
+   Royal Greek typography · Specimen & ligature showcase
+   ----------------------------------------------------------------
+   ARCHITECTURE (three layers, in load order):
+
+     LAYER 1 — DESIGN TOKENS  …:root custom properties.
+                Colours (aged parchment / iron-gall ink / gold /
+                oxblood), spacing scale, type scale, radii,
+                and the LIGATURE HOOKS (see tokens-ligatures).
+
+     LAYER 2 — TYPOGRAPHY     …font stacks, @font-face placeholders,
+                base text styles, headings, passages.
+
+     LAYER 3 — LAYOUT         …page scaffold, hero, specimen grid,
+                passage blocks, footer, responsive breakpoints.
+
+   RULES FOR THE COMPOSITOR (task t_95f74713):
+   • Replace the placeholder @font-face src URLs in LAYER 2.
+   • Swap the --font-grec-roi stack for the final family name.
+   • Drive per-group ligature activation through the
+     [data-feature="…"] hooks — do NOT restructure the HTML.
+   • No sans-serif or geometric faces may enter any stack.
+   ================================================================ */
+
+/* ================================================================
+   LAYER 1 — DESIGN TOKENS
+   ================================================================ */
+
+:root {
+  /* ── Colour · parchment (surfaces, light → dark) ──────────────
+     Aged paper, not "cream & beige" modern minimalism: warm
+     ivory with a faint ochre cast, deepening toward the
+     burnished edges of a 15th-century leaf.                */
+  --color-parchment-50:  #f6efdc;   /* fresh vellum light       */
+  --color-parchment-100: #efe5c8;   /* main page ground         */
+  --color-parchment-200: #e3d3ac;   /* card face / rules        */
+  --color-parchment-300: #d3bd8c;   /* borders, hairlines       */
+  --color-parchment-400: #b99f6c;   /* aged, burnished margin   */
+
+  /* ── Colour · iron-gall ink (text, light → deep) ───────────── */
+  --color-ink-100: #6f6249;        /* faded annotations        */
+  --color-ink-400: #453a27;        /* secondary text           */
+  --color-ink-700: #2a2115;        /* body text                */
+  --color-ink-900: #15100a;        /* titles, heavy rubric     */
+
+  /* ── Colour · rubrication (manuscript red ink) ──────────────── */
+  --color-rubric:      #7c2d1c;    /* rubric red — capitals    */
+  --color-rubric-deep: #5c1f12;    /* pressed rubric           */
+
+  /* ── Colour · gold (illuminations, thin ornament) ───────────── */
+  --color-gold-300: #cfa94f;       /* bright gold leaf         */
+  --color-gold-500: #a87f2f;       /* settled gold             */
+  --color-gold-700: #7c5a1e;       /* shadowed gilt            */
+
+  /* ── Colour · semantic (kept in the manuscript palette) ─────── */
+  --color-shadow:      rgba(42, 33, 21, 0.14);  /* card lift    */
+  --color-rule:        #b99f6c;                  /* hairlines    */
+  --color-selection:   rgba(168, 127, 47, 0.35); /* gold on ink  */
+
+  /* ── Spacing scale (4px root, generous margins like a quarto) */
+  --space-1: 0.25rem;   /* 4px  — glyph padding          */
+  --space-2: 0.5rem;    /* 8px  — intra-card             */
+  --space-3: 0.75rem;   /* 12px — tight groupings        */
+  --space-4: 1rem;      /* 16px — default stack gap      */
+  --space-5: 1.5rem;    /* 24px — section padding (sm)    */
+  --space-6: 2rem;      /* 40px — card padding            */
+  --space-7: 3rem;      /* 48px — section padding         */
+  --space-8: 4.5rem;    /* 72px — section separation      */
+  --space-9: 7rem;      /* 112px — hero breathing room    */
+  --space-measure: 68ch; /* reading width                 */
+
+  /* ── Type scale (12px root = book-sized compactness) ──────────
+     rem values render: 16/18/24/36/54/81 px.
+     Greek polytonic text needs headroom, never cramped.  */
+  --text-root: 0.75rem;
+  --text-xs:   0.875rem;  /* 13px  — specimen notes, legal   */
+  --text-sm:   1rem;      /* 16px  — captions, labels        */
+  --text-base: 1.25rem;   /* 20px  — body reading            */
+  --text-md:   1.625rem;  /* 27px  — passage text            */
+  --text-lg:   2.25rem;   /* 37px  — section headings        */
+  --text-xl:   3.25rem;   /* 54px  — hero title              */
+  --text-glyph: 4.5rem;   /* 74px  — specimen glyph display  */
+
+  /* ── Line rhythm ─────────────────────────────────────────────── */
+  --leading-tight: 1.15;   /* display faces                 */
+  --leading-body:  1.65;   /* running text                  */
+  --leading-loose: 1.85;   /* specimens, polytonic density  */
+
+  /* ── Radii & borders (hand-cut, never pill-round) ───────────── */
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --border-thin:   1px solid var(--color-parchment-300);
+  --border-illumi: 3px double var(--color-gold-500);
+
+  /* ── Motion (rubric-ink reveal) ─────────────────────────────── */
+  --ease-rubric: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --duration-1:  150ms;
+  --duration-2:  250ms;
+
+  /* ------------------------------------------------------------ */
+  /* TOKEN LAYER — LIGATURE HOOKS                                  */
+  /* The typography task toggles these from [data-feature] cards   */
+  /* and @font-face rules.  Default ON: the page is a LIGATURE     */
+  /* SHOWCASE — every Greek ligature the face carries should be    */
+  /* visible by default, and each specimen card carries the        */
+  /* feature name in data-feature for explicit per-card overrides.  */
+  /*                                                              */
+  /*   --liga      standard contextual ligatures                  */
+  /*   --clig      contextual (conditional) ligatures             */
+  /*   --rlig      required ligatures (never broken)              */
+  /*   --dlig      historical / discretionary ligatures  ← Greek   */
+  /*   --calt      stylistic alternates — royal display forms     */
+  /*   --hlig      historical forms — "grecs du roi" cut          */
+  /*   --cv-feat   per-glyph overrides, e.g. "cv01, cv12"         */
+  /* ------------------------------------------------------------ */
+  --liga:           "liga" 1;
+  --clig:           "clig" 1;
+  --rlig:           "rlig" 1;
+  --dlig:           "dlig" 1;
+  --calt:           "calt" 0;   /* OFF by default; card hover/press
+                                    reveals royal alternates        */
+  --hlig:           "hlig" 1;   /* historical forms ON for display  */
+  --cv-feat:        none;       /* per-glyph CV feature overrides   */
+
+  /* Convenience bundle: one declaration for the full hook set.
+     Used by .specimen__glyph and display passages so the
+     compositor can re-bundle without touching components.    */
+  --ligature-set: var(--liga), var(--clig), var(--rlig), var(--dlig),
+                  var(--hlig);
+}
+
+/* Reduced-motion honour (accessibility; still manuscript-safe) */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-1: 0ms;
+    --duration-2: 0ms;
+  }
+}
+
+/* ================================================================
+   LAYER 2 — TYPOGRAPHY
+   ================================================================ */
+
+/* ------------------------------------------------------------
+   2a. FONT STACKS
+   Serif only — no sans-serif, no geometric, anywhere.
+   GFS Didot is the GFS (Greek Font Society) Didone cut with
+   full polytonic Greek coverage; it is the primary candidate
+   for the "grecs du roi" face.  Cardo and Gentium carry the
+   widest Greek-ligature repertoire in free faces and stand
+   behind as coverage guards.  Georgia/Times are the last
+   resort system serifs — still serif, the acceptance rule
+   permits them as final fallbacks.                          */
+:root {
+  /* GFS Neohellenic is a sans face — omitted so no sans cut can paint. */
+  --font-grec-roi:
+    "GrecsRoi Greek",
+    "GFS Didot",
+    "Cardo",
+    "Gentium Plus",
+    "Noto Serif",
+    "Georgia",
+    "Times New Roman",
+    serif;
+  --font-latin-spec: var(--font-grec-roi);
+  --font-display:
+    "GFS Didot",
+    "GrecsRoi Greek",
+    "Georgia",
+    "Times New Roman",
+    serif;
+}
+
+/* ------------------------------------------------------------
+   2b. @font-face — PLACEHOLDERS
+   The compositor (t_95f74713) replaces local() stubs with the
+   real .woff2 assets and fills unicode-range per ligature
+   group.  Keep the unicode-range blocks — they are the seam
+   between the skeleton and the ligature engine.             */
+
+/* Greek ligature engine: GFS Gazis derivative with grek/DFLT GSUB. */
+@font-face {
+  font-family:  "GrecsRoi Greek";
+  font-weight:  400;
+  font-style:   normal;
+  font-display: block;
+  src: url("fonts/grecs-roi-greek.woff2") format("woff2");
+  unicode-range: U+0370-03FF, U+1F00-1FFF;
+}
+
+/* Didone Latin + polytonic coverage (incl. small stigma U+03DB). */
+@font-face {
+  font-family:  "GFS Didot";
+  font-weight:  400;
+  font-style:   normal;
+  font-display: block;
+  src: url("fonts/gfs-didot.woff2") format("woff2");
+  unicode-range:
+    U+0000-00FF,
+    U+0100-017F,
+    U+0370-03FF,
+    U+1F00-1FFF,
+    U+2010-2027;
+}
+
+/* Latin OU derived from ου. */
+@font-face {
+  font-family:  "Cardo";
+  font-weight:  400;
+  font-style:   normal;
+  font-display: block;
+  src: url("fonts/cardo-ou.woff2") format("woff2");
+  unicode-range: U+0222-0223;
+}
+
+/* Capital kai symbol, missing from Gazis. */
+@font-face {
+  font-family:  "Gentium Plus";
+  font-weight:  400;
+  font-style:   normal;
+  font-display: block;
+  src: url("fonts/gentium-kai-cap.woff2") format("woff2");
+  unicode-range: U+03CF;
+}
+
+/* Cyrillic monograph UK, derived from ου. */
+@font-face {
+  font-family:  "Noto Serif";
+  font-weight:  400;
+  font-style:   normal;
+  font-display: block;
+  src: url("fonts/noto-serif-uk.woff2") format("woff2");
+  unicode-range: U+A64A-A64B;
+}
+
+/* ------------------------------------------------------------
+   2c. BASE TEXT
+   Root font-size from token; body copy at book measure.     */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: var(--text-root);
+  background-color: var(--color-parchment-100);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-grec-roi);
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+  color: var(--color-ink-700);
+  text-wrap: pretty;
+  font-feature-settings: var(--liga), var(--clig), var(--rlig),
+                         var(--dlig), var(--hlig);
+  font-variant-ligatures: common-ligatures discretionary-ligatures
+                          historical-ligatures contextual;
+}
+
+::selection {
+  background-color: var(--color-selection);
+  color: var(--color-ink-900);
+}
+
+/* ------------------------------------------------------------
+   2d. HEADINGS — display cut, rubricated initials
+   Headings are the "rubric" layer of the page: slightly
+   warmer, gold-leaf accents on large marks.                */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-display);
+  color: var(--color-ink-900);
+  line-height: var(--leading-tight);
+  font-weight: 400;
+}
+
+h1 {
+  font-size: var(--text-xl);
+  letter-spacing: 0.02em;
+}
+
+h2 {
+  font-size: var(--text-lg);
+  letter-spacing: 0.01em;
+  position: relative;
+  padding-bottom: var(--space-3);
+}
+
+/* Hairline rule under h2 — double gilt line, like a
+   scribe's divider between sections.  */
+h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  border-bottom: var(--border-illumi);
+}
+
+h3 {
+  font-size: var(--text-sm);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-rubric);
+}
+
+/* ------------------------------------------------------------
+   2e. LINKS & EM/STRONG — rubric red, no modern blue underline */
+
+a {
+  color: var(--color-rubric-deep);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:hover,
+a:focus-visible {
+  color: var(--color-ink-900);
+  text-decoration-thickness: 2px;
+}
+
+em, i {
+  font-style: italic;
+}
+
+code {
+  font-family: var(--font-grec-roi);
+  font-size: 0.95em;
+}
+
+strong, b {
+  font-weight: 600;
+  color: var(--color-ink-900);
+}
+
+/* ------------------------------------------------------------
+   2f. LIGATURE BEHAVIOUR BASE
+   The global default carries the full hook set so that no
+   part of the page depends on the browser's per-face default.
+   The compositor can override per-group by scoping these
+   values to [data-feature] or the font-face rules above.    */
+
+.specimen__glyph,
+.passage__quote,
+.hero__title {
+  font-feature-settings: var(--ligature-set);
+  font-variant-ligatures: common-ligatures contextual
+                          historical-ligatures;
+}
+
+/* Per-card overrides driven by data-feature (see 2g).        */
+.specimen[data-feature="liga"]   .specimen__glyph,
+.specimen[data-feature="clig"]   .specimen__glyph,
+.specimen[data-feature="rlig"]   .specimen__glyph,
+.specimen[data-feature="dlig"]   .specimen__glyph,
+.specimen[data-feature="hlig"]   .specimen__glyph {
+  font-feature-settings: var(--liga), var(--clig),
+                        var(--rlig), var(--dlig), var(--hlig);
+}
+
+/* Hover / focus reveals stylistic alternates — the "royal"
+   alternate forms.  The compositor's --calt token carries the
+   actual alternates once the face is finalised.              */
+.specimen:hover .specimen__glyph,
+.specimen:focus-within .specimen__glyph,
+.specimen:focus .specimen__glyph {
+  font-feature-settings: var(--ligature-set), var(--calt);
+}
+
+/* ------------------------------------------------------------
+   2g. DATA-DRIVEN HOOKS for per-group feature control
+   (Compositor: swap the inline style or extend these.)       */
+
+.specimen[data-calt="1"] .specimen__glyph {
+  font-feature-settings: var(--ligature-set), var(--calt);
+}
+
+/* Explicit OFF-state hook: the compositor may set
+   data-feature="off" to prove a card renders identically
+   with the ligatures deactivated (a debugging surface).     */
+.specimen[data-feature="off"] .specimen__glyph {
+  font-feature-settings: "liga" 0, "clig" 0, "rlig" 0,
+                        "dlig" 0, "hlig" 0, "calt" 0;
+}
+
+/* ================================================================
+   LAYER 3 — LAYOUT
+   ================================================================ */
+
+/* ------------------------------------------------------------
+   3a. PAGE SCAFFOLD
+   A single-column "quarto leaf".  Content is capped at a
+   comfortable measure; generous top margin like the
+   top margin of a bound page.                              */
+
+main,
+.hero,
+.footer {
+  width: 100%;
+  max-width: 62rem;
+  margin-inline: auto;
+  padding-inline: var(--space-5);
+}
+
+@media (min-width: 48em) {
+  main,
+  .hero,
+  .footer {
+    padding-inline: var(--space-7);
+  }
+}
+
+section {
+  padding-block: var(--space-8);
+}
+
+main > section + section {
+  border-top: var(--border-thin);
+}
+
+/* ------------------------------------------------------------
+   3b. HERO — full bleed on the parchment ground, centred block
+   The ❦ ornament (U+2766 FLORAL HEART) acts as a rubricated
+   divider — gold, not an emoji.                            */
+
+.hero {
+  padding-block: var(--space-9);
+  text-align: center;
+  display: grid;
+  gap: var(--space-4);
+}
+
+.hero__inner {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: center;
+}
+
+.hero__title {
+  font-size: var(--text-xl);
+  letter-spacing: 0.04em;
+  color: var(--color-ink-900);
+}
+
+.hero__tagline {
+  font-size: var(--text-sm);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-ink-400);
+}
+
+.hero__rule {
+  font-size: var(--text-md);
+  line-height: 1;
+  color: var(--color-gold-500);
+  /* Hairlines either side of the ornament */
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  width: min(20rem, 60%);
+  justify-content: center;
+}
+
+.hero__rule::before,
+.hero__rule::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-gold-300),
+    var(--color-gold-500)
+  );
+}
+
+.hero__rule::before {
+  background: linear-gradient(
+    to left,
+    transparent,
+    var(--color-gold-300),
+    var(--color-gold-500)
+  );
+}
+
+/* ------------------------------------------------------------
+   3c. SPECIMEN GRID
+   Cards on the parchment-200 face.  Grid auto-fits 2–4
+   columns based on viewport.  Each card is a self-contained
+   specimen with the glyph shown at 74px.                    */
+
+.specimens {
+  padding-top: var(--space-7);
+}
+
+.section-heading {
+  margin-bottom: var(--space-5);
+}
+
+.section-intro {
+  max-width: var(--space-measure);
+  color: var(--color-ink-400);
+  margin-bottom: var(--space-6);
+}
+
+.specimen-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: var(--space-4);
+}
+
+.specimen {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-5);
+  background-color: var(--color-parchment-200);
+  border: var(--border-thin);
+  border-radius: var(--radius-md);
+  box-shadow: 0 1px 3px var(--color-shadow);
+  transition:
+    transform var(--duration-1) var(--ease-rubric),
+    box-shadow var(--duration-2) var(--ease-rubric);
+}
+
+.specimen:hover,
+.specimen:focus-within {
+  transform: translateY(-2px);
+  box-shadow:
+    0 4px 10px var(--color-shadow),
+    inset 0 0 0 1px var(--color-gold-300);
+}
+
+.specimen__glyph {
+  font-family: var(--font-grec-roi);
+  font-size: var(--text-glyph);
+  line-height: var(--leading-tight);
+  color: var(--color-ink-900);
+  text-align: center;
+  padding-bottom: var(--space-3);
+  /* The glyph is the centrepiece of each card — ligatures
+     are ON by default so the reader sees the royal cut.   */
+  font-feature-settings: var(--ligature-set);
+  font-variant-ligatures: common-ligatures contextual
+                          historical-ligatures;
+}
+
+.specimen__name {
+  margin: 0 0 var(--space-1);
+  font-size: var(--text-sm);
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+
+.specimen__note {
+  margin: 0;
+  font-size: var(--text-xs);
+  line-height: var(--leading-body);
+  color: var(--color-ink-400);
+}
+
+.specimen__code {
+  margin: 0 0 var(--space-1);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  color: var(--color-ink-100);
+}
+
+.specimen__example {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-sm);
+  text-align: center;
+  color: var(--color-ink-700);
+  font-feature-settings: var(--ligature-set);
+  font-variant-ligatures: common-ligatures discretionary-ligatures
+                          historical-ligatures contextual;
+}
+
+.specimen__glyph img {
+  display: block;
+  margin-inline: auto;
+  height: var(--text-glyph);
+  width: auto;
+  max-width: 100%;
+}
+
+/* Greek-family accent: a faint rubric left-bar, like a
+   hand-painted gutter mark on a Greek page.  Latin family
+   keeps a neutral gilt bar.                                 */
+.specimen[data-range="Greek"] {
+  border-left: 3px solid var(--color-rubric);
+}
+
+.specimen[data-range="Latin"],
+.specimen[data-range="Derived"] {
+  border-left: 3px solid var(--color-gold-500);
+}
+
+.specimen[data-range="Unicode"] {
+  border-left: 3px solid var(--color-gold-700);
+}
+
+.specimen[data-range="Alphabet"] {
+  border-left: 3px solid var(--color-parchment-400);
+}
+
+.specimen[data-range="Archaic"] {
+  border-left: 3px solid var(--color-rubric-deep);
+}
+
+/* ------------------------------------------------------------
+   3d. PASSAGES — blockquoted running text
+   Two literary articles (Greek & Latin).  Each is an
+   article with a label, a blockquote, and a citation +
+   a free-English gloss line below the cite.                 */
+
+.passages {
+  padding-top: var(--space-7);
+}
+
+.passages .section-heading {
+  margin-bottom: var(--space-6);
+}
+
+.passage {
+  padding: var(--space-5) 0;
+  max-width: var(--space-measure);
+  display: grid;
+  gap: var(--space-3);
+}
+
+.passages .passage + .passage {
+  border-top: var(--border-thin);
+}
+
+.passage__quote {
+  margin: 0;
+  padding: var(--space-4) 0;
+  font-family: var(--font-grec-roi);
+  font-size: var(--text-md);
+  line-height: var(--leading-loose);
+  color: var(--color-ink-900);
+  font-feature-settings: var(--liga), var(--clig), var(--rlig),
+                         var(--dlig), var(--hlig);
+  font-variant-ligatures: common-ligatures discretionary-ligatures
+                          historical-ligatures contextual;
+}
+
+.passage__quote p {
+  margin: 0;
+}
+
+/* Greek passage: rubric red label to the left, blockquoted
+   text with a 3px gold left border like a marginal gloss.  */
+.passage--greek .passage__quote {
+  border-left: 3px solid var(--color-gold-500);
+  padding-left: var(--space-4);
+}
+
+.passage--greek .passage__label {
+  color: var(--color-rubric);
+}
+
+.passage__cite {
+  font-size: var(--text-xs);
+  font-style: italic;
+  color: var(--color-ink-400);
+}
+
+.passage__gloss {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-style: italic;
+  color: var(--color-ink-100);
+}
+
+.passage__translation {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-ink-400);
+}
+
+/* ------------------------------------------------------------
+   3e. FOOTER — credits
+   A quiet, centred block.  Small caps on the credit, a
+   hairline rule above.                                      */
+
+.footer {
+  padding-block: var(--space-8);
+  text-align: center;
+  border-top: var(--border-thin);
+}
+
+.footer__inner {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: center;
+}
+
+.footer__credit {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-variant-caps: small-caps;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-400);
+}
+
+.footer__legal {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--color-ink-100);
+}
+
+/* ------------------------------------------------------------
+   3f. ACCESSIBILITY & MOTION
+   Visible focus for keyboard users (gold outline, not the
+   modern blue), smooth but reduced-motion-aware.          */
+
+:focus-visible {
+  outline: 2px solid var(--color-gold-500);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .specimen {
+    transition: none;
+  }
+
+  .specimen:hover {
+    transform: none;
+  }
+}
