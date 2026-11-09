@@ -1,0 +1,58 @@
+========================================================================
+  FUSION COVERAGE — Grecs du Roi (Phase 2.0, HarfBuzz-measured)
+========================================================================
+
+  Font: cardo-ou (cardo-ou.woff2)
+    cmap codepoints: 3 (Greek 0)  GSUB lig entries: 0 {'ccmp': 0}
+    Corpus: 498 lines, 4144 words, 17916 adjacent pairs
+    Pairs fused: 0/17916  (0.0%)
+    Words fused: 0/4144  (0.0%)
+    Gate seqs live: γερ:MISSING  μω:MISSING  οὐ:MISSING  φησ:MISSING
+
+  Font: gentium-kai-cap (gentium-kai-cap.woff2)
+    cmap codepoints: 2 (Greek 1)  GSUB lig entries: 0 {}
+    Corpus: 498 lines, 4144 words, 17916 adjacent pairs
+    Pairs fused: 0/17916  (0.0%)
+    Words fused: 0/4144  (0.0%)
+    Gate seqs live: γερ:MISSING  μω:MISSING  οὐ:MISSING  φησ:MISSING
+
+  Font: gfs-didot (gfs-didot.woff2)
+    cmap codepoints: 1104 (Greek 322)  GSUB lig entries: 5 {'c2sc': 0, 'dnom': 0, 'fina': 0, 'hist': 0, 'liga': 5, 'lnum': 0, 'numr': 0, 'onum': 0, 'pnum': 0, 'sinf': 0, 'smcp': 0, 'sups': 0, 'tnum': 0}
+    Corpus: 498 lines, 4144 words, 17916 adjacent pairs
+    Pairs fused: 0/17916  (0.0%)
+    Words fused: 0/4144  (0.0%)
+    Gate seqs live: γερ:MISSING  μω:MISSING  οὐ:MISSING  φησ:MISSING
+
+  Font: grecs-roi-greek (grecs-roi-greek.otf)
+    cmap codepoints: 363 (Greek 310)  GSUB lig entries: 215 {'liga': 43, 'clig': 43, 'rlig': 43, 'dlig': 43, 'hlig': 43}
+    Corpus: 498 lines, 4144 words, 17916 adjacent pairs
+    Pairs fused: 1618/17916  (9.0%)
+    Words fused: 1351/4144  (32.6%)
+    Gate seqs live: γερ:OK  μω:OK  οὐ:OK  φησ:OK
+    Top fusions: ος×183, ει×122, ου×110, στ×95, εί×67, λλ×49, οῦ×44, εῖ×33, ού×24, οσ×23
+
+  Font: grecs-roi-greek (grecs-roi-greek.woff2)
+    cmap codepoints: 363 (Greek 310)  GSUB lig entries: 215 {'liga': 43, 'clig': 43, 'rlig': 43, 'dlig': 43, 'hlig': 43}
+    Corpus: 498 lines, 4144 words, 17916 adjacent pairs
+    Pairs fused: 1618/17916  (9.0%)
+    Words fused: 1351/4144  (32.6%)
+    Gate seqs live: γερ:OK  μω:OK  οὐ:OK  φησ:OK
+    Top fusions: ος×183, ει×122, ου×110, στ×95, εί×67, λλ×49, οῦ×44, εῖ×33, ού×24, οσ×23
+
+  Font: noto-serif-uk (noto-serif-uk.woff2)
+    cmap codepoints: 3 (Greek 0)  GSUB lig entries: 0 {}
+    Corpus: 498 lines, 4144 words, 17916 adjacent pairs
+    Pairs fused: 0/17916  (0.0%)
+    Words fused: 0/4144  (0.0%)
+    Gate seqs live: γερ:MISSING  μω:MISSING  οὐ:MISSING  φησ:MISSING
+
+------------------------------------------------------------------------
+  PHASE 2 GATE: words ≥ 60%  ·  γερ/μω/οὖν/φησὶ live  ·  nomina sacra letters  ·  zero PNG cells
+------------------------------------------------------------------------
+  cardo-ou: 0.0% words FAIL
+  gentium-kai-cap: 0.0% words FAIL
+  gfs-didot: 0.0% words FAIL
+  grecs-roi-greek: 32.6% words FAIL
+  grecs-roi-greek: 32.6% words FAIL
+  noto-serif-uk: 0.0% words FAIL
+  JSON report → src/fonts/coverage.json

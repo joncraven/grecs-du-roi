@@ -1,196 +1,429 @@
 {
-  "gazis": {
-    "composites": [
-      {
-        "glyph": "liga_ger",
-        "parts": [
-          "gamma",
-          "epsilon",
-          "rho"
-        ],
-        "label": "γερ"
-      },
-      {
-        "glyph": "liga_mo",
-        "parts": [
-          "uni03BC",
-          "omega"
-        ],
-        "label": "μω"
-      },
-      {
-        "glyph": "liga_oun",
-        "parts": [
-          "omicron",
-          "uni1F56",
-          "nu"
-        ],
-        "label": "οὖν"
-      },
-      {
-        "glyph": "liga_phesi",
-        "parts": [
-          "phi",
-          "eta",
-          "sigma",
-          "uni1F76"
-        ],
-        "label": "φησὶ"
-      },
-      {
-        "glyph": "liga_phesi_plain",
-        "parts": [
-          "phi",
-          "eta",
-          "sigma",
-          "iota"
-        ],
-        "label": "φησι"
-      }
-    ],
-    "extra_ligatures": [
-      {
-        "from": [
-          "kappa",
-          "alpha",
-          "uni1F76"
-        ],
-        "to": "kai"
-      },
-      {
-        "from": [
-          "omicron",
-          "uni03C2"
-        ],
-        "to": "omicronsigma"
-      },
-      {
-        "from": [
-          "sigma",
-          "tau"
-        ],
-        "to": "uni03DA"
-      },
-      {
-        "from": [
-          "gamma",
-          "epsilon",
-          "rho"
-        ],
-        "to": "liga_ger"
-      },
-      {
-        "from": [
-          "uni03BC",
-          "omega"
-        ],
-        "to": "liga_mo"
-      },
-      {
-        "from": [
-          "omicron",
-          "uni1F56",
-          "nu"
-        ],
-        "to": "liga_oun"
-      },
-      {
-        "from": [
-          "ou.psilper",
-          "nu"
-        ],
-        "to": "liga_oun"
-      },
-      {
-        "from": [
-          "phi",
-          "eta",
-          "sigma",
-          "uni1F76"
-        ],
-        "to": "liga_phesi"
-      },
-      {
-        "from": [
-          "phi",
-          "eta",
-          "sigma",
-          "iota"
-        ],
-        "to": "liga_phesi_plain"
-      }
-    ],
-    "scripts": [
-      "DFLT",
-      "grek",
-      "latn"
-    ],
-    "features": [
-      "liga",
-      "clig",
-      "rlig",
-      "dlig",
-      "hlig"
-    ]
+  "generated_by": "tools/fusion-coverage.py (HarfBuzz real-shaping)",
+  "gate": 60.0,
+  "shipping_features": [
+    "liga",
+    "clig",
+    "rlig",
+    "dlig",
+    "hlig"
+  ],
+  "required_sequences": [
+    "γερ",
+    "μω",
+    "οὐ",
+    "φησ"
+  ],
+  "nomina_sacra_expected": {
+    "ΘΣ": "θεός/θεοῦ/θεόν (God)",
+    "ΚΣ": "κύριος (Lord) — WH v.10",
+    "ΙΣ": "Ἰησοῦς (Jesus) — WH v.17",
+    "ΧΣ": "Χριστός (Christ) — WH v.17"
   },
-  "verify": {
-    "scripts": [
-      "DFLT",
-      "grek",
-      "latn"
-    ],
-    "features": [
-      "liga",
-      "clig",
-      "rlig",
-      "dlig",
-      "hlig"
-    ],
-    "ligature_count": 43,
-    "ligatures": [
-      "ou.psilper+nu->liga_oun",
-      "gamma+epsilon+rho->liga_ger",
-      "epsilon+iotatonos->ei.ox",
-      "epsilon+iota->ei",
-      "epsilon+uni1F30->ei.psil",
-      "epsilon+uni1F31->ei.das",
-      "epsilon+uni1F32->ei.psilvar",
-      "epsilon+uni1F33->ei.dasvar",
-      "epsilon+uni1F34->ei.psilox",
-      "epsilon+uni1F35->ei.dasox",
-      "epsilon+uni1F36->ei.psilper",
-      "epsilon+uni1F37->ei.dasper",
-      "epsilon+uni1F76->ei.var",
-      "epsilon+uni1F77->ei.ox",
-      "epsilon+uni1FD6->ei.per",
-      "kappa+alpha+uni1F76->kai",
-      "kappa+alpha+iotatonos->kai",
-      "kappa+alpha+iota->kai",
-      "kappa+alpha+uni1F77->kai",
-      "lambda+lambda->lambdalambda",
-      "uni03BC+omega->liga_mo",
-      "omicron+uni1F56+nu->liga_oun",
-      "omicron+uni03C2->omicronsigma",
-      "omicron+upsilontonos->ou.ox",
-      "omicron+uni1FE6->ou.per",
-      "omicron+uni1FE3->ou.dierox",
-      "omicron+uni1FE2->ou.diervar",
-      "omicron+upsilondieresis->ou.dier",
-      "omicron+sigma->omicronsigma",
-      "omicron+upsilon->ou",
-      "omicron+uni1F50->ou.psil",
-      "omicron+uni1F51->ou.das",
-      "omicron+uni1F52->ou.psilvar",
-      "omicron+uni1F53->ou.dasox",
-      "omicron+uni1F54->ou.psilox",
-      "omicron+uni1F56->ou.psilper",
-      "omicron+uni1F57->ou.dasper",
-      "omicron+uni1F7A->ou.var",
-      "omicron+uni1F7B->ou.ox",
-      "sigma+tau->uni03DA",
-      "upsilon+iota->upsiota",
-      "phi+eta+sigma+iota->liga_phesi_plain",
-      "phi+eta+sigma+uni1F76->liga_phesi"
-    ]
-  }
+  "corpus_files": [
+    "dem_18_psephisma.json",
+    "hymn_delos_callimachus.json",
+    "iliad_a1_117.json",
+    "john1_wh.json"
+  ],
+  "report": [
+    {
+      "font": "cardo-ou",
+      "path": "/Volumes/RAID10/Projects/grecs-du-roi/src/fonts/cardo-ou.woff2",
+      "cmap_codepoints": 3,
+      "greek_codepoints": 0,
+      "gsub_ligature_counts": {
+        "ccmp": 0
+      },
+      "harfbuzz": true,
+      "pairs_total": 17916,
+      "pairs_covered": 0,
+      "pairs_pct": 0.0,
+      "words_total": 4144,
+      "words_covered": 0,
+      "words_pct": 0.0,
+      "top_fusions": [],
+      "required_seq_live": {
+        "γερ": false,
+        "μω": false,
+        "οὐ": false,
+        "φησ": false
+      },
+      "corpus_lines": 498,
+      "nomina_sacra_letters": {
+        "ΘΣ": false,
+        "ΚΣ": false,
+        "ΙΣ": false,
+        "ΧΣ": false
+      }
+    },
+    {
+      "font": "gentium-kai-cap",
+      "path": "/Volumes/RAID10/Projects/grecs-du-roi/src/fonts/gentium-kai-cap.woff2",
+      "cmap_codepoints": 2,
+      "greek_codepoints": 1,
+      "gsub_ligature_counts": {},
+      "harfbuzz": true,
+      "pairs_total": 17916,
+      "pairs_covered": 0,
+      "pairs_pct": 0.0,
+      "words_total": 4144,
+      "words_covered": 0,
+      "words_pct": 0.0,
+      "top_fusions": [],
+      "required_seq_live": {
+        "γερ": false,
+        "μω": false,
+        "οὐ": false,
+        "φησ": false
+      },
+      "corpus_lines": 498,
+      "nomina_sacra_letters": {
+        "ΘΣ": false,
+        "ΚΣ": false,
+        "ΙΣ": false,
+        "ΧΣ": false
+      }
+    },
+    {
+      "font": "gfs-didot",
+      "path": "/Volumes/RAID10/Projects/grecs-du-roi/src/fonts/gfs-didot.woff2",
+      "cmap_codepoints": 1104,
+      "greek_codepoints": 322,
+      "gsub_ligature_counts": {
+        "c2sc": 0,
+        "dnom": 0,
+        "fina": 0,
+        "hist": 0,
+        "liga": 5,
+        "lnum": 0,
+        "numr": 0,
+        "onum": 0,
+        "pnum": 0,
+        "sinf": 0,
+        "smcp": 0,
+        "sups": 0,
+        "tnum": 0
+      },
+      "harfbuzz": true,
+      "pairs_total": 17916,
+      "pairs_covered": 0,
+      "pairs_pct": 0.0,
+      "words_total": 4144,
+      "words_covered": 0,
+      "words_pct": 0.0,
+      "top_fusions": [],
+      "required_seq_live": {
+        "γερ": false,
+        "μω": false,
+        "οὐ": false,
+        "φησ": false
+      },
+      "corpus_lines": 498,
+      "nomina_sacra_letters": {
+        "ΘΣ": true,
+        "ΚΣ": true,
+        "ΙΣ": true,
+        "ΧΣ": true
+      }
+    },
+    {
+      "font": "grecs-roi-greek",
+      "path": "/Volumes/RAID10/Projects/grecs-du-roi/src/fonts/grecs-roi-greek.otf",
+      "cmap_codepoints": 363,
+      "greek_codepoints": 310,
+      "gsub_ligature_counts": {
+        "liga": 43,
+        "clig": 43,
+        "rlig": 43,
+        "dlig": 43,
+        "hlig": 43
+      },
+      "harfbuzz": true,
+      "pairs_total": 17916,
+      "pairs_covered": 1618,
+      "pairs_pct": 9.03103371288234,
+      "words_total": 4144,
+      "words_covered": 1351,
+      "words_pct": 32.601351351351354,
+      "top_fusions": [
+        {
+          "text": "ος",
+          "count": 183
+        },
+        {
+          "text": "ει",
+          "count": 122
+        },
+        {
+          "text": "ου",
+          "count": 110
+        },
+        {
+          "text": "στ",
+          "count": 95
+        },
+        {
+          "text": "εί",
+          "count": 67
+        },
+        {
+          "text": "λλ",
+          "count": 49
+        },
+        {
+          "text": "οῦ",
+          "count": 44
+        },
+        {
+          "text": "εῖ",
+          "count": 33
+        },
+        {
+          "text": "ού",
+          "count": 24
+        },
+        {
+          "text": "οσ",
+          "count": 23
+        },
+        {
+          "text": "οὐ",
+          "count": 21
+        },
+        {
+          "text": "εἰ",
+          "count": 18
+        },
+        {
+          "text": "οὔ",
+          "count": 17
+        },
+        {
+          "text": "εἶ",
+          "count": 16
+        },
+        {
+          "text": "εἴ",
+          "count": 9
+        },
+        {
+          "text": "εὶ",
+          "count": 8
+        },
+        {
+          "text": "μω",
+          "count": 6
+        },
+        {
+          "text": "εἵ",
+          "count": 5
+        },
+        {
+          "text": "καί",
+          "count": 5
+        },
+        {
+          "text": "οὺ",
+          "count": 4
+        },
+        {
+          "text": "και",
+          "count": 4
+        },
+        {
+          "text": "οὗ",
+          "count": 3
+        },
+        {
+          "text": "γερ",
+          "count": 3
+        },
+        {
+          "text": "οὖν",
+          "count": 2
+        },
+        {
+          "text": "οὖ",
+          "count": 2
+        }
+      ],
+      "required_seq_live": {
+        "γερ": true,
+        "μω": true,
+        "οὐ": true,
+        "φησ": true
+      },
+      "corpus_lines": 498,
+      "nomina_sacra_letters": {
+        "ΘΣ": true,
+        "ΚΣ": true,
+        "ΙΣ": true,
+        "ΧΣ": true
+      }
+    },
+    {
+      "font": "grecs-roi-greek",
+      "path": "/Volumes/RAID10/Projects/grecs-du-roi/src/fonts/grecs-roi-greek.woff2",
+      "cmap_codepoints": 363,
+      "greek_codepoints": 310,
+      "gsub_ligature_counts": {
+        "liga": 43,
+        "clig": 43,
+        "rlig": 43,
+        "dlig": 43,
+        "hlig": 43
+      },
+      "harfbuzz": true,
+      "pairs_total": 17916,
+      "pairs_covered": 1618,
+      "pairs_pct": 9.03103371288234,
+      "words_total": 4144,
+      "words_covered": 1351,
+      "words_pct": 32.601351351351354,
+      "top_fusions": [
+        {
+          "text": "ος",
+          "count": 183
+        },
+        {
+          "text": "ει",
+          "count": 122
+        },
+        {
+          "text": "ου",
+          "count": 110
+        },
+        {
+          "text": "στ",
+          "count": 95
+        },
+        {
+          "text": "εί",
+          "count": 67
+        },
+        {
+          "text": "λλ",
+          "count": 49
+        },
+        {
+          "text": "οῦ",
+          "count": 44
+        },
+        {
+          "text": "εῖ",
+          "count": 33
+        },
+        {
+          "text": "ού",
+          "count": 24
+        },
+        {
+          "text": "οσ",
+          "count": 23
+        },
+        {
+          "text": "οὐ",
+          "count": 21
+        },
+        {
+          "text": "εἰ",
+          "count": 18
+        },
+        {
+          "text": "οὔ",
+          "count": 17
+        },
+        {
+          "text": "εἶ",
+          "count": 16
+        },
+        {
+          "text": "εἴ",
+          "count": 9
+        },
+        {
+          "text": "εὶ",
+          "count": 8
+        },
+        {
+          "text": "μω",
+          "count": 6
+        },
+        {
+          "text": "εἵ",
+          "count": 5
+        },
+        {
+          "text": "καί",
+          "count": 5
+        },
+        {
+          "text": "οὺ",
+          "count": 4
+        },
+        {
+          "text": "και",
+          "count": 4
+        },
+        {
+          "text": "οὗ",
+          "count": 3
+        },
+        {
+          "text": "γερ",
+          "count": 3
+        },
+        {
+          "text": "οὖν",
+          "count": 2
+        },
+        {
+          "text": "οὖ",
+          "count": 2
+        }
+      ],
+      "required_seq_live": {
+        "γερ": true,
+        "μω": true,
+        "οὐ": true,
+        "φησ": true
+      },
+      "corpus_lines": 498,
+      "nomina_sacra_letters": {
+        "ΘΣ": true,
+        "ΚΣ": true,
+        "ΙΣ": true,
+        "ΧΣ": true
+      }
+    },
+    {
+      "font": "noto-serif-uk",
+      "path": "/Volumes/RAID10/Projects/grecs-du-roi/src/fonts/noto-serif-uk.woff2",
+      "cmap_codepoints": 3,
+      "greek_codepoints": 0,
+      "gsub_ligature_counts": {},
+      "harfbuzz": true,
+      "pairs_total": 17916,
+      "pairs_covered": 0,
+      "pairs_pct": 0.0,
+      "words_total": 4144,
+      "words_covered": 0,
+      "words_pct": 0.0,
+      "top_fusions": [],
+      "required_seq_live": {
+        "γερ": false,
+        "μω": false,
+        "οὐ": false,
+        "φησ": false
+      },
+      "corpus_lines": 498,
+      "nomina_sacra_letters": {
+        "ΘΣ": false,
+        "ΚΣ": false,
+        "ΙΣ": false,
+        "ΧΣ": false
+      }
+    }
+  ]
 }

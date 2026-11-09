@@ -143,3 +143,77 @@ None.
 - `/Volumes/RAID10/jon/Projects/grecs-du-roi/qa-evidence/firefox-desktop-grid.png`
 - `/Volumes/RAID10/jon/Projects/grecs-du-roi/qa-evidence/firefox-desktop-passages.png`
 - `/Volumes/RAID10/jon/Projects/grecs-du-roi/qa-evidence/firefox-toggle-on-off.png`
+
+---
+
+## t_8e2d4b30 — Scanned marginalia & verse-order verification (2026-11-09)
+
+**Scope:** Compare the scanned Estienne 1550 page (`qa-evidence/estienne-scan.jpg`)
+against the corpus `corpus/john1_wh.json` — verse order, title, marginalia, endmark.
+
+**Method:**
+- Measured page geometry (main text 11–68% width; margin refs 74–80%; page edge >92%).
+- Cropped the right-margin column at 5× scale (`qa-evidence/crops/margin_full.png`)
+  and transcribed all 19 parallel-reference lines.
+- Cropped the running title, decorated initial, and l.i. endmark for verification.
+- Confirmed single-column layout (no two-column reading-order ambiguity).
+
+**Findings:**
+1. **Verse order: OK.** Scan reads 1→19 top-to-bottom (left-margin numerals α…σ).
+   Corpus has 19 verses in the same order. No missing verses, no reordering.
+2. **Title: exact match.** Scan "ΤΟ ΚΑΤΑ ΙΩΑΝΝΗΝ ΑΓΙΟΝ ΕΥΑΓΓΕΛΙΟΝ" = corpus title.
+3. **Marginalia: gap.** Scan carries 19 parallel references (Col 1:16, Matt 3:16,
+   Rev 2:4, Luke 3:16, Eph 1:11, 2 Ammonian markers, Matt 1:17, Luke 2:4,
+   Matt 17:16, 2 Pet 1:4, 1 Cor 11:7, 1 Cor 5:4, etc.). Corpus marginalia array
+   is empty. Two lines flagged [unclear] (siglums "E'ερ", "Κερκ") — do not
+   commit to corpus until confirmed against a second source.
+4. **Endmark: gap.** Scan has l.i. ligature at bottom center; corpus schema has
+   no endmark field.
+
+**Evidence:**
+- `qa-evidence/scanned-marginalia.md` — full transcription + comparison
+- `qa-evidence/crops/margin_full.png` — clean 5× crop of the right margin
+- `qa-evidence/crops/title.png`, `initial.png`, `endmark.png` — page furniture
+- `qa-evidence/crops/mr1..4.png` — band-by-band marginalia strips
+
+**Open items for follow-up (not blocking this task):**
+- Decide whether to add the 19 marginalia to the corpus schema (would require
+  a schema change — new field `marginalia: [{book, chapter, verse, raw}]`).
+- Confirm the two [unclear] siglums against a digital Estienne 1550 or a
+  second physical copy.
+- Add an `endmark` field to the corpus to capture the l.i. ligature.
+
+---
+
+## t_c33604f9 — Phase 2.0 target corpus + fusion-coverage rig (2026-11-09)
+
+**Corpus (verbatim Perseus canonical-greekLit, NFC):**
+- `corpus/iliad_a1_117.json` — Il. A 1–117 (Murray 1924), 117 lines
+- `corpus/hymn_delos_callimachus.json` — Callimachus Hymn 4 (Delos), 326 lines
+- `corpus/dem_18_psephisma.json` — Demosthenes 18 §§29/118/164/165: genuine
+  Athenian decree texts quoted verbatim with full ψήφισμα protocol
+  (ἐπὶ ἄρχοντος… φυλῆς πρυτανευούσης… δεδόχθαι τῇ βουλῇ καὶ τῷ δήμῳ)
+- `corpus/john1_wh.json` — unchanged (WH John 1)
+
+**Rig:** `tools/fusion-coverage.py` rewritten on real HarfBuzz shaping
+(uharfbuzz + fontTools; the old GSUB-string matcher under-counted). Measures
+adjacent-pair % and word-% touched by a LIVE ligature (features on vs. off),
+gate sequences γερ/μω/οὐ/φησὶ, and nomina letters, per font →
+`src/fonts/coverage.json`. **Measured baseline: grecs-roi-greek 9.0% pairs /
+32.6% words** (old string-match numbers were 4.6%/22% — both below the
+≥60% gate; the gap is Phase 2.2's worklist, and `top_fusions` in
+coverage.json ranks what to draw first: ος, ει, ου, στ, εί, λλ, οῦ…).
+
+**Nomina sacra:** `qa-evidence/nomina-sacra.md` — fol. 161 attests the
+overlined ΘΣ-form of θεός only (v.18 confirmed twice; v.1–2 probable),
+everything else on the page printed in full; full Stephanus set listed as
+design reference for Phase 2.3.
+
+**Browsers:** `tools/qa_three_browser.py` — Chromium+Firefox+WebKit(Playwright
+engine) PASS incl. same-Unicode copy invariant + two-tier NFC copy-diff
+(skeleton empty now; strict-byte pending on vv.1,2,17,18 = drop-cap + nomina
+display forms, Phase 2.4 target). **Real Safari: needs the one-time human
+step** `sudo /usr/bin/safaridriver --enable` (password prompt cannot be
+answered headless), then `/usr/bin/safaridriver -p 55555` in background;
+the harness auto-detects and runs it (selenium already installed).
+
