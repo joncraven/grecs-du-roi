@@ -1,0 +1,26 @@
+name: build-gates
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: deps
+        run: pip install fonttools uharfbuzz brotli
+      - name: license manifest check (every shipped glyph OFL/PD)
+        run: python3 tools/license_manifest.py --check
+      - name: fusion coverage gate (>=60% of corpus words, HarfBuzz)
+        run: python3 tools/fusion-coverage.py
+      - name: cursive face QA (GSUB + polytonic marks)
+        run: python3 tools/qa_cursive.py
+      # Browser gates (qa_fusion_toggle.py, qa_reader_toggle.py,
+      # qa_three_browser.py) run on the project workstation — they are
+      # pinned to the local Playwright browser cache by design.

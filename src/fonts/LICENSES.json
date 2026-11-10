@@ -1,0 +1,100 @@
+{
+  "generated_by": "tools/license_manifest.py",
+  "fonts": {
+    "cardo-ou.woff2": {
+      "family": "Cardo",
+      "license": "OFL-1.1",
+      "provenance": "Latin-extended OU ligature letter subset",
+      "sha256": "1e968c3a47f9e975394eaf8e80f2433683cc84d13a9c7e10a2364b5ca593d149",
+      "bytes": 920,
+      "license_file": "OFL-Cardo.txt",
+      "license_sha256": "8e28b778b6e1a7ff9ca72f4dee2d53120aa2856dc1bfd0be44307e365b0e45bb"
+    },
+    "cardo-polytonic.woff2": {
+      "family": "Cardo",
+      "license": "OFL-1.1",
+      "provenance": "Full polytonic Greek subset for the reader's modern mode",
+      "sha256": "9e0031e96d5ee8b348e57b55abae165d88dcd9a34e866dfce85a07a52eebdb3e",
+      "bytes": 56872,
+      "license_file": "OFL-Cardo.txt",
+      "license_sha256": "8e28b778b6e1a7ff9ca72f4dee2d53120aa2856dc1bfd0be44307e365b0e45bb"
+    },
+    "gentium-kai-cap.woff2": {
+      "family": "Gentium Plus",
+      "license": "OFL-1.1",
+      "provenance": "Kai capital U+03CF subset; SIL OFL 1.1 (upstream: sil.org/Gentium)",
+      "sha256": "1db7d91ea69f945bb3c1ebac9cd2d22316fc5540baa709990e359b4931625998",
+      "bytes": 2724,
+      "license_file": "OFL-Gentium.txt",
+      "license_sha256": "c309a440be606e283ccacc746662d714b9c5b5a7a0a10dd2514b90206b55ddfe"
+    },
+    "gfs-didot.woff2": {
+      "family": "GFS Didot",
+      "license": "OFL-1.1",
+      "provenance": "Greek Font Society subset, bbox-recomputed (tools/fix_font_bboxes.py)",
+      "sha256": "872589c461348217234963eee40c65ecd651446ed984d1ce3644b9e72f334c75",
+      "bytes": 53796,
+      "license_file": "OFL-GFSDidot.txt",
+      "license_sha256": "9e19c0d2e7e7adcbe9dfd0749e34dda41e7e356e0f2cc082d61d2fc9b6e0cef7"
+    },
+    "grecs-roi-greek-cursive.otf": {
+      "family": "GrecsRoi Greek Cursive",
+      "license": "OFL-1.1",
+      "provenance": "Desktop twin of the cursive woff2",
+      "sha256": "4168e4a2c1b52a9a8a586676eb7d99308003c3ccfefd07e091d822e33100b678",
+      "bytes": 204608,
+      "license_file": "OFL-GFSGazis.txt",
+      "license_sha256": "d4c4c42b54e30321fc1f3d8c8fd4d3c62bc7f64f4f8702ef27ffc0c89144c40e"
+    },
+    "grecs-roi-greek-cursive.woff2": {
+      "family": "GrecsRoi Greek Cursive",
+      "license": "OFL-1.1",
+      "provenance": "Phase-2.1/2.2 slanted derivative + fused ligatures (tools/cursive_masters.py, tools/ligature_engine.py)",
+      "sha256": "4369ee291de96580a1504ee0b534e3d975c4c4b628ff4db96353057a3bf15031",
+      "bytes": 38172,
+      "license_file": "OFL-GFSGazis.txt",
+      "license_sha256": "d4c4c42b54e30321fc1f3d8c8fd4d3c62bc7f64f4f8702ef27ffc0c89144c40e"
+    },
+    "grecs-roi-greek.otf": {
+      "family": "GrecsRoi Greek",
+      "license": "OFL-1.1",
+      "provenance": "Desktop twin of the woff2",
+      "sha256": "ca72958cf584c26161335707b966c8aa0901d3757906b2066e1e6cd2ca64573e",
+      "bytes": 59060,
+      "license_file": "OFL-GFSGazis.txt",
+      "license_sha256": "d4c4c42b54e30321fc1f3d8c8fd4d3c62bc7f64f4f8702ef27ffc0c89144c40e"
+    },
+    "grecs-roi-greek.woff2": {
+      "family": "GrecsRoi Greek",
+      "license": "OFL-1.1",
+      "provenance": "Derivative of GFS Gazis (OFL); rebuilt by tools/build_typography.py",
+      "sha256": "a023f11aaf6f7e2dcf001ade6b89e812d7a2171b5014722bbd81835c403f5ae4",
+      "bytes": 32868,
+      "license_file": "OFL-GFSGazis.txt",
+      "license_sha256": "d4c4c42b54e30321fc1f3d8c8fd4d3c62bc7f64f4f8702ef27ffc0c89144c40e"
+    },
+    "noto-serif-uk.woff2": {
+      "family": "Noto Serif",
+      "license": "OFL-1.1",
+      "provenance": "Cyrillic UK U+A64A/B subset; SIL OFL 1.1 (upstream: fonts.google.com/notoserif)",
+      "sha256": "ddb80d5722eb62803d8061d60670b973c292557c0b0bc0392832f0ee4baeba91",
+      "bytes": 3104,
+      "license_file": "OFL-NotoSerif.txt",
+      "license_sha256": "cee9892f9f0cc8fe882c9e9537ee6a89621d86ee7ceaf70b02e2b2b1c25c061a"
+    }
+  },
+  "assets": {
+    "corpus/*.json": [
+      "public-domain",
+      "Westcott-Hort 1881 + Estienne 1550 (PD); scan-collated wording, Perseus canonical-greekLit"
+    ],
+    "src/glyphs/*": [
+      "public-domain",
+      "Wikimedia Commons scans of historical Greek prints/ligatures"
+    ],
+    "src/estienne-john1.html": [
+      "public-domain-text",
+      "Recreation of the PD Estienne 1550 folio-161 scan"
+    ]
+  }
+}
