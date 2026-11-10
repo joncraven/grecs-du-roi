@@ -7,6 +7,7 @@
   <meta name="description"
         content="A typographic specimen showcasing the Grecs du Roi typeface — Greek forms cut for royal manuscript revivals.">
   <link rel="stylesheet" href="styles.css">
+  <script src="donate.js" defer></script>
 </head>
 
 <body>
@@ -346,6 +347,47 @@
           “Spoken words fly, written words remain.”
         </p>
       </article>
+    </section>
+
+    <!-- ================================================================
+         SECTION 4 — CONTRIBUTE
+         A one-off, chargeable contribution via Polar (the same Checkout
+         Link the latin.craven.fr and englisc.craven.fr sites use). The
+         payment URL lives in data-donate-link (NOT an <a href>) so the
+         server-rendered HTML stays free of external anchors; donate.js
+         opens it in a new tab with the chosen amount appended as a
+         ?amount= prefill. Default 10 €. Without JS the button is a plain
+         submit: the browser reloads and the copy still conveys the
+         one-off, chargeable intent.
+         ================================================================ -->
+    <section class="contribute" aria-labelledby="contribute-heading">
+      <h2 id="contribute-heading" class="section-heading">Contribute</h2>
+      <p class="contribute__message">
+        If you find this site useful, a one-off contribution helps keep it
+        online and fund new specimens.
+      </p>
+      <form
+        class="contribute__form"
+        action="."
+        method="get"
+        data-donate-link="https://buy.polar.sh/polar_cl_Kd3W8p3ITjGlu5OZRWIc5azuvrkaq1cOwIfWL261D7i">
+        <div class="contribute__row">
+          <label for="contribute-amount" class="contribute__label">Amount (&euro;):</label>
+          <input
+            type="number"
+            name="amount"
+            id="contribute-amount"
+            class="contribute__amount"
+            min="1"
+            step="1"
+            value="10" />
+          <button type="submit" class="contribute__button">&euro;10 (one-off, chargeable)</button>
+        </div>
+        <p class="contribute__fine">
+          Amount is in euros. A one-off, chargeable payment via Polar —
+          no account or app needed.
+        </p>
+      </form>
     </section>
 
   </main>

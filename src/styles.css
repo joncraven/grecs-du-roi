@@ -760,3 +760,89 @@ main > section + section {
     transform: none;
   }
 }
+
+/* ============================================================
+   3g. CONTRIBUTE — one-off chargeable contribution via Polar
+   (t_f742647a). House style: illuminated card on the parchment
+   ground, double gold rule, rubric for the CTA. The payment URL
+   is in data-donate-link (not an <a href>), so this block is
+   purely presentational — no external anchors are emitted.
+   ============================================================ */
+
+.contribute {
+  margin-top: var(--space-8);
+  padding: var(--space-6) var(--space-4);
+  max-width: var(--space-measure);
+  background: var(--color-parchment-50);
+  border: var(--border-illumi);
+  border-radius: var(--radius-md);
+  box-shadow: 0 2px 14px var(--color-shadow);
+}
+
+.contribute .section-heading {
+  margin: 0 0 var(--space-3) 0;
+  font-size: var(--text-lg);
+  color: var(--color-rubric);
+  letter-spacing: 0.01em;
+}
+
+.contribute__message {
+  margin: 0 0 var(--space-5) 0;
+  font-size: var(--text-base);
+  color: var(--color-ink-700);
+  line-height: var(--leading-body);
+  text-wrap: pretty;
+}
+
+.contribute__row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.contribute__label {
+  font-size: var(--text-sm);
+  color: var(--color-ink-400);
+}
+
+.contribute__amount {
+  width: 5.5em;
+  padding: 0.3em 0.5em;
+  font-family: var(--font-grec-roi);
+  font-size: var(--text-sm);
+  color: var(--color-ink-700);
+  background: var(--color-parchment-100);
+  border: 1px solid var(--color-parchment-400);
+  border-radius: var(--radius-sm);
+}
+
+.contribute__amount:focus-visible {
+  outline: 2px solid var(--color-gold-500);
+  outline-offset: 2px;
+}
+
+.contribute__button {
+  font-family: var(--font-grec-roi);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--color-parchment-50);
+  background: var(--color-rubric);
+  padding: 0.55em 1.4em;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--duration-1) var(--ease-rubric);
+}
+
+.contribute__button:hover,
+.contribute__button:focus {
+  background: var(--color-rubric-deep);
+}
+
+.contribute__fine {
+  margin: var(--space-4) 0 0 0;
+  font-size: var(--text-xs);
+  color: var(--color-ink-100);
+  line-height: var(--leading-body);
+}
