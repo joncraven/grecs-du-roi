@@ -135,6 +135,19 @@ Measured gap (t_a8519b7b experiment, not opinion):
 - Toggle: "grecs du roi" ⇄ "modern polytonic (Cardo)" on the *same* Unicode text.
 - Specimen page updates: replace the four PNG hero cells with live GSUB (punch-list minors 1, 2, 5), re-subset Didot to silence Firefox bbox warnings (minor 4).
 
+> **DONE (2026-11-10, t_1bdfa688).** Reading site = `src/estienne-john1.html` with a
+> face radiogroup (grecs du roi ⇄ modern polytonic/Cardo); the toggle changes only the
+> CSS font stack — `tools/qa_reader_toggle.py` proves text byte-identity, Cardo
+> full-cmap coverage, no PUA, zero bbox warnings in chromium+firefox+webkit.
+> Minor 4 closed (`tools/fix_font_bboxes.py`, 154 glyphs; Firefox console 0 warnings).
+> Minor 5 closed (hover-reveal claim removed). Public repo: github.com/joncraven/grecs-du-roi
+> (build pipeline + `tools/license_manifest.py --check` in CI, all OFL).
+> Deployed to grecs.craven.fr via `deploy/deploy.sh` (main-only, static tree, marked
+> Caddy block, web01 mount via `deploy/ensure-mount.sh`); verified live with
+> `tools/qa_live_site.py` (toggle, fonts, copy, hero cells all pass against the server).
+> **Outstanding human step:** add OVH A record `grecs.craven.fr → 91.99.62.203`, then
+> `./deploy/enable-tls.sh` flips to HTTPS (`curl -sfL https://grecs.craven.fr/`).
+
 ### Phase 2.6 — Commission track (parallel, unblocks on D1=A later)
 - Keep the commissioned-revival brief from `docs/grec-du-roi-answer.md` warm: RFQ text, candidate designers (Greek type community: e.g. type designers behind GFS/AIOLE releases), quote collection. When a real font arrives, it drops into the same build/verification harness with the same acceptance gate.
 

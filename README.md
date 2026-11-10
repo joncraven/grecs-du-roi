@@ -7,8 +7,7 @@ scan-faithful page of Estienne's folio 161 (John 1) can be read with real
 GSUB ligature fusion, and toggled to a modern polytonic face on the
 *identical Unicode text*.
 
-- Live specimen: https://grecs.craven.fr/
-- Reading page: https://grecs.craven.fr/estienne-john1.html
+- Live server: grecs.craven.fr (HTTPS once the DNS A record + `deploy/enable-tls.sh` land; the static tree already serves on web01)
 
 ## What ships
 
