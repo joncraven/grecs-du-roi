@@ -35,7 +35,7 @@ from pathlib import Path
 import uharfbuzz as hb
 from fontTools.ttLib import TTFont
 
-ROOT = Path("/Volumes/RAID10/jon/Projects/grecs-du-roi")
+ROOT = Path(__file__).resolve().parent.parent
 BASE = ROOT / "src/fonts/grecs-roi-greek.otf"
 CURSIVE = ROOT / "src/fonts/grecs-roi-greek-cursive.otf"
 
