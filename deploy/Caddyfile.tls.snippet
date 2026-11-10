@@ -6,6 +6,7 @@
 # replaces in place).
 grecs.craven.fr {
 	root * /srv/grecs/current
+	file_server
 	encode gzip zstd
 	@fonts path /fonts/*
 	header @fonts Cache-Control "public, max-age=86400"

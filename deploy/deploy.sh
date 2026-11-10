@@ -92,8 +92,10 @@ ok=1
 for path in / /index.html /estienne-john1.html /fonts/grecs-roi-greek-cursive.woff2 \
             /fonts/cardo-polytonic.woff2 /fonts/LICENSES.json \
             /qa-evidence/estienne-scan.jpg; do
-  code="$(curl -s -o /dev/null -w '%{http_code}' --resolve "$SITE_HOST:80:$WEB01_HOST" "http://$SITE_HOST$path" || true)"
-  echo "  http://$SITE_HOST$path → $code"
-  [ "$code" = "200" ] || ok=0
+  read -r code size < <(curl -s -o /dev/null -w '%{http_code} %{size_download}' \
+    --resolve "$SITE_HOST:80:$WEB01_HOST" "http://$SITE_HOST$path" || echo "000 0")
+  echo "  http://$SITE_HOST$path → $code ($size B)"
+  # content-type check: a 200 that serves 0 bytes is a misconfigured vhost
+  { [ "$code" = "200" ] && [ "$size" -gt 0 ]; } || ok=0
 done
 [ "$ok" = "1" ] && echo "DEPLOY OK ($SHA)" || { echo "SMOKE FAILED"; exit 1; }
