@@ -128,6 +128,36 @@ def subset_to_woff2(src: Path, dest: Path, unicodes: list[int], family: str | No
     font.close()
 
 
+def fix_glyf_bboxes(font: TTFont) -> int:
+    """Recompute glyf bounding boxes from the drawn outlines (punch-list
+    minor 4: Firefox warns on every glyph whose stored glyf bbox under-
+    flows its real outline — subset artifact of GFS Didot's FFTM hinting).
+    Stores integer bounds rounded outward so hints/overlap never exceed."""
+    import math
+    from fontTools.pens.boundsPen import BoundsPen
+
+    glyf = font["glyf"]
+    gs = font.getGlyphSet()
+    fixed = 0
+    for gname in glyf.keys():
+        g = glyf[gname]
+        if g.numberOfContours <= 0 and not getattr(g, "components", None):
+            continue
+        pen = BoundsPen(gs)
+        try:
+            g.draw(pen, gs)
+        except Exception:
+            continue
+        b = pen.bounds
+        if b is None:
+            continue
+        new = (math.floor(b[0]), math.floor(b[1]), math.ceil(b[2]), math.ceil(b[3]))
+        if new != (g.xMin, g.yMin, g.xMax, g.yMax):
+            g.xMin, g.yMin, g.xMax, g.yMax = new
+            fixed += 1
+    return fixed
+
+
 def rename_family(font: TTFont, family: str) -> None:
     ps = family.replace(" ", "") + "-Regular"
     name = font["name"]
@@ -386,8 +416,14 @@ def main() -> int:
         print("ligature engine build failed:", exc)
 
     # GFS Didot: Latin + polytonic Greek fallback (stigma small U+03DB, etc.)
+    # t_1bdfa688 / punch-list minor 4: recompute glyf bboxes after building
+    # the webfont so Firefox's "glyph bbox smaller than its outline" console
+    # warnings are gone (106/1147 glyphs under-flowed in the shipped file).
     didot = TTFont(str(didot_src))
     rename_family(didot, "GFS Didot")
+    didot_fixed = fix_glyf_bboxes(didot)
+    report["didot_bbox_fixed"] = didot_fixed
+    print(f"didot bbox recomputed on {didot_fixed} glyphs")
     save_woff2(didot, FONTS_DIR / "gfs-didot.woff2")
     didot.close()
 
@@ -397,6 +433,29 @@ def main() -> int:
         unicodes=[0x0222, 0x0223, 0x0020],
         family="Cardo",
     )
+    # t_1bdfa688 Phase 2.5: full polytonic Greek Cardo for the reading-site
+    # "modern polytonic" side of the grecs-du-roi ⇄ Cardo toggle. Covers a
+    # superset of the GrecsRoi cursive cmap so the toggle swaps faces, never
+    # text (same-Unicode invariant holds across both modes).
+    cardo_poly = TTFont(str(cardo_src))
+    cp_opts = Options()
+    cp_opts.layout_features = ["*"]
+    cp_opts.glyph_names = True
+    cp_opts.notdef_outline = True
+    cp_opts.recommended_glyphs = True
+    cp_opts.drop_tables = ["DSIG"]
+    cp_sub = Subsetter(options=cp_opts)
+    cp_sub.populate(unicodes=(
+        list(range(0x20, 0x260)) + list(range(0x300, 0x400))
+        + list(range(0x1E00, 0x2000)) + [0x2BC, 0x2BD, 0x2F7,
+                                         0x2013, 0x2014, 0x2018, 0x2019,
+                                         0x201C, 0x201D, 0x2020, 0x2026,
+                                         0x2030, 0x2126, 0x2206, 0x2BF]))
+    cp_sub.subset(cardo_poly)
+    rename_family(cardo_poly, "Cardo")
+    report["cardo_polytonic_bbox_fixed"] = fix_glyf_bboxes(cardo_poly)
+    save_woff2(cardo_poly, FONTS_DIR / "cardo-polytonic.woff2")
+    cardo_poly.close()
     subset_to_woff2(
         gentium_src,
         FONTS_DIR / "gentium-kai-cap.woff2",

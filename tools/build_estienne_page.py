@@ -139,6 +139,12 @@ HTML = f"""<!DOCTYPE html>
   src: url("fonts/gfs-didot.woff2") format("woff2");
   font-display: block;
 }}
+@font-face {{
+  font-family: "Cardo Polytonic";
+  src: url("fonts/cardo-polytonic.woff2") format("woff2");
+  unicode-range: U+0020-03FF, U+1F00-1FFF, U+2000-2206, U+2126;
+  font-display: block;
+}}
 :root {{
   --parchment: #efe5c8; --parchment-deep: #e3d3ac;
   --ink: #2a2115; --ink-soft: #453a27; --rubric: #7c2d1c; --rule: #b99f6c;
@@ -151,6 +157,14 @@ body {{
   font-feature-settings: "liga" 1, "clig" 1, "rlig" 1, "dlig" 1, "hlig" 1;
   font-variant-ligatures: contextual discretionary;
 }}
+/* Phase 2.5 reading-site toggle: "modern polytonic (Cardo)" swaps ONLY the
+   font-family on the identical NFC text nodes — no text substitution. */
+body.mode-modern .folio {{
+  font-family: "Cardo Polytonic", "GFS Didot", Cardo, Georgia, "Times New Roman", serif;
+  font-feature-settings: "liga" 0, "clig" 0, "rlig" 0, "dlig" 0, "hlig" 0;
+  font-variant-ligatures: none;
+}}
+body.mode-modern {{ background: #cbb684; }}
 .folio {{
   max-width: 820px; margin: 2rem auto; padding: 2.6rem 2.2rem 3rem;
   background:
@@ -200,6 +214,10 @@ body {{
 </head>
 <body>
 <div class="toolbar">
+  <span class="face-toggle" role="radiogroup" aria-label="Typeface">
+    <label><input type="radio" name="face" value="roi" checked> grecs du roi</label>
+    <label><input type="radio" name="face" value="modern"> modern polytonic (Cardo)</label>
+  </span>
   <label><input type="checkbox" id="nomTgl" checked> nomina sacra (ΘΥ̅)</label>
   <span>text: Estienne 1550 scan-collated (PD) · <a href="index.html">ligature specimen</a> ·
         <a href="../qa-evidence/estienne-scan.jpg">source scan (PD)</a></span>
@@ -229,6 +247,23 @@ function applyNom() {{
 }}
 tgl.addEventListener('change', applyNom);
 document.querySelectorAll('.nom').forEach(s => s._abbr = s.textContent);
+
+/* Phase 2.5 face toggle: grecs du roi ⇄ modern polytonic (Cardo).
+   Same Unicode text in both modes — only the CSS font stack changes. */
+const faceRadios = document.querySelectorAll('input[name="face"]');
+function applyFace() {{
+  const v = document.querySelector('input[name="face"]:checked').value;
+  document.body.classList.toggle('mode-modern', v === 'modern');
+  try {{ localStorage.setItem('gdr-face', v); }} catch (e) {{}}
+}}
+faceRadios.forEach(r => r.addEventListener('change', applyFace));
+try {{
+  const saved = localStorage.getItem('gdr-face');
+  if (saved === 'modern') {{
+    document.querySelector('input[name="face"][value="modern"]').checked = true;
+    applyFace();
+  }}
+}} catch (e) {{}}
 </script>
 </body>
 </html>
