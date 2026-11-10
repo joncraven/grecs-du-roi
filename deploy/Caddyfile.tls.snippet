@@ -1,0 +1,16 @@
+# --- grecs-du-roi reader grecs.craven.fr TLS (t_1bdfa688) ---
+# Applied by scripts/enable-tls.sh AFTER
+#   dig +short A grecs.craven.fr
+# equals web01's IPv4 (91.99.62.203). Until then, keep the http:// block
+# from Caddyfile.http.snippet (same marked start/end pair so the flip
+# replaces in place).
+grecs.craven.fr {
+	root * /srv/grecs/current
+	encode gzip zstd
+	@fonts path /fonts/*
+	header @fonts Cache-Control "public, max-age=86400"
+	@assets path /glyphs/*, /qa-evidence/*
+	header @assets Cache-Control "public, max-age=604800"
+	header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+}
+# --- end grecs-du-roi reader ---
