@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Flip grecs.craven.fr from the HTTP-only vhost to Let's Encrypt TLS.
+# Flip greek.craven.fr from the HTTP-only vhost to Let's Encrypt TLS.
 # Gate: the OVH A record must already equal web01's IPv4, otherwise ACME
 # fails and burns rate limits (latin/mahjong gotcha).
 #
@@ -10,7 +10,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 WEB01_HOST="${WEB01_HOST:-91.99.62.203}"
 WEB01_USER="${WEB01_USER:-root}"
 SSH_KEY="${SSH_KEY:-$HOME/.ssh/agent-ed25519}"
-SITE_HOST="${SITE_HOST:-grecs.craven.fr}"
+SITE_HOST="${SITE_HOST:-greek.craven.fr}"
 SSH=(ssh -i "$SSH_KEY" -o StrictHostKeyChecking=accept-new -o BatchMode=yes "$WEB01_USER@$WEB01_HOST")
 
 ip="$(dig +short A "$SITE_HOST" | tail -1)"
@@ -34,7 +34,7 @@ from pathlib import Path
 p = Path("/srv/web/Caddyfile")
 text = p.read_text()
 tls = Path("/tmp/grecs.caddy.tls.snippet").read_text()
-start = "# --- grecs-du-roi reader grecs.craven.fr"
+start = "# --- grecs-du-roi reader"  # prefix match: old grecs.* and new greek.* blocks
 end = "# --- end grecs-du-roi reader ---"
 if start in text and end in text:
     pre = text[:text.index(start)]

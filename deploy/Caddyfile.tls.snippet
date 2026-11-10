@@ -1,10 +1,10 @@
-# --- grecs-du-roi reader grecs.craven.fr TLS (t_1bdfa688) ---
-# Applied by scripts/enable-tls.sh AFTER
-#   dig +short A grecs.craven.fr
+# --- grecs-du-roi reader greek.craven.fr TLS (t_1bdfa688, host t_4c9f46bf) ---
+# Applied by deploy/enable-tls.sh AFTER
+#   dig +short A greek.craven.fr
 # equals web01's IPv4 (91.99.62.203). Until then, keep the http:// block
 # from Caddyfile.http.snippet (same marked start/end pair so the flip
 # replaces in place).
-grecs.craven.fr {
+greek.craven.fr {
 	root * /srv/grecs/current
 	file_server
 	encode gzip zstd

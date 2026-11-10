@@ -1,13 +1,13 @@
-# --- grecs-du-roi reader grecs.craven.fr (t_1bdfa688) ---
-# HTTP-only vhost for grecs.craven.fr (grecs-du-roi reader + specimen).
+# --- grecs-du-roi reader greek.craven.fr (t_1bdfa688, host t_4c9f46bf) ---
+# HTTP-only vhost for greek.craven.fr (grecs-du-roi reader + specimen).
 # Served as a static tree: /srv/grecs/current -> /srv/grecs/<sha>
 # Lives as soon as the OVH A record
-#   grecs.craven.fr. A 91.99.62.203
+#   greek.craven.fr. A 91.99.62.203
 # points here. Host-matched block: the pro-site catch-all and every
-# sibling vhost are untouched. Flip to TLS with scripts/enable-tls.sh
-# once dig +short A grecs.craven.fr equals 91.99.62.203 (same OVH
+# sibling vhost are untouched. Flip to TLS with deploy/enable-tls.sh
+# once dig +short A greek.craven.fr equals 91.99.62.203 (same OVH
 # human-step pattern as latin/englisc).
-http://grecs.craven.fr {
+http://greek.craven.fr {
 	root * /srv/grecs/current
 	file_server
 	encode gzip zstd

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""qa_live_site.py — verify the deployed grecs.craven.fr (t_1bdfa688).
+"""qa_live_site.py — verify the deployed greek.craven.fr (t_1bdfa688, host t_4c9f46bf).
 
 Runs while the OVH A record is still pending by pointing Chromium at
 web01 directly (host-resolver-rules). Asserts, against the LIVE server:
@@ -7,15 +7,15 @@ web01 directly (host-resolver-rules). Asserts, against the LIVE server:
     copied folio text is NFC polytonic with zero PUA;
   * specimen page: hero cells are live text (no <img>), zero tofu.
 Once DNS + enable-tls.sh land, the same checks work over https without
-the resolver flag.
+the resolver flag: WEB01_IP= (empty) switches to the public https path.
 """
 import glob
 import os
 import unicodedata
 
 CACHE = os.path.expanduser("~/Library/Caches/ms-playwright")
-WEB01 = os.environ.get("WEB01_IP", "91.99.62.203")
-BASE = "http://grecs.craven.fr"
+WEB01 = os.environ.get("WEB01_IP", "")  # set to pin (pre-DNS http path); unset = public https
+BASE = ("http://greek.craven.fr" if WEB01 else "https://greek.craven.fr")
 
 chrom = sorted(glob.glob(
     CACHE + "/chromium-*/chrome-mac-arm64/*.app/Contents/MacOS/Google Chrome for Testing"))[-1]
@@ -23,9 +23,9 @@ chrom = sorted(glob.glob(
 from playwright.sync_api import sync_playwright
 
 fails = []
+args = [f"--host-resolver-rules=MAP greek.craven.fr {WEB01}"] if WEB01 else []
 with sync_playwright() as p:
-    b = p.chromium.launch(executable_path=chrom, args=[
-        f"--host-resolver-rules=MAP grecs.craven.fr {WEB01}"])
+    b = p.chromium.launch(executable_path=chrom, args=args)
     pg = b.new_page()
     bad_resp = []
     pg.on("response", lambda r: bad_resp.append(r.url) if r.status >= 400 else None)

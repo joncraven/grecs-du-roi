@@ -142,11 +142,12 @@ Measured gap (t_a8519b7b experiment, not opinion):
 > Minor 4 closed (`tools/fix_font_bboxes.py`, 154 glyphs; Firefox console 0 warnings).
 > Minor 5 closed (hover-reveal claim removed). Public repo: github.com/joncraven/grecs-du-roi
 > (build pipeline + `tools/license_manifest.py --check` in CI, all OFL).
-> Deployed to grecs.craven.fr via `deploy/deploy.sh` (main-only, static tree, marked
+> Deployed to greek.craven.fr via `deploy/deploy.sh` (main-only, static tree, marked
 > Caddy block, web01 mount via `deploy/ensure-mount.sh`); verified live with
 > `tools/qa_live_site.py` (toggle, fonts, copy, hero cells all pass against the server).
-> **Outstanding human step:** add OVH A record `grecs.craven.fr → 91.99.62.203`, then
-> `./deploy/enable-tls.sh` flips to HTTPS (`curl -sfL https://grecs.craven.fr/`).
+> **Host correction (2026-11-10):** the public hostname is `greek.craven.fr`, not
+> `grecs.craven.fr` (typo). OVH A record `greek.craven.fr → 91.99.62.203` added;
+> `./deploy/enable-tls.sh` flipped to HTTPS (`curl -sfL https://greek.craven.fr/`).
 
 ### Phase 2.6 — Commission track (parallel, unblocks on D1=A later)
 - Keep the commissioned-revival brief from `docs/grec-du-roi-answer.md` warm: RFQ text, candidate designers (Greek type community: e.g. type designers behind GFS/AIOLE releases), quote collection. When a real font arrives, it drops into the same build/verification harness with the same acceptance gate.

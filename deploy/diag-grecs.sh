@@ -7,7 +7,7 @@ ssh -i "$SSH_KEY" -o BatchMode=yes -o ConnectTimeout=12 "$WEB01" bash -s <<'REMO
 set -euo pipefail
 echo "== local curl (Host: grecs) =="
 curl -s -o /tmp/grecs.out -w 'code=%{http_code} size=%{size_download}\n' \
-  -H 'Host: grecs.craven.fr' http://127.0.0.1/estienne-john1.html || true
+  -H 'Host: greek.craven.fr' http://127.0.0.1/estienne-john1.html || true
 head -c 120 /tmp/grecs.out; echo
 echo "== caddy version =="
 docker exec web-caddy-1 caddy version 2>/dev/null || docker ps --format '{{.Names}}' | head

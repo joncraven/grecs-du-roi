@@ -14,7 +14,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"   # grecs-du-roi/
 WEB01_HOST="${WEB01_HOST:-91.99.62.203}"
 WEB01_USER="${WEB01_USER:-root}"
 SSH_KEY="${SSH_KEY:-$HOME/.ssh/agent-ed25519}"
-SITE_HOST="${SITE_HOST:-grecs.craven.fr}"
+SITE_HOST="${SITE_HOST:-greek.craven.fr}"
 REMOTE_ROOT="${REMOTE_ROOT:-/srv/grecs}"
 
 [ -f "$SSH_KEY" ] || { echo "missing ssh key $SSH_KEY"; exit 1; }
@@ -64,14 +64,14 @@ from pathlib import Path
 p = Path("/srv/web/Caddyfile")
 text = p.read_text()
 snip = Path("/tmp/grecs.caddy.http.snippet").read_text()
-start = "# --- grecs-du-roi reader grecs.craven.fr"
+start = "# --- grecs-du-roi reader"  # prefix match: old grecs.* and new greek.* blocks
 end = "# --- end grecs-du-roi reader ---"
 if start in text and end in text:
     pre = text[:text.index(start)]
     post = text[text.index(end) + len(end):]
     p.write_text(pre.rstrip() + "\n" + snip + post)
     print("replaced marked grecs block")
-elif "grecs.craven.fr" in text:
+elif "grecs.craven.fr" in text or "greek.craven.fr" in text:
     print("unmarked grecs reference exists; refusing to edit")
     raise SystemExit(1)
 else:
