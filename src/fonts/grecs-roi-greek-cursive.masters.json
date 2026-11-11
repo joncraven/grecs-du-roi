@@ -16,10 +16,7 @@
   "handwritten_minuscules": true,
   "embolden": 10.0,
   "organic": 9.0,
-  "term_dx": 80.0,
-  "term_dy": 28.0,
-  "term_foot": 56.0,
-  "term_radius": 72.0,
+  "foot_len": 136.0,
   "attached_terminals": true,
-  "silhouette_snap": true
+  "exit_hook": true
 }

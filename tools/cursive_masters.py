@@ -65,22 +65,15 @@ MARK_DX_Y = 210.0        # marks nudge right as if slanted only to this height
 MARK_Y_MIN = 460         # contour with min-y >= this = accent/breathing layer
 
 # ---- handwritten minuscule ductus (t_cd94bc54) -----------------------------
-# UPM 1000, John 1 body 1.32rem ≈ 21px → 1px ≈ 48u. A uniform 8.5u offset is
-# 0.2px at page size (invisible). Interior (fx, ay) targets sat *off* the
-# outline (0 points inside r=72 on ι/η/ν/π) so a 64u cosine swell only
-# fattened the stem; width/420 then hid ι (~0.55 → 0.74px). Snap to the
-# real silhouette exit and move it ≥48u. Detached flick contours forbidden.
+# UPM 1000, John 1 body 1.32rem ≈ 21px → 1px ≈ 48u.
+# Euclidean cosine swell (r≈72) moved BOTH sides of a thin stem → club/paddle
+# at 8× and ≤1px extra ink at 21px (bbox +0). Detached flicks and inserted
+# leaf-loops read as computer ticks. Split the exit cubic and slide that
+# on-curve + handles (~124u ≈ 2.6px, one-sided) so the stem itself hooks.
 EMBOLDEN = 10.0         # modest even-ink; terminals do the visible work
 ORGANIC = 9.0           # cubic-handle wobble (u), deterministic per glyph
-TERM_DX = 80.0          # right, writing direction (~1.7px at 21px)
-TERM_FOOT = 56.0        # down: baseline foot (silhouette, not stem fill)
-TERM_DY = 28.0          # up: mid/high exits (epsilon, medial sigma)
-TERM_RADIUS = 72.0      # tight lobe: 108u paddled π/η into drips
-ENTRY_DX, ENTRY_DY = -24.0, 10.0
-ENTRY_RADIUS = 56.0
-ENTRY_MIN_WIDTH = 340.0  # skip entry swell on stems (iota/eta) — it blots
-# (x-fraction unused at swell time; y selects baseline vs mid/high zone).
-# Swell centre is snapped to a real outer-contour point in that zone.
+FOOT_LEN = 136.0        # ~2.9px hook at 21px
+# (x-fraction unused at scribe time; y selects baseline vs mid/high zone).
 EXIT_ANCHORS = {
     "alpha": (0.90, 40), "delta": (0.92, 70), "epsilon": (0.90, 130),
     "eta":   (0.92, 30), "iota":  (0.88, 50),  "kappa": (0.92, 60),
@@ -357,45 +350,154 @@ def _anchor_for(name):
     return (0.90, 48)
 
 
-def _exit_target(pts, name):
-    """Silhouette support in the exit direction, not an interior (fx, ay).
+def _lerp(a, b, t):
+    return (a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t)
 
-    ay < 110: down-right support on the right side, y >= -40 (skip descenders).
-    else: rightward support near ay (epsilon tongue, medial sigma join).
+
+def _cubic_point(p0, p1, p2, p3, t):
+    u = 1.0 - t
+    return (
+        u * u * u * p0[0] + 3 * u * u * t * p1[0] + 3 * u * t * t * p2[0] + t * t * t * p3[0],
+        u * u * u * p0[1] + 3 * u * u * t * p1[1] + 3 * u * t * t * p2[1] + t * t * t * p3[1],
+    )
+
+
+def _split_cubic(p0, p1, p2, p3, t):
+    """de Casteljau: two cubics meeting at t."""
+    a = _lerp(p0, p1, t)
+    b = _lerp(p1, p2, t)
+    c = _lerp(p2, p3, t)
+    d = _lerp(a, b, t)
+    e = _lerp(b, c, t)
+    m = _lerp(d, e, t)
+    return (p0, a, d, m), (m, e, c, p3)
+
+
+def _prev_oncurve(cont, i):
+    for j in range(i - 1, -1, -1):
+        op, args = cont[j]
+        if op in ("moveTo", "lineTo"):
+            return args
+        if op == "curveTo":
+            return args[-1]
+    for j in range(len(cont) - 1, i, -1):
+        op, args = cont[j]
+        if op in ("moveTo", "lineTo"):
+            return args
+        if op == "curveTo":
+            return args[-1]
+    return (0.0, 0.0)
+
+
+def _seg_cubic(cont, i):
+    """Segment ending at cont[i] as a cubic (lineTo promoted)."""
+    op, args = cont[i]
+    p0 = _prev_oncurve(cont, i)
+    if op == "lineTo":
+        p3 = args
+        return p0, _lerp(p0, p3, 1.0 / 3.0), _lerp(p0, p3, 2.0 / 3.0), p3
+    if op == "curveTo":
+        p1, p2, p3 = args
+        return p0, p1, p2, p3
+    return None
+
+
+def _exit_kind(name, pts):
+    """Where the pen leaves this minuscule.
+
+    foot: baseline right (ι π α …)
+    desc: descender tip (η ρ μ)
+    mid:  tongue / join (ε θ σ.medial)
+    top:  high right stem with no right baseline foot (ν υ)
     """
-    fx, ay = _anchor_for(name)
+    _, ay = _anchor_for(name)
+    ymin = min(p[1] for p in pts)
+    if ay >= 110:
+        return "mid"
+    if ymin < -120:
+        return "desc"
     x0 = min(p[0] for p in pts)
     x1 = max(p[0] for p in pts)
-    xmin = x0 + 0.18 * (x1 - x0)
-    if ay < 110:
-        # no xmin: ι's nub is left of 0.18*width; -0.84*y already drops the top
-        band = [p for p in pts if p[1] >= -40.0]
-        if not band:
-            band = list(pts)
-        # ~-57°: lowest-right nub (ι 35,-11) beats a higher stem flank
-        return max(band, key=lambda p: 0.55 * p[0] - 0.84 * p[1])
-    band = [p for p in pts if p[0] >= xmin and abs(p[1] - ay) <= 100.0]
-    if not band:
-        band = [p for p in pts if abs(p[1] - ay) <= 140.0]
-    if not band:
-        guess = (x0 + fx * (x1 - x0), ay)
-        return min(pts, key=lambda p: (p[0] - guess[0]) ** 2 + (p[1] - guess[1]) ** 2)
-    return max(band, key=lambda p: p[0] - 0.15 * abs(p[1] - ay))
+    # italic ι: rightmost ink is the stem top, so "no right foot" would
+    # fire a top exit. Narrow single stems keep a baseline foot.
+    if (x1 - x0) < 300.0:
+        return "foot"
+    foot_band = [p for p in pts if -50.0 <= p[1] <= 70.0]
+    right = max(pts, key=lambda p: p[0])
+    if foot_band and right[1] > 280.0:
+        cut = x0 + 0.55 * (x1 - x0)
+        if max(p[0] for p in foot_band) < cut:
+            return "top"
+    return "foot"
 
 
-def _swell_pts(pts, target, radius, delta):
-    """Move points near `target` by `delta` with a cosine-squared falloff.
-    Wide support = attached lobe, not a pinched ribbon."""
-    out = []
-    r = max(radius, 1.0)
-    for p in pts:
-        d = math.hypot(p[0] - target[0], p[1] - target[1])
-        if d >= r:
-            out.append(p)
+def _exit_delta(kind):
+    if kind == "mid":
+        d = (1.0, 0.06)
+        scale = FOOT_LEN * 0.82
+    elif kind == "desc":
+        d = (0.55, -0.84)
+        scale = FOOT_LEN * 0.58
+    elif kind == "top":
+        d = (0.88, 0.47)
+        scale = FOOT_LEN * 0.62
+    else:
+        d = (0.93, -0.37)  # mostly right, slight down — a foot, not a comma
+        scale = FOOT_LEN
+    n = _vnorm(d)
+    return _vmul(n, scale)
+
+
+def _score_exit(pt, kind, ay, ymin):
+    x, y = pt
+    if kind == "mid":
+        if abs(y - ay) > 120.0:
+            return -1e9
+        return x - 0.08 * abs(y - ay)
+    if kind == "desc":
+        if y > ymin + 95.0:
+            return -1e9
+        return 0.42 * x - 0.91 * y
+    if kind == "top":
+        if y < 220.0:
+            return -1e9
+        return x + 0.32 * y
+    if y < -40.0 or y > 52.0:
+        return -1e9
+    # x - 1.25y: right-bottom corner, not the left nub and not the stem flank
+    return x - 1.25 * y
+
+
+def _best_exit_sample(cont, name):
+    """(seg_index, t, point, kind) on the outer path — not an interior ay."""
+    pts = list(_contour_pts(cont))
+    if len(pts) < 8:
+        return None
+    kind = _exit_kind(name, pts)
+    _, ay = _anchor_for(name)
+    ymin = min(p[1] for p in pts)
+    best = None
+    best_s = -1e12
+    for i, (op, args) in enumerate(cont):
+        if op not in ("lineTo", "curveTo"):
             continue
-        w = (1.0 - d / r) ** 2
-        out.append((p[0] + delta[0] * w, p[1] + delta[1] * w))
-    return out
+        cub = _seg_cubic(cont, i)
+        if cub is None:
+            continue
+        p0, p1, p2, p3 = cub
+        seglen = math.hypot(p3[0] - p0[0], p3[1] - p0[1])
+        if seglen < 8.0:
+            continue
+        for k in range(1, 10):
+            t = k / 10.0
+            pt = _cubic_point(p0, p1, p2, p3, t)
+            s = _score_exit(pt, kind, ay, ymin)
+            if s > best_s:
+                best_s = s
+                best = (i, t, pt, kind)
+    if best is None or best_s < -1e8:
+        return None
+    return best
 
 
 def _soften_lines(cont):
@@ -421,34 +523,40 @@ def _soften_lines(cont):
 
 
 def _attached_terminals(cont, name):
-    """Grow an attached exit (and a smaller entry) on the outer contour.
+    """Hook the exit cubic (same contour) — a written ending, not a dart.
 
-    No densify: subdividing a stem then swelling it fans into a blot.
-    No width-scale: narrow letters (ι) are the ones that must read at 21px.
+    Splitting then sliding only that on-curve + its handles grows a one-sided
+    foot. A separate loop became a leaf/tick; Euclidean swell became a club.
     """
     pts = list(_contour_pts(cont))
     if len(pts) < 8:
         return cont
     x0, y0, x1, y1 = _contour_bbox(cont)
-    width = x1 - x0
-    if width < 40 or (y1 - y0) < 40:
+    if (x1 - x0) < 40 or (y1 - y0) < 40:
         return cont
-    target = _exit_target(pts, name)
-    _, ay = _anchor_for(name)
-    if ay < 110:
-        delta = (TERM_DX, -TERM_FOOT)
-    else:
-        delta = (TERM_DX, TERM_DY)
-    off = _swell_pts(pts, target, TERM_RADIUS, delta)
-    cont = _rebuild_contour(cont, off)
-    x0, y0, x1, y1 = _contour_bbox(cont)
-    width = x1 - x0
-    if width >= ENTRY_MIN_WIDTH:
-        entry = (x0 + 0.08 * width, max(y0, 0.0) + 36.0)
-        pts = list(_contour_pts(cont))
-        off = _swell_pts(pts, entry, ENTRY_RADIUS, (ENTRY_DX, ENTRY_DY))
-        cont = _rebuild_contour(cont, off)
-    return _soften_lines(cont)
+    hit = _best_exit_sample(cont, name)
+    if hit is None:
+        return _soften_lines(cont)
+    i, t, _pt, kind = hit
+    cub = _seg_cubic(cont, i)
+    if cub is None:
+        return _soften_lines(cont)
+    p0, p1, p2, p3 = cub
+    t = min(max(t, 0.18), 0.82)
+    left, right = _split_cubic(p0, p1, p2, p3, t)
+    delta = _exit_delta(kind)
+    # slide the split + handles; a little perpendicular bow so the
+    # ending is a hook, not a triangular spike
+    perp = _vmul(_vnorm((-delta[1], delta[0])), 32.0)
+    m = _vadd(left[3], _vmul(delta, 0.90))
+    d = _vadd(_vadd(left[2], _vmul(delta, 0.58)), perp)
+    e = _vadd(_vadd(right[1], _vmul(delta, 0.58)), _vmul(perp, -0.2))
+    new_seg = [
+        ("curveTo", (left[1], d, m)),
+        ("curveTo", (e, right[2], p3)),
+    ]
+    out = list(cont[:i]) + new_seg + list(cont[i + 1:])
+    return _soften_lines(out)
 
 
 def handwritten_body(ops, name):
@@ -848,9 +956,8 @@ def main(argv=None):
               "cmap_added": {}, "cursive_masters": True,
               "handwritten_minuscules": True,
               "embolden": EMBOLDEN, "organic": ORGANIC,
-              "term_dx": TERM_DX, "term_dy": TERM_DY,
-              "term_foot": TERM_FOOT, "term_radius": TERM_RADIUS,
-              "attached_terminals": True, "silhouette_snap": True}
+              "foot_len": FOOT_LEN,
+              "attached_terminals": True, "exit_hook": True}
 
     # 1. every glyph becomes a slanted+corrected master (majuscules stay
     #    upright — Estienne's caps are the upright round, only the
