@@ -69,9 +69,9 @@ MARK_Y_MIN = 460         # contour with min-y >= this = accent/breathing layer
 # The ι one-sided cubic foot is the shape target: a short attached written
 # exit with ink in the hook, not a collinear dart, stem paddle, or spur.
 # Euclidean stem swell and large-radius tongue pads read as clubs/arrowheads.
-# ε / ν: hang a thick foot off the *underside* of the round cap (both
-# outlines, inner plateau). The 22u corner cubic is a hairline; translating
-# the whole cap is a sausage; a one-sided outline nudge is a beak.
+# ε / ν: same one-sided cubic as ι/η (kind=foot), with ink on the exit
+# only — a tight nub then a short hang. Neighborhood translation of the
+# cap (_hang_foot) clubs the bowl; FOOT_LEN along the tongue is a spike.
 # σ.medial / θ keep a tip-only pad + cubic hook.
 EMBOLDEN = 10.0         # modest even-ink; terminals do the visible work
 ORGANIC = 9.0           # cubic-handle wobble (u), deterministic per glyph
@@ -79,6 +79,12 @@ FOOT_LEN = 136.0        # ~2.9px hook at 21px (proven on ι)
 HOOK_PERP = 32.0        # handle bow on the ι/π baseline foot
 TIP_PAD = 50.0          # tip-only thicken on remaining mid joins (~1.0px/side)
 TIP_RADIUS = 48.0       # tight on the tip so it does not become a triangle
+# ε/ν tip foot: short hang after a round nub. Not FOOT_LEN (spike),
+# not a 90u neighborhood translation (sausage).
+TIP_FOOT_LEN = 64.0
+TIP_FOOT_DIR = (0.40, -0.92)
+TIP_INK_R = 36.0
+TIP_INK_D = 52.0
 # (x-fraction unused at scribe time; y selects baseline vs mid/high zone).
 EXIT_ANCHORS = {
     "alpha": (0.90, 40), "delta": (0.92, 70), "epsilon": (0.92, 340),
@@ -474,8 +480,8 @@ def _exit_kind(name, pts):
     # the hairline descender tip only grows a spike.
     if stem == "eta" or stem.startswith("eta"):
         return "foot"
-    # ε / ν: treat as a baseline-style foot so delta is the ι (right, slightly
-    # down) kick. kind=mid/top slides along the tongue/arm → spike/beak.
+    # ε / ν: still a "foot" kind so scoring stays on the exit tip; the
+    # actual delta is the short tip-foot, not FOOT_LEN (that is a spike).
     if stem.startswith("epsilon") or stem == "nu":
         return "foot"
     if ay >= 110:
@@ -525,16 +531,15 @@ def _score_exit(pt, kind, ay, ymin, name=""):
             return -1e9
         return x - 1.25 * y
     if stem.startswith("epsilon"):
-        # Lower-right of the tongue cap (ι analog), not the rightmost mid
-        # (that sheared a sausage) and not the top of the cap.
-        if y < 288.0 or y > 348.0:
+        # Tongue tip (rightmost around y≈343), not the lower flank.
+        if y < 318.0 or y > 368.0:
             return -1e9
-        return x - 1.25 * y
+        return x
     if stem == "nu":
-        # Lower-right of the arm cap, not the hair peak and not mid-arm.
-        if y < 368.0 or y > 402.0:
+        # Arm terminal (rightmost ~426,414), not the mid-arm flank.
+        if y < 355.0 or y > 430.0:
             return -1e9
-        return x - 1.25 * y
+        return x + 0.2 * y
     if kind == "mid":
         if abs(y - ay) > 160.0:
             return -1e9
@@ -585,41 +590,48 @@ def _best_exit_sample(cont, name):
     return best
 
 
-def _hang_foot(cont, center, delta, radius, inner):
-    """Hang a thick written foot off the underside of a round exit cap.
+def _cubic_foot(cont, i, t, delta, bow, local_far=False):
+    """One-sided cubic hook — the ι/η foot. Local split only.
 
-    Points inside `inner` take the full delta (both outlines, so the foot
-    keeps stroke ink). Cosine-square falloff out to `radius` bends the
-    neck. Points above the center fade so the top of the cap does not
-    blob to the right (that read as a spur/sausage). Not a Euclidean
-    normal offset (those clubbed stems) and not a 22u cubic split.
+    local_far: on long cubics, do not drag the far handle (hairline tick).
+    Foot-kind (ι η π) keeps the original far-handle scale.
     """
-    pts = list(_contour_pts(cont))
-    if len(pts) < 3:
+    cub = _seg_cubic(cont, i)
+    if cub is None:
         return cont
-    dx, dy = delta
-    span = max(radius - inner, 1.0)
-    off = []
-    moved = 0.0
-    for p in pts:
-        dist = math.hypot(p[0] - center[0], p[1] - center[1])
-        if dist <= inner:
-            w = 1.0
-        else:
-            t = max(0.0, 1.0 - (dist - inner) / span)
-            w = t * t
-        above = p[1] - center[1]
-        if above > 0.0:
-            # Keep the top of the cap moving (else the underside
-            # slide tapers into a dart). Bottom still leads.
-            fade = max(0.0, 1.0 - above / 52.0) ** 2
-            w *= 0.72 + 0.28 * fade
-        np = (p[0] + dx * w, p[1] + dy * w)
-        moved = max(moved, math.hypot(np[0] - p[0], np[1] - p[1]))
-        off.append(np)
-    if moved < 1.0:
-        return cont
-    return _rebuild_contour(cont, off)
+    p0, p1, p2, p3 = cub
+    t = min(max(t, 0.18), 0.82)
+    left, right = _split_cubic(p0, p1, p2, p3, t)
+    seglen = math.hypot(p3[0] - p0[0], p3[1] - p0[1])
+    side, m_k, h_k = 0.2, 0.90, 0.58
+    h_k_e = 0.12 if (local_far and seglen > 110.0) else h_k
+    perp = _vmul(_vnorm((-delta[1], delta[0])), bow)
+    m = _vadd(left[3], _vmul(delta, m_k))
+    d = _vadd(_vadd(left[2], _vmul(delta, h_k)), perp)
+    e = _vadd(_vadd(right[1], _vmul(delta, h_k_e)), _vmul(perp, -side))
+    new_seg = [
+        ("curveTo", (left[1], d, m)),
+        ("curveTo", (e, right[2], p3)),
+    ]
+    return list(cont[:i]) + new_seg + list(cont[i + 1:])
+
+
+def _short_tip_foot(cont, name):
+    """ε/ν: round nub at the true terminal, then the same one-sided
+    cubic as ι/η (short, more downward). Ink on the exit only.
+    """
+    hit = _best_exit_sample(cont, name)
+    if hit is None:
+        return _soften_lines(cont)
+    i, t, pt, kind = hit
+    cont = _local_thicken(cont, pt, TIP_INK_R, TIP_INK_D)
+    hit = _best_exit_sample(cont, name)
+    if hit is None:
+        return _soften_lines(cont)
+    i, t, pt, kind = hit
+    delta = _vmul(_vnorm(TIP_FOOT_DIR), TIP_FOOT_LEN)
+    return _soften_lines(_cubic_foot(
+        cont, i, t, delta, 46.0, local_far=True))
 
 
 def _soften_lines(cont):
@@ -647,10 +659,9 @@ def _soften_lines(cont):
 def _attached_terminals(cont, name):
     """Hook the exit cubic (same contour) — an ι-style written foot.
 
-    Foot (ι π η): one-sided cubic slide of the true corner. ε/ν: hang a
-    thick underside foot off the lower-right of the round cap (both
-    outlines). Remaining thin mid-joins (θ, σ.medial): a tip-only pad
-    then the cubic hook.
+    Foot (ι π η): one-sided cubic slide of the true corner. ε/ν: tight
+    nub + short hang (same cubic, ink on the exit only). Remaining thin
+    mid-joins (θ, σ.medial): a tip-only pad then the cubic hook.
     """
     pts = list(_contour_pts(cont))
     if len(pts) < 8:
@@ -658,54 +669,23 @@ def _attached_terminals(cont, name):
     x0, y0, x1, y1 = _contour_bbox(cont)
     if (x1 - x0) < 40 or (y1 - y0) < 40:
         return cont
+    stem = name.split(".")[0]
+    if stem.startswith("epsilon") or stem == "nu":
+        return _short_tip_foot(cont, name)
     hit = _best_exit_sample(cont, name)
     if hit is None:
         return _soften_lines(cont)
     i, t, pt, kind = hit
-    stem = name.split(".")[0]
-    if stem.startswith("epsilon") or stem == "nu":
-        # Short blunt foot: both outlines of the cap move so it does not
-        # taper. Mostly down-right of the lower-right corner.
-        delta = _vmul(_vnorm((0.70, -0.71)), 96.0)  # ~2.0px at 21px
-        inner, radius = 56.0, 86.0
-        if stem == "nu":
-            delta = _vmul(_vnorm((0.68, -0.73)), 100.0)
-            inner, radius = 50.0, 82.0
-        return _soften_lines(_hang_foot(cont, pt, delta, radius, inner))
     if kind == "mid":
         cont = _local_thicken(cont, pt, TIP_RADIUS, TIP_PAD)
         hit = _best_exit_sample(cont, name)
         if hit is None:
             return _soften_lines(cont)
         i, t, pt, kind = hit
-    cub = _seg_cubic(cont, i)
-    if cub is None:
-        return _soften_lines(cont)
-    p0, p1, p2, p3 = cub
-    t = min(max(t, 0.18), 0.82)
-    left, right = _split_cubic(p0, p1, p2, p3, t)
     delta = _exit_delta(kind)
-    # ι uses HOOK_PERP=32; give non-foot exits a bit more bow so the
-    # turn reads as a rounded foot rather than a pointed spur.
     bow = HOOK_PERP if kind == "foot" else 40.0
-    side, m_k, h_k = 0.2, 0.90, 0.58
-    seglen = math.hypot(p3[0] - p0[0], p3[1] - p0[1])
-    # long cubics (η arch): do not drag the far handle — that sheared a
-    # hairline tick at p3. Only the local split gets the foot.
-    if seglen > 110.0 and kind != "foot":
-        h_k_e = 0.12
-    else:
-        h_k_e = h_k
-    perp = _vmul(_vnorm((-delta[1], delta[0])), bow)
-    m = _vadd(left[3], _vmul(delta, m_k))
-    d = _vadd(_vadd(left[2], _vmul(delta, h_k)), perp)
-    e = _vadd(_vadd(right[1], _vmul(delta, h_k_e)), _vmul(perp, -side))
-    new_seg = [
-        ("curveTo", (left[1], d, m)),
-        ("curveTo", (e, right[2], p3)),
-    ]
-    out = list(cont[:i]) + new_seg + list(cont[i + 1:])
-    return _soften_lines(out)
+    return _soften_lines(_cubic_foot(
+        cont, i, t, delta, bow, local_far=(kind != "foot")))
 
 
 def handwritten_body(ops, name):
