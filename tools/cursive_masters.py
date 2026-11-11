@@ -69,9 +69,9 @@ MARK_Y_MIN = 460         # contour with min-y >= this = accent/breathing layer
 # The ι one-sided cubic foot is the shape target: a short attached written
 # exit with ink in the hook, not a collinear dart, stem paddle, or spur.
 # Euclidean stem swell and large-radius tongue pads read as clubs/arrowheads.
-# ε / ν: same one-sided cubic as ι/η (kind=foot), with ink on the exit
-# only — a tight nub then a short hang. Neighborhood translation of the
-# cap (_hang_foot) clubs the bowl; FOOT_LEN along the tongue is a spike.
+# ε / ν: graft a filled ι-style hook across the round cap (both lips),
+# local to the tip. A one-sided cubic on the thin tongue is a hairline;
+# neighborhood translation of the cap (_hang_foot) clubs the bowl.
 # σ.medial / θ keep a tip-only pad + cubic hook.
 EMBOLDEN = 10.0         # modest even-ink; terminals do the visible work
 ORGANIC = 9.0           # cubic-handle wobble (u), deterministic per glyph
@@ -79,12 +79,13 @@ FOOT_LEN = 136.0        # ~2.9px hook at 21px (proven on ι)
 HOOK_PERP = 32.0        # handle bow on the ι/π baseline foot
 TIP_PAD = 50.0          # tip-only thicken on remaining mid joins (~1.0px/side)
 TIP_RADIUS = 48.0       # tight on the tip so it does not become a triangle
-# ε/ν tip foot: short hang after a round nub. Not FOOT_LEN (spike),
-# not a 90u neighborhood translation (sausage).
-TIP_FOOT_LEN = 64.0
-TIP_FOOT_DIR = (0.40, -0.92)
-TIP_INK_R = 36.0
-TIP_INK_D = 52.0
+# ε/ν grafted foot: filled blunt lobe on the cap (correct winding).
+# ~2px hang at 21px; inner/outer corners both sit on the hanging end
+# so the lobe has area (an inner corner on the cap collapses to a hair).
+TIP_FOOT_LEN = 92.0
+TIP_FOOT_DIR = (0.38, -0.93)
+TIP_FOOT_END = 72.0
+TIP_FOOT_TOE = 20.0
 # (x-fraction unused at scribe time; y selects baseline vs mid/high zone).
 EXIT_ANCHORS = {
     "alpha": (0.90, 40), "delta": (0.92, 70), "epsilon": (0.92, 340),
@@ -480,8 +481,7 @@ def _exit_kind(name, pts):
     # the hairline descender tip only grows a spike.
     if stem == "eta" or stem.startswith("eta"):
         return "foot"
-    # ε / ν: still a "foot" kind so scoring stays on the exit tip; the
-    # actual delta is the short tip-foot, not FOOT_LEN (that is a spike).
+    # ε / ν: score the round cap; the graft hangs off those two lips.
     if stem.startswith("epsilon") or stem == "nu":
         return "foot"
     if ay >= 110:
@@ -617,21 +617,63 @@ def _cubic_foot(cont, i, t, delta, bow, local_far=False):
 
 
 def _short_tip_foot(cont, name):
-    """ε/ν: round nub at the true terminal, then the same one-sided
-    cubic as ι/η (short, more downward). Ink on the exit only.
+    """ε/ν: filled ι-style hook grafted on the round cap.
+
+    Both corners of the blunt end sit out on the hanging lobe so it
+    keeps ink area (an inner corner parked on the cap is a hairline).
+    Walk lower-lip → lower-toe → upper-toe → upper-lip: same winding
+    as the original cap, one moveTo. Bowl/arm points are not translated.
     """
     hit = _best_exit_sample(cont, name)
     if hit is None:
         return _soften_lines(cont)
     i, t, pt, kind = hit
-    cont = _local_thicken(cont, pt, TIP_INK_R, TIP_INK_D)
-    hit = _best_exit_sample(cont, name)
-    if hit is None:
+    cub = _seg_cubic(cont, i)
+    if cub is None:
         return _soften_lines(cont)
-    i, t, pt, kind = hit
-    delta = _vmul(_vnorm(TIP_FOOT_DIR), TIP_FOOT_LEN)
-    return _soften_lines(_cubic_foot(
-        cont, i, t, delta, 46.0, local_far=True))
+    p0, p1, p2, p3 = cub
+    stem = name.split(".")[0]
+    tA, tB = (0.0, 0.48) if stem.startswith("epsilon") else (0.0, 1.0)
+    A = _cubic_point(p0, p1, p2, p3, tA)
+    B = _cubic_point(p0, p1, p2, p3, tB)
+    afterB = _split_cubic(p0, p1, p2, p3, tB)[1]
+    along = _vnorm(_vsub(B, A))
+    if along == (0.0, 0.0):
+        along = (0.0, 1.0)
+    out = _vnorm((along[1], -along[0]))
+    if out[0] < 0:
+        out = _vmul(out, -1.0)
+    down = _vmul(along, -1.0)
+    # ν: hang more down the arm so the lobe is a foot, not a barb.
+    ox, dn = (0.32, 0.95) if stem == "nu" else (TIP_FOOT_DIR[0], -TIP_FOOT_DIR[1])
+    hang = _vmul(_vnorm(_vadd(_vmul(out, ox), _vmul(down, dn))), TIP_FOOT_LEN)
+    N = _lerp(A, B, 0.22)
+    H_mid = _vadd(N, hang)
+    end_h = _vmul(_vnorm((-hang[1], hang[0])), TIP_FOOT_END * 0.5)
+    H1 = _vadd(H_mid, end_h)
+    H2 = _vsub(H_mid, end_h)
+    if H2[1] > H1[1]:
+        H1, H2 = H2, H1
+    tip = _vadd(H_mid, _vmul(_vnorm(hang), TIP_FOOT_TOE))
+    c_out = (
+        _vadd(A, _vadd(_vmul(hang, 0.30), _vmul(out, 6.0))),
+        _vadd(H2, _vmul(out, 8.0)),
+        H2,
+    )
+    c_toe = (
+        _vadd(H2, _vmul(_vsub(tip, H2), 0.62)),
+        _vadd(H1, _vmul(_vsub(tip, H1), 0.62)),
+        H1,
+    )
+    c_in = (
+        _vadd(H1, _vmul(hang, -0.10)),
+        _vadd(B, _vmul(hang, 0.22)),
+        B,
+    )
+    new_seg = [("curveTo", c_out), ("curveTo", c_toe), ("curveTo", c_in)]
+    if tB < 0.95:
+        new_seg.append(("curveTo", (afterB[1], afterB[2], afterB[3])))
+    return _soften_lines(list(cont[:i]) + new_seg + list(cont[i + 1:]))
 
 
 def _soften_lines(cont):
@@ -659,9 +701,9 @@ def _soften_lines(cont):
 def _attached_terminals(cont, name):
     """Hook the exit cubic (same contour) — an ι-style written foot.
 
-    Foot (ι π η): one-sided cubic slide of the true corner. ε/ν: tight
-    nub + short hang (same cubic, ink on the exit only). Remaining thin
-    mid-joins (θ, σ.medial): a tip-only pad then the cubic hook.
+    Foot (ι π η): one-sided cubic slide of the true corner. ε/ν: filled
+    hook grafted across the round cap (both lips, no bowl translate).
+    Remaining thin mid-joins (θ, σ.medial): a tip-only pad then the cubic.
     """
     pts = list(_contour_pts(cont))
     if len(pts) < 8:
