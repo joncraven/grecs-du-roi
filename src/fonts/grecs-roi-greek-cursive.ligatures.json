@@ -252,7 +252,7 @@
         "epsilon",
         "rho"
       ],
-      "advance": 801,
+      "advance": 849,
       "rules": 1
     },
     {
@@ -312,7 +312,7 @@
         "rho",
         "alpha"
       ],
-      "advance": 944,
+      "advance": 983,
       "rules": 1
     },
     {
@@ -412,7 +412,7 @@
         "uni1F70",
         "rho"
       ],
-      "advance": 930,
+      "advance": 978,
       "rules": 1
     },
     {
@@ -432,7 +432,7 @@
         "lambda",
         "alpha"
       ],
-      "advance": 1036,
+      "advance": 1071,
       "rules": 1
     },
     {
@@ -502,7 +502,7 @@
         "rho",
         "eta"
       ],
-      "advance": 815,
+      "advance": 854,
       "rules": 1
     },
     {
@@ -542,7 +542,7 @@
         "lambda",
         "epsilon"
       ],
-      "advance": 882,
+      "advance": 917,
       "rules": 1
     },
     {
@@ -552,7 +552,7 @@
         "uni03BC",
         "epsilontonos"
       ],
-      "advance": 954,
+      "advance": 961,
       "rules": 1
     },
     {
@@ -582,7 +582,7 @@
         "pi",
         "rho"
       ],
-      "advance": 1039,
+      "advance": 1087,
       "rules": 1
     },
     {
@@ -592,7 +592,7 @@
         "rho",
         "epsilon"
       ],
-      "advance": 790,
+      "advance": 829,
       "rules": 1
     },
     {
@@ -632,7 +632,7 @@
         "rho",
         "upsilon"
       ],
-      "advance": 886,
+      "advance": 925,
       "rules": 1
     },
     {
@@ -672,7 +672,7 @@
         "uni1F04",
         "rho"
       ],
-      "advance": 926,
+      "advance": 974,
       "rules": 1
     },
     {
@@ -723,7 +723,7 @@
         "delta",
         "epsilontonos"
       ],
-      "advance": 916,
+      "advance": 923,
       "rules": 1
     },
     {
@@ -784,7 +784,7 @@
         "alphatonos",
         "rho"
       ],
-      "advance": 928,
+      "advance": 976,
       "rules": 1
     },
     {
@@ -794,7 +794,7 @@
         "phi",
         "iotatonos"
       ],
-      "advance": 858,
+      "advance": 880,
       "rules": 1
     },
     {
@@ -874,7 +874,7 @@
         "rho",
         "epsilontonos"
       ],
-      "advance": 783,
+      "advance": 829,
       "rules": 1
     },
     {
@@ -974,7 +974,7 @@
         "uni1F10",
         "phi"
       ],
-      "advance": 1048,
+      "advance": 1075,
       "rules": 1
     },
     {
@@ -1014,7 +1014,7 @@
         "upsilon",
         "rho"
       ],
-      "advance": 880,
+      "advance": 928,
       "rules": 1
     },
     {
@@ -1034,7 +1034,7 @@
         "kappa",
         "lambda"
       ],
-      "advance": 989,
+      "advance": 1032,
       "rules": 1
     },
     {
@@ -1188,7 +1188,7 @@
         "phi",
         "iota"
       ],
-      "advance": 854,
+      "advance": 876,
       "rules": 1
     },
     {
@@ -1198,7 +1198,7 @@
         "kappa",
         "epsilontonos"
       ],
-      "advance": 808,
+      "advance": 815,
       "rules": 1
     },
     {
@@ -1219,7 +1219,7 @@
         "phi",
         "eta"
       ],
-      "advance": 1343,
+      "advance": 1365,
       "rules": 1
     },
     {
@@ -1309,7 +1309,7 @@
         "omega",
         "rho"
       ],
-      "advance": 976,
+      "advance": 1024,
       "rules": 1
     },
     {
@@ -1319,7 +1319,7 @@
         "uni1F01",
         "lambda"
       ],
-      "advance": 1034,
+      "advance": 1077,
       "rules": 1
     },
     {
@@ -1359,7 +1359,7 @@
         "rho",
         "uni1FF3"
       ],
-      "advance": 1005,
+      "advance": 1044,
       "rules": 1
     },
     {
@@ -1369,7 +1369,7 @@
         "sigma",
         "epsilontonos"
       ],
-      "advance": 839,
+      "advance": 846,
       "rules": 2
     },
     {
@@ -1460,7 +1460,7 @@
         "epsilontonos",
         "uni1FB3"
       ],
-      "advance": 1254,
+      "advance": 1259,
       "rules": 1
     },
     {

@@ -66,17 +66,21 @@ MARK_Y_MIN = 460         # contour with min-y >= this = accent/breathing layer
 
 # ---- handwritten minuscule ductus (t_cd94bc54) -----------------------------
 # UPM 1000, John 1 body 1.32rem ≈ 21px → 1px ≈ 48u. A uniform 8.5u offset is
-# 0.2px at page size (invisible). Attached terminals ~60u read as written
-# ink without exploding narrow stems. Detached flick contours are forbidden.
+# 0.2px at page size (invisible). Interior (fx, ay) targets sat *off* the
+# outline (0 points inside r=72 on ι/η/ν/π) so a 64u cosine swell only
+# fattened the stem; width/420 then hid ι (~0.55 → 0.74px). Snap to the
+# real silhouette exit and move it ≥48u. Detached flick contours forbidden.
 EMBOLDEN = 10.0         # modest even-ink; terminals do the visible work
 ORGANIC = 9.0           # cubic-handle wobble (u), deterministic per glyph
-TERM_DX, TERM_DY = 64.0, 38.0    # exit swell along the writing direction
-TERM_RADIUS = 72.0
+TERM_DX = 80.0          # right, writing direction (~1.7px at 21px)
+TERM_FOOT = 56.0        # down: baseline foot (silhouette, not stem fill)
+TERM_DY = 28.0          # up: mid/high exits (epsilon, medial sigma)
+TERM_RADIUS = 72.0      # tight lobe: 108u paddled π/η into drips
 ENTRY_DX, ENTRY_DY = -24.0, 10.0
 ENTRY_RADIUS = 56.0
 ENTRY_MIN_WIDTH = 340.0  # skip entry swell on stems (iota/eta) — it blots
-# (x-fraction of bbox, y in pre-shear space) — Vergecio/Estienne exits.
-# Used as the swell *centre* on the existing outer contour, not a new path.
+# (x-fraction unused at swell time; y selects baseline vs mid/high zone).
+# Swell centre is snapped to a real outer-contour point in that zone.
 EXIT_ANCHORS = {
     "alpha": (0.90, 40), "delta": (0.92, 70), "epsilon": (0.90, 130),
     "eta":   (0.92, 30), "iota":  (0.88, 50),  "kappa": (0.92, 60),
@@ -353,6 +357,32 @@ def _anchor_for(name):
     return (0.90, 48)
 
 
+def _exit_target(pts, name):
+    """Silhouette support in the exit direction, not an interior (fx, ay).
+
+    ay < 110: down-right support on the right side, y >= -40 (skip descenders).
+    else: rightward support near ay (epsilon tongue, medial sigma join).
+    """
+    fx, ay = _anchor_for(name)
+    x0 = min(p[0] for p in pts)
+    x1 = max(p[0] for p in pts)
+    xmin = x0 + 0.18 * (x1 - x0)
+    if ay < 110:
+        # no xmin: ι's nub is left of 0.18*width; -0.84*y already drops the top
+        band = [p for p in pts if p[1] >= -40.0]
+        if not band:
+            band = list(pts)
+        # ~-57°: lowest-right nub (ι 35,-11) beats a higher stem flank
+        return max(band, key=lambda p: 0.55 * p[0] - 0.84 * p[1])
+    band = [p for p in pts if p[0] >= xmin and abs(p[1] - ay) <= 100.0]
+    if not band:
+        band = [p for p in pts if abs(p[1] - ay) <= 140.0]
+    if not band:
+        guess = (x0 + fx * (x1 - x0), ay)
+        return min(pts, key=lambda p: (p[0] - guess[0]) ** 2 + (p[1] - guess[1]) ** 2)
+    return max(band, key=lambda p: p[0] - 0.15 * abs(p[1] - ay))
+
+
 def _swell_pts(pts, target, radius, delta):
     """Move points near `target` by `delta` with a cosine-squared falloff.
     Wide support = attached lobe, not a pinched ribbon."""
@@ -394,7 +424,7 @@ def _attached_terminals(cont, name):
     """Grow an attached exit (and a smaller entry) on the outer contour.
 
     No densify: subdividing a stem then swelling it fans into a blot.
-    Radius stays local to the foot so iota/eta keep their skeleton.
+    No width-scale: narrow letters (ι) are the ones that must read at 21px.
     """
     pts = list(_contour_pts(cont))
     if len(pts) < 8:
@@ -403,13 +433,13 @@ def _attached_terminals(cont, name):
     width = x1 - x0
     if width < 40 or (y1 - y0) < 40:
         return cont
-    fx, ay = _anchor_for(name)
-    target = (x0 + fx * width, ay)
-    # scale the lobe on narrow letters so a 250u iota does not become a splash
-    scale = max(0.55, min(1.0, width / 420.0))
-    dx, dy = TERM_DX * scale, TERM_DY * scale
-    rad = TERM_RADIUS * (0.7 + 0.3 * scale)
-    off = _swell_pts(pts, target, rad, (dx, dy))
+    target = _exit_target(pts, name)
+    _, ay = _anchor_for(name)
+    if ay < 110:
+        delta = (TERM_DX, -TERM_FOOT)
+    else:
+        delta = (TERM_DX, TERM_DY)
+    off = _swell_pts(pts, target, TERM_RADIUS, delta)
     cont = _rebuild_contour(cont, off)
     x0, y0, x1, y1 = _contour_bbox(cont)
     width = x1 - x0
@@ -819,7 +849,8 @@ def main(argv=None):
               "handwritten_minuscules": True,
               "embolden": EMBOLDEN, "organic": ORGANIC,
               "term_dx": TERM_DX, "term_dy": TERM_DY,
-              "attached_terminals": True}
+              "term_foot": TERM_FOOT, "term_radius": TERM_RADIUS,
+              "attached_terminals": True, "silhouette_snap": True}
 
     # 1. every glyph becomes a slanted+corrected master (majuscules stay
     #    upright — Estienne's caps are the upright round, only the
