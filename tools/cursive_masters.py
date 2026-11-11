@@ -10,8 +10,9 @@ starting point (decision D1=C, plan §Phase 2.1):
 
   1. body contours slant right (11 deg, baseline pivot);
   2. handwritten ductus on minuscules only (majuscules stay untouched):
-     even the stroke by expanding hairlines and organic cubic handles
-     so the body no longer reads as a sheared Didone next to the upright caps;
+     even the stroke, organic cubics, and ATTACHED entry/exit terminals
+     (same contour, wide neck — not detached flick ribbons) so the body
+     reads as written ink next to the upright caps at page size;
   3. accent/breathing contours stay UPRIGHT (only nudged right to sit over the
      leaning body) — plan §7: polytonic stacks must not drift with the shear;
   4. hand-drawn cursive masters for the positional alternates: lunate sigma
@@ -64,12 +65,32 @@ MARK_DX_Y = 210.0        # marks nudge right as if slanted only to this height
 MARK_Y_MIN = 460         # contour with min-y >= this = accent/breathing layer
 
 # ---- handwritten minuscule ductus (t_cd94bc54) -----------------------------
-# Modest on purpose: enough to kill Gazis Didone hairlines, not so heavy that
-# the body outweighs the upright Gazis caps on the same page. No extra flick
-# contours — a detached ribbon reads as a computer tick, not a pen join
-# (joins live in Phase 2.2 ligatures).
-EMBOLDEN = 8.5          # contour offset (u); stroke grows ~17u, thins more relatively
-ORGANIC = 2.4           # cubic-handle wobble (u), deterministic per glyph
+# UPM 1000, John 1 body 1.32rem ≈ 21px → 1px ≈ 48u. A uniform 8.5u offset is
+# 0.2px at page size (invisible). Attached terminals ~60u read as written
+# ink without exploding narrow stems. Detached flick contours are forbidden.
+EMBOLDEN = 10.0         # modest even-ink; terminals do the visible work
+ORGANIC = 9.0           # cubic-handle wobble (u), deterministic per glyph
+TERM_DX, TERM_DY = 64.0, 38.0    # exit swell along the writing direction
+TERM_RADIUS = 72.0
+ENTRY_DX, ENTRY_DY = -24.0, 10.0
+ENTRY_RADIUS = 56.0
+ENTRY_MIN_WIDTH = 340.0  # skip entry swell on stems (iota/eta) — it blots
+# (x-fraction of bbox, y in pre-shear space) — Vergecio/Estienne exits.
+# Used as the swell *centre* on the existing outer contour, not a new path.
+EXIT_ANCHORS = {
+    "alpha": (0.90, 40), "delta": (0.92, 70), "epsilon": (0.90, 130),
+    "eta":   (0.92, 30), "iota":  (0.88, 50),  "kappa": (0.92, 60),
+    "lambda": (0.92, 20), "nu":   (0.92, 50),  "omicron": (0.88, 90),
+    "pi":    (0.92, 50), "tau":   (0.90, 60),  "upsilon": (0.92, 70),
+    "omega": (0.93, 40), "chi":   (0.92, 80),  "theta": (0.90, 130),
+    "phi":   (0.90, 110), "rho":  (0.88, 120), "mu":    (0.92, 50),
+    "uni03BC": (0.92, 50),
+    "sigma": (0.88, 90), "gamma": (0.90, 50), "xi": (0.90, 60),
+    "zeta": (0.90, 40), "psi": (0.90, 70), "beta": (0.90, 50),
+    "sigma.medial": (0.96, 380), "sigma.cursive": (0.92, 40),
+    "epsilon.cursive": (0.94, 400), "lunateSigma": (0.92, 90),
+    "theta.cursive": (0.92, 130),
+}
 
 ALT_RHO_SCALE = 1.55     # sub-baseline tail stretch for the longtail master
 
@@ -318,8 +339,90 @@ def _rng(name):
     return nxt
 
 
+def _anchor_for(name):
+    """Exit (fx, y) for this glyph. Prefix match covers alphatonos etc."""
+    if name in EXIT_ANCHORS:
+        return EXIT_ANCHORS[name]
+    # longest prefix so 'epsilon' wins over 'e' and 'sigma.medial' is exact
+    best = None
+    for k, v in EXIT_ANCHORS.items():
+        if name.startswith(k) and (best is None or len(k) > len(best[0])):
+            best = (k, v)
+    if best:
+        return best[1]
+    return (0.90, 48)
+
+
+def _swell_pts(pts, target, radius, delta):
+    """Move points near `target` by `delta` with a cosine-squared falloff.
+    Wide support = attached lobe, not a pinched ribbon."""
+    out = []
+    r = max(radius, 1.0)
+    for p in pts:
+        d = math.hypot(p[0] - target[0], p[1] - target[1])
+        if d >= r:
+            out.append(p)
+            continue
+        w = (1.0 - d / r) ** 2
+        out.append((p[0] + delta[0] * w, p[1] + delta[1] * w))
+    return out
+
+
+def _soften_lines(cont):
+    """Turn leftover lineTo into a slight cubic (join-aware curvature)."""
+    out, prev = [], None
+    for op, args in cont:
+        if op == "lineTo" and prev is not None:
+            p = args
+            chord = _vsub(p, prev)
+            nrm = _vnorm((-chord[1], chord[0]))
+            bow = 14.0
+            p1 = _vadd(_vadd(prev, _vmul(chord, 0.33)), _vmul(nrm, bow))
+            p2 = _vadd(_vadd(prev, _vmul(chord, 0.66)), _vmul(nrm, bow * 0.6))
+            out.append(("curveTo", (p1, p2, p)))
+            prev = p
+            continue
+        out.append((op, args))
+        if op in ("moveTo", "lineTo"):
+            prev = args
+        elif op == "curveTo":
+            prev = args[-1]
+    return out
+
+
+def _attached_terminals(cont, name):
+    """Grow an attached exit (and a smaller entry) on the outer contour.
+
+    No densify: subdividing a stem then swelling it fans into a blot.
+    Radius stays local to the foot so iota/eta keep their skeleton.
+    """
+    pts = list(_contour_pts(cont))
+    if len(pts) < 8:
+        return cont
+    x0, y0, x1, y1 = _contour_bbox(cont)
+    width = x1 - x0
+    if width < 40 or (y1 - y0) < 40:
+        return cont
+    fx, ay = _anchor_for(name)
+    target = (x0 + fx * width, ay)
+    # scale the lobe on narrow letters so a 250u iota does not become a splash
+    scale = max(0.55, min(1.0, width / 420.0))
+    dx, dy = TERM_DX * scale, TERM_DY * scale
+    rad = TERM_RADIUS * (0.7 + 0.3 * scale)
+    off = _swell_pts(pts, target, rad, (dx, dy))
+    cont = _rebuild_contour(cont, off)
+    x0, y0, x1, y1 = _contour_bbox(cont)
+    width = x1 - x0
+    if width >= ENTRY_MIN_WIDTH:
+        entry = (x0 + 0.08 * width, max(y0, 0.0) + 36.0)
+        pts = list(_contour_pts(cont))
+        off = _swell_pts(pts, entry, ENTRY_RADIUS, (ENTRY_DX, ENTRY_DY))
+        cont = _rebuild_contour(cont, off)
+    return _soften_lines(cont)
+
+
 def handwritten_body(ops, name):
-    """Didone → written: even the stroke, organic cubics. No flicks here."""
+    """Didone → written: even stroke, organic cubics, attached terminals."""
     rng = _rng(name)
     contours = _contours(ops)
     holes = [False] * len(contours)
@@ -342,8 +445,13 @@ def handwritten_body(ops, name):
                 break
     out = []
     for i, cont in enumerate(contours):
-        thick = _thicken_contour(cont, EMBOLDEN, want_grow=not holes[i])
-        thick = _organic_contour(thick, rng)
+        if holes[i]:
+            thick = _thicken_contour(cont, EMBOLDEN * 0.7, want_grow=False)
+            thick = _organic_contour(thick, rng)
+        else:
+            thick = _thicken_contour(cont, EMBOLDEN, want_grow=True)
+            thick = _attached_terminals(thick, name)
+            thick = _organic_contour(thick, rng)
         out.extend(thick)
         out.append(("closePath", ()))
     return out
@@ -453,16 +561,12 @@ def alt_sigma_medial():
         ("curveTo", ((100, 98), (68, 148), (66, 222))),
         ("curveTo", ((64, 300), (102, 366), (164, 392))),
         ("curveTo", ((220, 414), (282, 402), (318, 366))),
+        ("curveTo", ((348, 382), (392, 412), (428, 444))),
+        ("curveTo", ((396, 430), (358, 408), (328, 390))),
         ("curveTo", ((318, 380), (320, 392), (324, 402))),
         ("curveTo", ((288, 442), (206, 456), (146, 432))),
         ("curveTo", ((72, 402), (32, 322), (34, 238))),
         ("curveTo", ((34, 204), (30, 168), (28, 138))),
-        ("closePath", ()),
-        # exit flick (separate contour, joins the next letter)
-        ("moveTo", (320, 372)),
-        ("curveTo", ((350, 388), (392, 412), (428, 440))),
-        ("curveTo", ((398, 428), (362, 410), (330, 394))),
-        ("curveTo", ((326, 386), (322, 378), (320, 372))),
         ("closePath", ()),
     ]
     return ops, w
@@ -713,7 +817,9 @@ def main(argv=None):
     report = {"slanted": 0, "alternates": [],
               "cmap_added": {}, "cursive_masters": True,
               "handwritten_minuscules": True,
-              "embolden": EMBOLDEN, "organic": ORGANIC}
+              "embolden": EMBOLDEN, "organic": ORGANIC,
+              "term_dx": TERM_DX, "term_dy": TERM_DY,
+              "attached_terminals": True}
 
     # 1. every glyph becomes a slanted+corrected master (majuscules stay
     #    upright — Estienne's caps are the upright round, only the
@@ -817,7 +923,7 @@ def main(argv=None):
                 "Derived from GFS Gazis (c) Greek Font Society, OFL 1.1. "
                 "Grecs du Roi Phase 2.1 slanted cursive masters: slant "
                 "transformation with handwritten minuscule ductus "
-                "(evened stroke, organic cubics), upright "
+                "(evened stroke, organic cubics, attached terminals), upright "
                 "polytonic marks, hand-drawn positional alternates "
                 "(locl/calt). Reserved Font Name 'GFS Gazis' is not used."
             )

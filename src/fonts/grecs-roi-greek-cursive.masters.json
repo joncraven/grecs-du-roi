@@ -14,6 +14,9 @@
   },
   "cursive_masters": true,
   "handwritten_minuscules": true,
-  "embolden": 8.5,
-  "organic": 2.4
+  "embolden": 10.0,
+  "organic": 9.0,
+  "term_dx": 64.0,
+  "term_dy": 38.0,
+  "attached_terminals": true
 }
