@@ -40,7 +40,7 @@ from fontTools.ttLib import TTFont
 from fontTools.pens.recordingPen import DecomposingRecordingPen
 from fontTools.feaLib.builder import addOpenTypeFeaturesFromString
 
-ROOT = Path("/Volumes/RAID10/jon/Projects/grecs-du-roi")
+ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "tools"))
 import cursive_masters as cm  # noqa: E402  (reuses pen/fea/charstring helpers)
 

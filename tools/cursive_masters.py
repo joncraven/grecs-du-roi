@@ -9,15 +9,14 @@ True masters, not a faux-italic shear — the shear is only the interpolation
 starting point (decision D1=C, plan §Phase 2.1):
 
   1. body contours slant right (11 deg, baseline pivot);
-  2. drawn cursive corrections composited on top: exit flicks on 18 minuscules
-     (open join points — the unfinished-ductus read, and the anchors Phase 2.2
-     fuses into ligatures), deepened sweeping rho descender for the
-     word-initial alternate;
+  2. handwritten ductus on minuscules only (majuscules stay untouched):
+     even the stroke by expanding hairlines and organic cubic handles
+     so the body no longer reads as a sheared Didone next to the upright caps;
   3. accent/breathing contours stay UPRIGHT (only nudged right to sit over the
      leaning body) — plan §7: polytonic stacks must not drift with the shear;
   4. hand-drawn cursive masters for the positional alternates: lunate sigma
      (U+03F2), drawn final + medial sigma, deep-tailed initial rho, cursive
-     medial epsilon and theta.
+     medial epsilon and theta, then the same ductus pass so they share ink.
 
 Positional alternates are GSUB-registered the same way the derivative already
 re-registers liga under DFLT/grek/latn:
@@ -57,27 +56,20 @@ from fontTools.pens.t2CharStringPen import T2CharStringPen
 from fontTools.ttLib import TTFont
 from fontTools.feaLib.builder import addOpenTypeFeaturesFromString
 
-ROOT = Path("/Volumes/RAID10/jon/Projects/grecs-du-roi")
+ROOT = Path(__file__).resolve().parent.parent
 
 ANGLE = 11.0
 SKEW = math.tan(math.radians(ANGLE))
 MARK_DX_Y = 210.0        # marks nudge right as if slanted only to this height
 MARK_Y_MIN = 460         # contour with min-y >= this = accent/breathing layer
 
-# ---- drawn cursive corrections ---------------------------------------------
-# (anchor_x_fraction, anchor_y) in pre-shear space; the flick is a short
-# upsloping open stroke continuing the pen's exit from the letter.
-EXIT_ANCHORS = {
-    "alpha": (0.90, 40), "delta": (0.92, 70), "epsilon": (0.90, 130),
-    "eta":   (0.92, 30), "iota":  (0.88, 50),  "kappa": (0.92, 60),
-    "lambda":(0.92, 20), "nu":    (0.92, 50),  "omicron": (0.88, 90),
-    "pi":    (0.92, 50), "tau":   (0.90, 60),  "upsilon": (0.92, 70),
-    "omega": (0.93, 40), "chi":   (0.92, 80),  "theta": (0.90, 130),
-    "phi":   (0.90, 110), "rho":  (0.88, 120), "mu":    (0.92, 50),
-    "uni03BC": (0.92, 50),
-}
-EXIT_FLICK = ((10, 40), (20, 74), (30, 96))
-EXIT_WIDEN = 30
+# ---- handwritten minuscule ductus (t_cd94bc54) -----------------------------
+# Modest on purpose: enough to kill Gazis Didone hairlines, not so heavy that
+# the body outweighs the upright Gazis caps on the same page. No extra flick
+# contours — a detached ribbon reads as a computer tick, not a pen join
+# (joins live in Phase 2.2 ligatures).
+EMBOLDEN = 8.5          # contour offset (u); stroke grows ~17u, thins more relatively
+ORGANIC = 2.4           # cubic-handle wobble (u), deterministic per glyph
 
 ALT_RHO_SCALE = 1.55     # sub-baseline tail stretch for the longtail master
 
@@ -92,6 +84,16 @@ def _rec(glyphset, name):
     return pen.value
 
 
+def _as_pt(args):
+    """RecordingPen wraps points as args[0]=(x,y); our builders store (x,y)."""
+    if not args:
+        return args
+    a0 = args[0]
+    if isinstance(a0, (int, float)):
+        return args
+    return a0
+
+
 def _contours(cmds):
     """recording-pen cmds -> list of contours; each contour is an op list
     [('moveTo',(x,y)), ('curveTo',((x1,y1),(x2,y2),(x3,y3))) | ('lineTo',(x,y)) ...]
@@ -103,11 +105,15 @@ def _contours(cmds):
                 out.append(cur)
             cur = []
         elif op == "moveTo":
-            cur = [("moveTo", args[0])]
+            cur = [("moveTo", _as_pt(args))]
         elif op == "lineTo":
-            cur.append(("lineTo", args[0]))
+            cur.append(("lineTo", _as_pt(args)))
         elif op == "curveTo":
-            cur.append(("curveTo", tuple(args)))
+            pts = tuple(args) if (args and isinstance(args[0], tuple) and len(args[0]) == 2) else tuple(args)
+            # RecordingPen: args = ((x1,y1),(x2,y2),(x3,y3))
+            cur.append(("curveTo", pts))
+        elif op == "qCurveTo":
+            cur.append(("curveTo", tuple(_as_pt((a,)) if not isinstance(a, tuple) else a for a in args)))
     if cur:
         out.append(cur)
     return out
@@ -145,10 +151,207 @@ def _nudge_ops(ops, dx):
     return out
 
 
+def _vsub(a, b):
+    return (a[0] - b[0], a[1] - b[1])
+
+
+def _vadd(a, b):
+    return (a[0] + b[0], a[1] + b[1])
+
+
+def _vmul(a, s):
+    return (a[0] * s, a[1] * s)
+
+
+def _vnorm(a):
+    l = math.hypot(a[0], a[1])
+    if l < 1e-9:
+        return (0.0, 0.0)
+    return (a[0] / l, a[1] / l)
+
+
+def _signed_area_pts(pts):
+    a = 0.0
+    n = len(pts)
+    for i in range(n):
+        x1, y1 = pts[i]
+        x2, y2 = pts[(i + 1) % n]
+        a += x1 * y2 - x2 * y1
+    return a * 0.5
+
+
+def _contour_bbox(cont):
+    xs, ys = [], []
+    for p in _contour_pts(cont):
+        xs.append(p[0])
+        ys.append(p[1])
+    if not xs:
+        return (0, 0, 0, 0)
+    return (min(xs), min(ys), max(xs), max(ys))
+
+
+def _offset_pts(pts, dist):
+    """Polyline offset along averaged left normals, miter-capped."""
+    n = len(pts)
+    if n < 2:
+        return list(pts)
+    out = []
+    for i in range(n):
+        prev = pts[i - 1]
+        cur = pts[i]
+        nxt = pts[(i + 1) % n]
+        t_in = _vnorm(_vsub(cur, prev))
+        t_out = _vnorm(_vsub(nxt, cur))
+        if t_in == (0.0, 0.0):
+            t_in = t_out
+        if t_out == (0.0, 0.0):
+            t_out = t_in
+        n_in = (-t_in[1], t_in[0])
+        n_out = (-t_out[1], t_out[0])
+        nx, ny = n_in[0] + n_out[0], n_in[1] + n_out[1]
+        nl = math.hypot(nx, ny)
+        if nl < 1e-6:
+            nx, ny = n_out
+            nl = math.hypot(nx, ny) or 1.0
+        nx, ny = nx / nl, ny / nl
+        # miter: 1 / cos(half) ~ 1 / dot(n_in, n_avg)
+        d = n_in[0] * nx + n_in[1] * ny
+        miter = 1.0 / d if abs(d) > 0.22 else (4.0 if d >= 0 else -4.0)
+        miter = max(-3.5, min(3.5, miter))
+        out.append((cur[0] + nx * dist * miter, cur[1] + ny * dist * miter))
+    return out
+
+
+def _point_in_contour(pt, cont):
+    """Even-odd ray cast on the on-curve polygon (good enough for holes)."""
+    pts = list(_contour_pts(cont))
+    x, y = pt
+    inside = False
+    n = len(pts)
+    j = n - 1
+    for i in range(n):
+        xi, yi = pts[i]
+        xj, yj = pts[j]
+        if (yi > y) != (yj > y):
+            den = (yj - yi) or 1e-12
+            if x < (xj - xi) * (y - yi) / den + xi:
+                inside = not inside
+        j = i
+    return inside
+
+
+def _span(pts):
+    return ((max(p[0] for p in pts) - min(p[0] for p in pts))
+            + (max(p[1] for p in pts) - min(p[1] for p in pts)))
+
+
+def _rebuild_contour(cont, off):
+    rebuilt, i = [], 0
+    for op, args in cont:
+        if op in ("moveTo", "lineTo"):
+            rebuilt.append((op, off[i]))
+            i += 1
+        elif op == "curveTo":
+            rebuilt.append((op, (off[i], off[i + 1], off[i + 2])))
+            i += 3
+        else:
+            rebuilt.append((op, args))
+    return rebuilt
+
+
+def _thicken_contour(cont, dist, want_grow):
+    """Offset so an outer grows and a hole shrinks. Tiny contours skipped."""
+    pts = list(_contour_pts(cont))
+    if len(pts) < 3:
+        return list(cont)
+    x0, y0, x1, y1 = _contour_bbox(cont)
+    if (x1 - x0) < 28 and (y1 - y0) < 28:
+        return list(cont)
+    off_pos = _offset_pts(pts, dist)
+    grew = _span(off_pos) >= _span(pts) - 0.5
+    off = off_pos if (want_grow == grew) else _offset_pts(pts, -dist)
+    return _rebuild_contour(cont, off)
+
+
+def _organic_contour(cont, rng):
+    """Nudge cubic handles perpendicular to their chord — a written, not
+    plotted, curve. On-curve points stay put so joins don't tear."""
+    out = []
+    for op, args in cont:
+        if op != "curveTo":
+            out.append((op, args))
+            continue
+        p1, p2, p3 = args
+        # previous on-curve is whatever we last emitted
+        prev = None
+        for o2, a2 in reversed(out):
+            if o2 in ("moveTo", "lineTo"):
+                prev = a2
+                break
+            if o2 == "curveTo":
+                prev = a2[-1]
+                break
+        if prev is None:
+            out.append((op, args))
+            continue
+        chord = _vsub(p3, prev)
+        nrm = _vnorm((-chord[1], chord[0]))
+        k1 = rng() * ORGANIC
+        k2 = rng() * ORGANIC
+        np1 = _vadd(p1, _vmul(nrm, k1))
+        np2 = _vadd(p2, _vmul(nrm, k2))
+        out.append(("curveTo", (np1, np2, p3)))
+    return out
+
+
+def _rng(name):
+    h = 2166136261
+    for c in name:
+        h ^= ord(c)
+        h = (h * 16777619) & 0xFFFFFFFF
+
+    def nxt():
+        nonlocal h
+        h = (h * 1664525 + 1013904223) & 0xFFFFFFFF
+        return (h / 4294967295.0) * 2.0 - 1.0
+
+    return nxt
+
+
+def handwritten_body(ops, name):
+    """Didone → written: even the stroke, organic cubics. No flicks here."""
+    rng = _rng(name)
+    contours = _contours(ops)
+    holes = [False] * len(contours)
+    cents, areas = [], []
+    for c in contours:
+        pts = list(_contour_pts(c))
+        if pts:
+            cents.append((sum(p[0] for p in pts) / len(pts),
+                          sum(p[1] for p in pts) / len(pts)))
+            areas.append(abs(_signed_area_pts(pts)))
+        else:
+            cents.append((0.0, 0.0))
+            areas.append(0.0)
+    for i in range(len(contours)):
+        for j, other in enumerate(contours):
+            if i == j or areas[j] <= areas[i]:
+                continue
+            if _point_in_contour(cents[i], other):
+                holes[i] = True
+                break
+    out = []
+    for i, cont in enumerate(contours):
+        thick = _thicken_contour(cont, EMBOLDEN, want_grow=not holes[i])
+        thick = _organic_contour(thick, rng)
+        out.extend(thick)
+        out.append(("closePath", ()))
+    return out
+
+
 def build_master(cmds, width, name, upright=False):
-    """Return (ops, new_width): slanted body + upright marks + exit flick.
-    uppercase=False glyphs only: Estienne sets majuscules upright, so
-    `upright=True` copies the contour through untouched."""
+    """Return (ops, new_width): slanted body + handwritten ductus + upright
+    marks. Majuscules (`upright=True`) copy through."""
     if upright:
         ops = []
         for cont in _contours(cmds):
@@ -173,23 +376,20 @@ def build_master(cmds, width, name, upright=False):
     for cont in body_ops:
         ops.extend(_slant_ops(cont))
         ops.append(("closePath", ()))
+    if has_body:
+        ops = handwritten_body(ops, name)
+        # recompute right extent after thicken
+        body_right = 0.0
+        for cont in _contours(ops):
+            for x, y in _contour_pts(cont):
+                body_right = max(body_right, x)
     mark_dx = SKEW * MARK_DX_Y if has_body else 0.0
     for cont in mark_ops:
         ops.extend(_nudge_ops(cont, mark_dx))
         ops.append(("closePath", ()))
 
     w = width
-    if name in EXIT_ANCHORS:
-        fx, ay = EXIT_ANCHORS[name]
-        ax, ayy = _slant_pt(fx * width, ay)
-        flick = [("moveTo", (ax, ayy))]
-        flick.append(("curveTo", tuple(_slant_pt(fx * width + dx, ay + dy)
-                                       for dx, dy in EXIT_FLICK)))
-        flick.append(("closePath", ()))
-        ops.extend(flick)
-        body_right += EXIT_WIDEN
-        w = int(width + EXIT_WIDEN)
-    # advance follows the slanted extent, near-zero right side bearing
+    # advance follows the slanted+thickened extent, near-zero right side bearing
     # (cursive runs crowd together; Phase 2.2 ligatures carry the joins)
     w = max(w, int(math.ceil(body_right)) + 8)
     return ops, w
@@ -510,8 +710,10 @@ def main(argv=None):
     hmtx = dict(font["hmtx"].metrics)
     order = list(font.getGlyphOrder())
 
-    report = {"slanted": 0, "exit_flick_glyphs": [], "alternates": [],
-              "cmap_added": {}, "cursive_masters": True}
+    report = {"slanted": 0, "alternates": [],
+              "cmap_added": {}, "cursive_masters": True,
+              "handwritten_minuscules": True,
+              "embolden": EMBOLDEN, "organic": ORGANIC}
 
     # 1. every glyph becomes a slanted+corrected master (majuscules stay
     #    upright — Estienne's caps are the upright round, only the
@@ -545,12 +747,11 @@ def main(argv=None):
         charstrings[g] = charstring_from_ops(top, cff, ops, nw)
         hmtx[g] = (nw, 0)
         report["slanted"] += 1
-        if g in EXIT_ANCHORS:
-            report["exit_flick_glyphs"].append(g)
 
-    # 2. hand-drawn alternate masters
+    # 2. hand-drawn alternate masters (same ductus so they share ink)
     for name, drawer in ALTERNATES.items():
         ops, w = drawer()
+        ops = handwritten_body(ops, name)
         if name not in order:
             order.append(name)
         set_charstring(top, cff, name, charstring_from_ops(top, cff, ops, w))
@@ -610,12 +811,13 @@ def main(argv=None):
         elif rec.nameID == 6:
             rec.string = ps
         elif rec.nameID == 3:
-            rec.string = f"1.001;GDR;{ps}"
+            rec.string = f"1.003;GDR;{ps}"
         elif rec.nameID == 0:
             rec.string = (
                 "Derived from GFS Gazis (c) Greek Font Society, OFL 1.1. "
                 "Grecs du Roi Phase 2.1 slanted cursive masters: slant "
-                "transformation with drawn ductus corrections, upright "
+                "transformation with handwritten minuscule ductus "
+                "(evened stroke, organic cubics), upright "
                 "polytonic marks, hand-drawn positional alternates "
                 "(locl/calt). Reserved Font Name 'GFS Gazis' is not used."
             )
@@ -637,7 +839,6 @@ def main(argv=None):
     meta.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n",
                     encoding="utf-8")
     print(f"masters: slanted={report['slanted']} "
-          f"exit-flicks={len(report['exit_flick_glyphs'])} "
           f"alternates={report['alternates']}")
     return 0
 

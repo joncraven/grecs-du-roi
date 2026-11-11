@@ -1,25 +1,5 @@
 {
   "slanted": 403,
-  "exit_flick_glyphs": [
-    "alpha",
-    "delta",
-    "epsilon",
-    "eta",
-    "theta",
-    "iota",
-    "kappa",
-    "lambda",
-    "uni03BC",
-    "nu",
-    "omicron",
-    "rho",
-    "tau",
-    "upsilon",
-    "phi",
-    "chi",
-    "omega",
-    "pi"
-  ],
   "alternates": [
     "lunateSigma",
     "sigma.cursive",
@@ -32,5 +12,8 @@
     "U+03F2": "lunateSigma",
     "U+02BC": "quoteright (keraia — closes base tofu)"
   },
-  "cursive_masters": true
+  "cursive_masters": true,
+  "handwritten_minuscules": true,
+  "embolden": 8.5,
+  "organic": 2.4
 }
