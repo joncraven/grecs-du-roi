@@ -70,12 +70,19 @@ MARK_Y_MIN = 460         # contour with min-y >= this = accent/breathing layer
 # at 8× and ≤1px extra ink at 21px (bbox +0). Detached flicks and inserted
 # leaf-loops read as computer ticks. Split the exit cubic and slide that
 # on-curve + handles (~124u ≈ 2.6px, one-sided) so the stem itself hooks.
+# Collinear mid/desc/top slides (along a hairline tongue/descender) raster
+# as darts/spikes that vanish at 21px. Thin exits: locally thicken the
+# stroke at the tip (wide neck) then a short one-sided hook — not a
+# pinched leaf (that read as a detached dot) and not Euclidean swell.
 EMBOLDEN = 10.0         # modest even-ink; terminals do the visible work
 ORGANIC = 9.0           # cubic-handle wobble (u), deterministic per glyph
 FOOT_LEN = 136.0        # ~2.9px hook at 21px
+HOOK_PERP = 32.0        # handle bow on baseline feet (ι π)
+PAD_THICK = 54.0        # local outward offset at the ε tongue (~1.1px per side)
+PAD_RADIUS = 118.0      # falloff radius for the local thicken
 # (x-fraction unused at scribe time; y selects baseline vs mid/high zone).
 EXIT_ANCHORS = {
-    "alpha": (0.90, 40), "delta": (0.92, 70), "epsilon": (0.90, 130),
+    "alpha": (0.90, 40), "delta": (0.92, 70), "epsilon": (0.92, 340),
     "eta":   (0.92, 30), "iota":  (0.88, 50),  "kappa": (0.92, 60),
     "lambda": (0.92, 20), "nu":   (0.92, 50),  "omicron": (0.88, 90),
     "pi":    (0.92, 50), "tau":   (0.90, 60),  "upsilon": (0.92, 70),
@@ -277,6 +284,56 @@ def _rebuild_contour(cont, off):
     return rebuilt
 
 
+def _offset_pts_var(pts, dists):
+    """Polyline offset with per-point distance (same normals as _offset_pts)."""
+    n = len(pts)
+    if n < 2:
+        return list(pts)
+    out = []
+    for i in range(n):
+        prev = pts[i - 1]
+        cur = pts[i]
+        nxt = pts[(i + 1) % n]
+        t_in = _vnorm(_vsub(cur, prev))
+        t_out = _vnorm(_vsub(nxt, cur))
+        if t_in == (0.0, 0.0):
+            t_in = t_out
+        if t_out == (0.0, 0.0):
+            t_out = t_in
+        n_in = (-t_in[1], t_in[0])
+        n_out = (-t_out[1], t_out[0])
+        nx, ny = n_in[0] + n_out[0], n_in[1] + n_out[1]
+        nl = math.hypot(nx, ny)
+        if nl < 1e-6:
+            nx, ny = n_out
+            nl = math.hypot(nx, ny) or 1.0
+        nx, ny = nx / nl, ny / nl
+        ddot = n_in[0] * nx + n_in[1] * ny
+        miter = 1.0 / ddot if abs(ddot) > 0.22 else (4.0 if ddot >= 0 else -4.0)
+        miter = max(-3.5, min(3.5, miter))
+        dist = dists[i]
+        out.append((cur[0] + nx * dist * miter, cur[1] + ny * dist * miter))
+    return out
+
+
+def _local_thicken(cont, center, radius, dist):
+    """Grow stroke width near `center` only — a blunt written tip, wide neck."""
+    pts = list(_contour_pts(cont))
+    if len(pts) < 3:
+        return cont
+    dists = []
+    for p in pts:
+        d = math.hypot(p[0] - center[0], p[1] - center[1])
+        t = max(0.0, 1.0 - d / radius)
+        dists.append(dist * t * t)
+    if max(dists) < 1.0:
+        return cont
+    off_pos = _offset_pts_var(pts, dists)
+    grew = _span(off_pos) >= _span(pts) - 0.5
+    off = off_pos if grew else _offset_pts_var(pts, [-x for x in dists])
+    return _rebuild_contour(cont, off)
+
+
 def _thicken_contour(cont, dist, want_grow):
     """Offset so an outer grows and a hole shrinks. Tiny contours skipped."""
     pts = list(_contour_pts(cont))
@@ -412,6 +469,12 @@ def _exit_kind(name, pts):
     """
     _, ay = _anchor_for(name)
     ymin = min(p[1] for p in pts)
+    stem = name.split(".")[0]
+    # η: the hairline descender cannot host a foot; the thick right stem
+    # ends at (xmax, ~356). Hook that corner like ι, not the baseline
+    # (italic overhang swallows a baseline serif).
+    if stem == "eta":
+        return "top"
     if ay >= 110:
         return "mid"
     if ymin < -120:
@@ -432,36 +495,40 @@ def _exit_kind(name, pts):
 
 
 def _exit_delta(kind):
+    """Hook direction. Same length as the proven ι foot so 21px can see it.
+    Mid is slightly down-right (tongue); top is right along the stem."""
     if kind == "mid":
-        d = (1.0, 0.06)
-        scale = FOOT_LEN * 0.82
+        d = (0.88, -0.32)
+        scale = FOOT_LEN * 0.78  # tongue already locally thickened
     elif kind == "desc":
-        d = (0.55, -0.84)
-        scale = FOOT_LEN * 0.58
+        d, scale = (0.94, -0.22), FOOT_LEN
     elif kind == "top":
-        d = (0.88, 0.47)
-        scale = FOOT_LEN * 0.62
+        d, scale = (0.93, -0.22), FOOT_LEN  # serif, slight down like ι
     else:
-        d = (0.93, -0.37)  # mostly right, slight down — a foot, not a comma
-        scale = FOOT_LEN
-    n = _vnorm(d)
-    return _vmul(n, scale)
+        d, scale = (0.93, -0.37), FOOT_LEN
+    return _vmul(_vnorm(d), scale)
 
 
-def _score_exit(pt, kind, ay, ymin):
+def _score_exit(pt, kind, ay, ymin, name=""):
     x, y = pt
+    stem = name.split(".")[0]
+    if stem == "eta":
+        # thick right stem body (~y=280), not the arch's hair ending
+        if y < 250.0 or y > 295.0:
+            return -1e9
+        return x
     if kind == "mid":
-        if abs(y - ay) > 120.0:
+        if abs(y - ay) > 160.0:
             return -1e9
         return x - 0.08 * abs(y - ay)
     if kind == "desc":
-        if y > ymin + 95.0:
+        if y > ymin + 70.0:
             return -1e9
-        return 0.42 * x - 0.91 * y
+        return 0.82 * x - 0.35 * y  # right of the tail, not the lowest hair
     if kind == "top":
-        if y < 220.0:
+        if y < 270.0 or y > 340.0:
             return -1e9
-        return x + 0.32 * y
+        return x - 0.45 * abs(y - 300.0)  # thick stem, not the hair peak
     if y < -40.0 or y > 52.0:
         return -1e9
     # x - 1.25y: right-bottom corner, not the left nub and not the stem flank
@@ -491,7 +558,7 @@ def _best_exit_sample(cont, name):
         for k in range(1, 10):
             t = k / 10.0
             pt = _cubic_point(p0, p1, p2, p3, t)
-            s = _score_exit(pt, kind, ay, ymin)
+            s = _score_exit(pt, kind, ay, ymin, name)
             if s > best_s:
                 best_s = s
                 best = (i, t, pt, kind)
@@ -525,8 +592,10 @@ def _soften_lines(cont):
 def _attached_terminals(cont, name):
     """Hook the exit cubic (same contour) — a written ending, not a dart.
 
-    Splitting then sliding only that on-curve + its handles grows a one-sided
-    foot. A separate loop became a leaf/tick; Euclidean swell became a club.
+    Foot (ι π): one-sided slide of the true corner. Thin exits (ε η ν):
+    locally thicken the tip (wide neck) then the same one-sided hook.
+    A pinched both-handle leaf read as a detached dot; Euclidean swell
+    clubbed stems.
     """
     pts = list(_contour_pts(cont))
     if len(pts) < 8:
@@ -537,7 +606,18 @@ def _attached_terminals(cont, name):
     hit = _best_exit_sample(cont, name)
     if hit is None:
         return _soften_lines(cont)
-    i, t, _pt, kind = hit
+    i, t, pt, kind = hit
+    if kind == "mid":
+        cont = _local_thicken(cont, pt, PAD_RADIUS, PAD_THICK)
+        hit = _best_exit_sample(cont, name)
+        if hit is None:
+            return _soften_lines(cont)
+        i, t, pt, kind = hit
+    elif name.split(".")[0] == "eta":
+        # Heavy local stem (no cubic hook: that flagged the arch).
+        # 96u only moved xmax 74u and rasterized to 1px gray.
+        cont = _local_thicken(cont, pt, 110.0, 160.0)
+        return _soften_lines(cont)
     cub = _seg_cubic(cont, i)
     if cub is None:
         return _soften_lines(cont)
@@ -545,12 +625,19 @@ def _attached_terminals(cont, name):
     t = min(max(t, 0.18), 0.82)
     left, right = _split_cubic(p0, p1, p2, p3, t)
     delta = _exit_delta(kind)
-    # slide the split + handles; a little perpendicular bow so the
-    # ending is a hook, not a triangular spike
-    perp = _vmul(_vnorm((-delta[1], delta[0])), 32.0)
-    m = _vadd(left[3], _vmul(delta, 0.90))
-    d = _vadd(_vadd(left[2], _vmul(delta, 0.58)), perp)
-    e = _vadd(_vadd(right[1], _vmul(delta, 0.58)), _vmul(perp, -0.2))
+    bow = 44.0 if kind == "top" else HOOK_PERP
+    side, m_k, h_k = 0.2, 0.90, 0.58
+    seglen = math.hypot(p3[0] - p0[0], p3[1] - p0[1])
+    # long cubics (η arch): do not drag the far handle — that sheared a
+    # hairline tick at p3. Only the local split gets the foot.
+    if seglen > 110.0 and kind != "foot":
+        h_k_e = 0.12
+    else:
+        h_k_e = h_k
+    perp = _vmul(_vnorm((-delta[1], delta[0])), bow)
+    m = _vadd(left[3], _vmul(delta, m_k))
+    d = _vadd(_vadd(left[2], _vmul(delta, h_k)), perp)
+    e = _vadd(_vadd(right[1], _vmul(delta, h_k_e)), _vmul(perp, -side))
     new_seg = [
         ("curveTo", (left[1], d, m)),
         ("curveTo", (e, right[2], p3)),
