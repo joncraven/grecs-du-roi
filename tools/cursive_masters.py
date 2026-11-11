@@ -66,20 +66,17 @@ MARK_Y_MIN = 460         # contour with min-y >= this = accent/breathing layer
 
 # ---- handwritten minuscule ductus (t_cd94bc54) -----------------------------
 # UPM 1000, John 1 body 1.32rem ≈ 21px → 1px ≈ 48u.
-# Euclidean cosine swell (r≈72) moved BOTH sides of a thin stem → club/paddle
-# at 8× and ≤1px extra ink at 21px (bbox +0). Detached flicks and inserted
-# leaf-loops read as computer ticks. Split the exit cubic and slide that
-# on-curve + handles (~124u ≈ 2.6px, one-sided) so the stem itself hooks.
-# Collinear mid/desc/top slides (along a hairline tongue/descender) raster
-# as darts/spikes that vanish at 21px. Thin exits: locally thicken the
-# stroke at the tip (wide neck) then a short one-sided hook — not a
-# pinched leaf (that read as a detached dot) and not Euclidean swell.
+# The ι one-sided cubic foot is the shape target: a short attached written
+# exit with ink in the hook, not a collinear dart, stem paddle, or spur.
+# Euclidean stem swell and large-radius tongue pads read as clubs/arrowheads.
+# Thin exits (ε tongue, η descender) may get a *tip-only* pad (small radius)
+# so the hook has a neck; the pad must not blow out the stem.
 EMBOLDEN = 10.0         # modest even-ink; terminals do the visible work
 ORGANIC = 9.0           # cubic-handle wobble (u), deterministic per glyph
-FOOT_LEN = 136.0        # ~2.9px hook at 21px
-HOOK_PERP = 32.0        # handle bow on baseline feet (ι π)
-PAD_THICK = 54.0        # local outward offset at the ε tongue (~1.1px per side)
-PAD_RADIUS = 118.0      # falloff radius for the local thicken
+FOOT_LEN = 136.0        # ~2.9px hook at 21px (proven on ι)
+HOOK_PERP = 32.0        # handle bow on the ι/π baseline foot
+TIP_PAD = 50.0          # tip-only thicken on the ε tongue (~1.0px/side)
+TIP_RADIUS = 48.0       # tight on the tip so it does not become a triangle
 # (x-fraction unused at scribe time; y selects baseline vs mid/high zone).
 EXIT_ANCHORS = {
     "alpha": (0.90, 40), "delta": (0.92, 70), "epsilon": (0.92, 340),
@@ -463,18 +460,18 @@ def _exit_kind(name, pts):
     """Where the pen leaves this minuscule.
 
     foot: baseline right (ι π α …)
-    desc: descender tip (η ρ μ)
+    desc: descender tip (η ρ μ) — ι-style foot on the tail, not the stem
     mid:  tongue / join (ε θ σ.medial)
     top:  high right stem with no right baseline foot (ν υ)
     """
     _, ay = _anchor_for(name)
     ymin = min(p[1] for p in pts)
     stem = name.split(".")[0]
-    # η: the hairline descender cannot host a foot; the thick right stem
-    # ends at (xmax, ~356). Hook that corner like ι, not the baseline
-    # (italic overhang swallows a baseline serif).
+    # η: italic overhang swallows a mid-stem serif and a mid-tail hook.
+    # The thick right stem's baseline corner can take the same foot as ι;
+    # the hairline descender tip only grows a spike.
     if stem == "eta":
-        return "top"
+        return "foot"
     if ay >= 110:
         return "mid"
     if ymin < -120:
@@ -495,15 +492,18 @@ def _exit_kind(name, pts):
 
 
 def _exit_delta(kind):
-    """Hook direction. Same length as the proven ι foot so 21px can see it.
-    Mid is slightly down-right (tongue); top is right along the stem."""
+    """Hook direction. ι foot is down-right off a vertical stem.
+
+    Thin tongues/arms that already run right become darts/spurs if we
+    slide *along* the stroke; turn the pen the way ι does (down-right)
+    so the extra ink is a short attached foot.
+    """
     if kind == "mid":
-        d = (0.88, -0.32)
-        scale = FOOT_LEN * 0.78  # tongue already locally thickened
+        d, scale = (0.78, -0.63), FOOT_LEN  # ι-length diagonal foot off tongue
     elif kind == "desc":
-        d, scale = (0.94, -0.22), FOOT_LEN
+        d, scale = (0.93, -0.37), FOOT_LEN  # same as ι
     elif kind == "top":
-        d, scale = (0.93, -0.22), FOOT_LEN  # serif, slight down like ι
+        d, scale = (0.72, -0.69), FOOT_LEN * 0.90  # hang a foot, not a spur
     else:
         d, scale = (0.93, -0.37), FOOT_LEN
     return _vmul(_vnorm(d), scale)
@@ -513,10 +513,11 @@ def _score_exit(pt, kind, ay, ymin, name=""):
     x, y = pt
     stem = name.split(".")[0]
     if stem == "eta":
-        # thick right stem body (~y=280), not the arch's hair ending
-        if y < 250.0 or y > 295.0:
+        # Baseline-right corner of the thick right stem (like ι), not the
+        # descender hair and not the n-bowl at y≈280 (paddle).
+        if y < -20.0 or y > 52.0:
             return -1e9
-        return x
+        return x - 1.25 * y
     if kind == "mid":
         if abs(y - ay) > 160.0:
             return -1e9
@@ -526,9 +527,9 @@ def _score_exit(pt, kind, ay, ymin, name=""):
             return -1e9
         return 0.82 * x - 0.35 * y  # right of the tail, not the lowest hair
     if kind == "top":
-        if y < 270.0 or y > 340.0:
+        if y < 270.0 or y > 390.0:
             return -1e9
-        return x - 0.45 * abs(y - 300.0)  # thick stem, not the hair peak
+        return x - 0.45 * abs(y - 330.0)  # thick arm, not the hair peak
     if y < -40.0 or y > 52.0:
         return -1e9
     # x - 1.25y: right-bottom corner, not the left nub and not the stem flank
@@ -590,12 +591,11 @@ def _soften_lines(cont):
 
 
 def _attached_terminals(cont, name):
-    """Hook the exit cubic (same contour) — a written ending, not a dart.
+    """Hook the exit cubic (same contour) — an ι-style written foot.
 
-    Foot (ι π): one-sided slide of the true corner. Thin exits (ε η ν):
-    locally thicken the tip (wide neck) then the same one-sided hook.
-    A pinched both-handle leaf read as a detached dot; Euclidean swell
-    clubbed stems.
+    Foot (ι π): one-sided slide of the true corner. Thin exits (ε tongue,
+    η descender): a *tip-only* pad then the same hook, turned off the
+    stroke so the extra ink is a short foot, not a dart/paddle/spur.
     """
     pts = list(_contour_pts(cont))
     if len(pts) < 8:
@@ -608,16 +608,11 @@ def _attached_terminals(cont, name):
         return _soften_lines(cont)
     i, t, pt, kind = hit
     if kind == "mid":
-        cont = _local_thicken(cont, pt, PAD_RADIUS, PAD_THICK)
+        cont = _local_thicken(cont, pt, TIP_RADIUS, TIP_PAD)
         hit = _best_exit_sample(cont, name)
         if hit is None:
             return _soften_lines(cont)
         i, t, pt, kind = hit
-    elif name.split(".")[0] == "eta":
-        # Heavy local stem (no cubic hook: that flagged the arch).
-        # 96u only moved xmax 74u and rasterized to 1px gray.
-        cont = _local_thicken(cont, pt, 110.0, 160.0)
-        return _soften_lines(cont)
     cub = _seg_cubic(cont, i)
     if cub is None:
         return _soften_lines(cont)
@@ -625,7 +620,9 @@ def _attached_terminals(cont, name):
     t = min(max(t, 0.18), 0.82)
     left, right = _split_cubic(p0, p1, p2, p3, t)
     delta = _exit_delta(kind)
-    bow = 44.0 if kind == "top" else HOOK_PERP
+    # ι uses HOOK_PERP=32; give non-foot exits a bit more bow so the
+    # turn reads as a rounded foot rather than a pointed spur.
+    bow = HOOK_PERP if kind == "foot" else 40.0
     side, m_k, h_k = 0.2, 0.90, 0.58
     seglen = math.hypot(p3[0] - p0[0], p3[1] - p0[1])
     # long cubics (η arch): do not drag the far handle — that sheared a
