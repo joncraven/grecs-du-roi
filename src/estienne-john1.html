@@ -67,7 +67,11 @@ body.mode-modern { background: #cbb684; }
 .folio-no { position: absolute; top: 1rem; right: 1.4rem; font-size: .95rem; color: var(--ink-soft); }
 .headpiece { width: 100%; height: auto; display: block; margin-bottom: .9rem; }
 .title {
-  text-align: center; font-weight: 700; letter-spacing: .06em;
+  /* weight 400: the shipped GrecsRoi faces are single-weight (OS/2 400) —
+     700 here made Chromium SYNTHESISE a fake bold, giving the capitals a
+     generic fallback look instead of the real GrecsRoi letterforms
+     (t_76ac62df; scan's title capitals stay honest at regular weight). */
+  text-align: center; font-weight: 400; letter-spacing: .06em;
   line-height: 1.45; font-size: 1.5rem; margin: 0 0 1.1rem; color: var(--ink);
 }
 .textblock {
@@ -129,7 +133,7 @@ body.mode-modern { background: #cbb684; }
   <path d="M410 12 c-6 8 6 12 0 20 M404 18 c4 2 8 2 12 0"/>
  </g>
 </svg>
-  <h1 class="title" lang="grc">ΤΟ ΚΑΤΑ ΙΩΑΝΝΗΝ ΑΓΙΟΝ<br>ΕΥ ΑΓΓΕΛΙΟΝ.</h1>
+  <h1 class="title" lang="grc">ΤΟ ΚΑΤΑ ΙΩΑΝΝΗΝ ΑΓΙΟΝ<br>ΕΥΑΓΓΕΛΙΟΝ.</h1>
   <section class="textblock" id="textblock" spellcheck="false">
 <div class="verse" data-verse="1"><span class="vnum" aria-hidden="true">α´</span><aside class="marginal" data-conf="high" title="Κολοσ. α´. Γ´ — confidence high">Κολοσ. α´. Γ´</aside><span class="vtext"><span class="initial" aria-hidden="false">Ε</span><span class="initial-rest">ν ἀρχῇ</span> ἦν ὁ λόγος, καὶ ὁ λόγος ἦν πρὸς τὸν Θεόν, καὶ Θεὸς ἦν ὁ λόγος.</span></div>
 <div class="verse" data-verse="2"><span class="vnum" aria-hidden="true">β´</span><span class="vtext">Οὗτος ἦν ἐν ἀρχῇ πρὸς τὸν Θεόν.</span></div>

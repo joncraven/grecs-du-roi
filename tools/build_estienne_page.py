@@ -177,7 +177,11 @@ body.mode-modern {{ background: #cbb684; }}
 .folio-no {{ position: absolute; top: 1rem; right: 1.4rem; font-size: .95rem; color: var(--ink-soft); }}
 .headpiece {{ width: 100%; height: auto; display: block; margin-bottom: .9rem; }}
 .title {{
-  text-align: center; font-weight: 700; letter-spacing: .06em;
+  /* weight 400: the shipped GrecsRoi faces are single-weight (OS/2 400) —
+     700 here made Chromium SYNTHESISE a fake bold, giving the capitals a
+     generic fallback look instead of the real GrecsRoi letterforms
+     (t_76ac62df; scan's title capitals stay honest at regular weight). */
+  text-align: center; font-weight: 400; letter-spacing: .06em;
   line-height: 1.45; font-size: 1.5rem; margin: 0 0 1.1rem; color: var(--ink);
 }}
 .textblock {{
@@ -225,7 +229,7 @@ body.mode-modern {{ background: #cbb684; }}
 <main class="folio" id="folio">
   <div class="folio-no" aria-hidden="true">161</div>
   {HEADPIECE}
-  <h1 class="title" lang="grc">ΤΟ ΚΑΤΑ ΙΩΑΝΝΗΝ ΑΓΙΟΝ<br>ΕΥ ΑΓΓΕΛΙΟΝ.</h1>
+  <h1 class="title" lang="grc">ΤΟ ΚΑΤΑ ΙΩΑΝΝΗΝ ΑΓΙΟΝ<br>ΕΥΑΓΓΕΛΙΟΝ.</h1>
   <section class="textblock" id="textblock" spellcheck="false">
 {verses_html}
   </section>
