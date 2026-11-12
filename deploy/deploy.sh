@@ -67,10 +67,17 @@ snip = Path("/tmp/grecs.caddy.http.snippet").read_text()
 start = "# --- grecs-du-roi reader"  # prefix match: old grecs.* and new greek.* blocks
 end = "# --- end grecs-du-roi reader ---"
 if start in text and end in text:
-    pre = text[:text.index(start)]
-    post = text[text.index(end) + len(end):]
-    p.write_text(pre.rstrip() + "\n" + snip + post)
-    print("replaced marked grecs block")
+    block = text[text.index(start):text.index(end) + len(end)]
+    if "\n\troot * /srv/grecs/current" in block or "root * /srv/grecs/current" in block.split("\n", 1)[-1]:
+        # block already serves /srv/grecs/current (e.g. the TLS variant from
+        # enable-tls.sh) — content is live via the symlink flip; do NOT
+        # downgrade TLS to the http:// snippet (KO 2026-11-12: it did).
+        print("existing grecs block serves /srv/grecs/current; leaving Caddyfile untouched")
+    else:
+        pre = text[:text.index(start)]
+        post = text[text.index(end) + len(end):]
+        p.write_text(pre.rstrip() + "\n" + snip + post)
+        print("replaced marked grecs block")
 elif "grecs.craven.fr" in text or "greek.craven.fr" in text:
     print("unmarked grecs reference exists; refusing to edit")
     raise SystemExit(1)
