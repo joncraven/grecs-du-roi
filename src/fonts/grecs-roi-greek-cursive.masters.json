@@ -18,5 +18,8 @@
   "organic": 9.0,
   "foot_len": 136.0,
   "attached_terminals": true,
-  "exit_hook": true
+  "exit_hook": true,
+  "overrides": [
+    "pi"
+  ]
 }

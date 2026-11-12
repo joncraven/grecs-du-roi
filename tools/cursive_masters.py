@@ -952,6 +952,58 @@ ALTERNATES = {
 }
 
 
+# ---- hand-drawn base-master overrides (t_8ad4e391) --------------------------
+def master_pi_flat():
+    """π: the scan ground truth (300-dpi secondsource + the canonical
+    minuscule chart) is a FLAT straight crossbar over two stems — no looped
+    left entry. Gazis' pi carries a hooked calligraphic entry that at 21px
+    reads as a looped top, so we replace the derived outline wholesale.
+    Drawn upright ~40u stroke (handwritten_body emboldens to ~60, the house
+    ductus); the build hook slants, thickens, and attaches feet like every
+    other minuscule."""
+    w = 700
+    ops = [
+        # crossbar: flat, dead-straight, ends overshoot both stems
+        ("moveTo", (42, 432)),
+        ("lineTo", (618, 432)),
+        ("lineTo", (618, 472)),
+        ("lineTo", (42, 472)),
+        ("closePath", ()),
+        # left stem
+        ("moveTo", (100, -8)),
+        ("lineTo", (140, -8)),
+        ("lineTo", (140, 442)),
+        ("lineTo", (100, 442)),
+        ("closePath", ()),
+        # right stem
+        ("moveTo", (520, -8)),
+        ("lineTo", (560, -8)),
+        ("lineTo", (560, 442)),
+        ("lineTo", (520, 442)),
+        ("closePath", ()),
+    ]
+    return ops, w
+
+
+BASE_OVERRIDES = {"pi": master_pi_flat}
+
+
+def build_override(drawer, name):
+    """Same pipeline as build_master (slant → handwritten ductus → advance
+    follows the slanted extent) for hand-drawn upright masters."""
+    ops0, w = drawer()
+    ops = []
+    for cont in _contours(ops0):
+        ops.extend(_slant_ops(cont))
+        ops.append(("closePath", ()))
+    ops = handwritten_body(ops, name)
+    right = 0.0
+    for cont in _contours(ops):
+        for x, _y in _contour_pts(cont):
+            right = max(right, x)
+    return ops, max(w, int(math.ceil(right)) + 8)
+
+
 def master_rho_longtail(cmds, width):
     """Deep-tailed initial rho.  Input is the ALREADY-slanted rho outline:
     stretch its sub-baseline half (affine on y<0 = longer sweep, unchanged
@@ -1171,6 +1223,14 @@ def main(argv=None):
 
     for g, cmds in original.items():
         w = hmtx.get(g, (500, 0))[0]
+        if g in BASE_OVERRIDES:
+            # hand-drawn replacement (t_8ad4e391: π flat crossbar)
+            ops, nw = build_override(BASE_OVERRIDES[g], g)
+            charstrings[g] = charstring_from_ops(top, cff, ops, nw)
+            hmtx[g] = (nw, 0)
+            report.setdefault("overrides", []).append(g)
+            report["slanted"] += 1
+            continue
         ops, nw = build_master(cmds, w, g, upright=is_upper(g))
         charstrings[g] = charstring_from_ops(top, cff, ops, nw)
         hmtx[g] = (nw, 0)

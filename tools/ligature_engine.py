@@ -222,7 +222,12 @@ def make_fea_v2(font, extra_rules):
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--cap", type=int, default=150)
-    ap.add_argument("--overlap", type=float, default=0.18)
+    # t_8ad4e391: scan ground truth (300-dpi secondsource, pixel-measured)
+    # shows tight letters with a clean ~2px white gap at every join, never
+    # fused ink. 0.18 stole ~125u at each join → parts crushed together.
+    # 0.05 (~35-45u) keeps the joins tight like the scan with a hairline gap
+    # and still shrinks the advance enough for the feature toggle to prove.
+    ap.add_argument("--overlap", type=float, default=0.05)
     ap.add_argument("--font", default=str(ROOT / "src/fonts/grecs-roi-greek-cursive.otf"))
     args = ap.parse_args(argv)
 
