@@ -10,9 +10,10 @@ starting point (decision D1=C, plan §Phase 2.1):
 
   1. body contours slant right (11 deg, baseline pivot);
   2. handwritten ductus on minuscules only (majuscules stay untouched):
-     even the stroke, organic cubics, and ATTACHED entry/exit terminals
-     (same contour, wide neck — not detached flick ribbons) so the body
-     reads as written ink next to the upright caps at page size;
+     broad-nib stroke contrast (vertical-ish, like the Didone caps — not
+     even marker-pen ink), organic cubics, softer joins, and ATTACHED
+     entry/exit terminals (same contour, wide neck — not detached flick
+     ribbons) so the body reads as written ink next to the upright caps;
   3. accent/breathing contours stay UPRIGHT (only nudged right to sit over the
      leaning body) — plan §7: polytonic stacks must not drift with the shear;
   4. hand-drawn cursive masters for the positional alternates: lunate sigma
@@ -64,7 +65,7 @@ SKEW = math.tan(math.radians(ANGLE))
 MARK_DX_Y = 210.0        # marks nudge right as if slanted only to this height
 MARK_Y_MIN = 460         # contour with min-y >= this = accent/breathing layer
 
-# ---- handwritten minuscule ductus (t_cd94bc54) -----------------------------
+# ---- handwritten minuscule ductus (t_cd94bc54 + t_00b749dd) ----------------
 # UPM 1000, John 1 body 1.32rem ≈ 21px → 1px ≈ 48u.
 # The ι one-sided cubic foot is the shape target: a short attached written
 # exit with ink in the hook, not a collinear dart, stem paddle, or spur.
@@ -74,8 +75,14 @@ MARK_Y_MIN = 460         # contour with min-y >= this = accent/breathing layer
 # Hang down-right; a one-sided cubic on the thin tongue is a hairline;
 # neighborhood translation of the cap (_hang_foot) clubs the bowl.
 # σ.medial / θ keep a tip-only pad + cubic hook.
-EMBOLDEN = 10.0         # modest even-ink; terminals do the visible work
-ORGANIC = 9.0           # cubic-handle wobble (u), deterministic per glyph
+# t_00b749dd: even EMBOLDEN flattened bowls next to Didone caps (omicron
+# v/h ≈ 0.92 vs Omicron ≈ 4.3). Broad-nib thicken restores vertical-ish
+# stress; organic handles + softer joins add written irregularity.
+EMBOLDEN = 3.0          # even floor so thins do not vanish
+NIB_CONTRAST = 18.0     # extra when the outward normal aligns with thick dir
+NIB_THICK_ANGLE = 12.0  # deg from +x: mostly vertical, slight handwritten oblique
+ORGANIC = 12.0          # cubic-handle wobble; keep off the grafted feet
+SOFT_BOW = 22.0         # leftover lineTo → cubic bow (was 14)
 FOOT_LEN = 136.0        # ~2.9px hook at 21px (proven on ι)
 HOOK_PERP = 32.0        # handle bow on the ι/π baseline foot
 TIP_PAD = 50.0          # tip-only thicken on remaining mid joins (~1.0px/side)
@@ -352,6 +359,56 @@ def _thicken_contour(cont, dist, want_grow):
     off_pos = _offset_pts(pts, dist)
     grew = _span(off_pos) >= _span(pts) - 0.5
     off = off_pos if (want_grow == grew) else _offset_pts(pts, -dist)
+    return _rebuild_contour(cont, off)
+
+
+def _point_normals(pts):
+    """Averaged left normals, same construction as _offset_pts."""
+    n = len(pts)
+    out = []
+    for i in range(n):
+        prev = pts[i - 1]
+        cur = pts[i]
+        nxt = pts[(i + 1) % n]
+        t_in = _vnorm(_vsub(cur, prev))
+        t_out = _vnorm(_vsub(nxt, cur))
+        if t_in == (0.0, 0.0):
+            t_in = t_out
+        if t_out == (0.0, 0.0):
+            t_out = t_in
+        n_in = (-t_in[1], t_in[0])
+        n_out = (-t_out[1], t_out[0])
+        nx, ny = n_in[0] + n_out[0], n_in[1] + n_out[1]
+        nl = math.hypot(nx, ny)
+        if nl < 1e-6:
+            nx, ny = n_out
+            nl = math.hypot(nx, ny) or 1.0
+        out.append((nx / nl, ny / nl))
+    return out
+
+
+def _nib_thicken_contour(cont, base, contrast, want_grow):
+    """Broad-nib offset: thick when the outward normal aligns with NIB_THICK_ANGLE.
+
+    Even marker-pen ink (uniform EMBOLDEN) made minuscule bowls sit next to
+    Didone caps as mechanically printed. This restores vertical-ish stress
+    without recutting skeletons or touching majuscules.
+    """
+    pts = list(_contour_pts(cont))
+    if len(pts) < 3:
+        return list(cont)
+    x0, y0, x1, y1 = _contour_bbox(cont)
+    if (x1 - x0) < 28 and (y1 - y0) < 28:
+        return list(cont)
+    ang = math.radians(NIB_THICK_ANGLE)
+    tx, ty = math.cos(ang), math.sin(ang)
+    dists = []
+    for nx, ny in _point_normals(pts):
+        align = abs(nx * tx + ny * ty)
+        dists.append(base + contrast * align)
+    off_pos = _offset_pts_var(pts, dists)
+    grew = _span(off_pos) >= _span(pts) - 0.5
+    off = off_pos if (want_grow == grew) else _offset_pts_var(pts, [-d for d in dists])
     return _rebuild_contour(cont, off)
 
 
@@ -697,7 +754,7 @@ def _soften_lines(cont):
             p = args
             chord = _vsub(p, prev)
             nrm = _vnorm((-chord[1], chord[0]))
-            bow = 14.0
+            bow = SOFT_BOW
             p1 = _vadd(_vadd(prev, _vmul(chord, 0.33)), _vmul(nrm, bow))
             p2 = _vadd(_vadd(prev, _vmul(chord, 0.66)), _vmul(nrm, bow * 0.6))
             out.append(("curveTo", (p1, p2, p)))
@@ -727,6 +784,10 @@ def _attached_terminals(cont, name):
     stem = name.split(".")[0]
     if stem.startswith("epsilon") or stem == "nu":
         return _short_tip_foot(cont, name)
+    if stem == "omicron":
+        # Round bowl: a grafted foot reads as a drip at 168px. Contrast
+        # already gives the written stress; just soften joins.
+        return _soften_lines(cont)
     hit = _best_exit_sample(cont, name)
     if hit is None:
         return _soften_lines(cont)
@@ -744,7 +805,7 @@ def _attached_terminals(cont, name):
 
 
 def handwritten_body(ops, name):
-    """Didone → written: even stroke, organic cubics, attached terminals."""
+    """Didone → written: nib contrast, organic cubics, attached terminals."""
     rng = _rng(name)
     contours = _contours(ops)
     holes = [False] * len(contours)
@@ -768,12 +829,14 @@ def handwritten_body(ops, name):
     out = []
     for i, cont in enumerate(contours):
         if holes[i]:
-            thick = _thicken_contour(cont, EMBOLDEN * 0.7, want_grow=False)
+            thick = _nib_thicken_contour(
+                cont, EMBOLDEN * 0.7, NIB_CONTRAST * 0.7, want_grow=False)
             thick = _organic_contour(thick, rng)
         else:
-            thick = _thicken_contour(cont, EMBOLDEN, want_grow=True)
-            thick = _attached_terminals(thick, name)
+            thick = _nib_thicken_contour(
+                cont, EMBOLDEN, NIB_CONTRAST, want_grow=True)
             thick = _organic_contour(thick, rng)
+            thick = _attached_terminals(thick, name)
         out.extend(thick)
         out.append(("closePath", ()))
     return out
@@ -1192,6 +1255,7 @@ def main(argv=None):
               "cmap_added": {}, "cursive_masters": True,
               "handwritten_minuscules": True,
               "embolden": EMBOLDEN, "organic": ORGANIC,
+              "nib_contrast": NIB_CONTRAST, "nib_thick_angle": NIB_THICK_ANGLE,
               "foot_len": FOOT_LEN,
               "attached_terminals": True, "exit_hook": True}
 
@@ -1305,7 +1369,7 @@ def main(argv=None):
                 "Derived from GFS Gazis (c) Greek Font Society, OFL 1.1. "
                 "Grecs du Roi Phase 2.1 slanted cursive masters: slant "
                 "transformation with handwritten minuscule ductus "
-                "(evened stroke, organic cubics, attached terminals), upright "
+                "(broad-nib stroke contrast, organic cubics, attached terminals), upright "
                 "polytonic marks, hand-drawn positional alternates "
                 "(locl/calt). Reserved Font Name 'GFS Gazis' is not used."
             )

@@ -276,6 +276,101 @@ def test_true_masters():
     check(shift_eq(b, c), "polytonic marks stay upright (tonos translated only)")
 
 
+def _contour_bboxes(font_path, name):
+    """Outer/inner axis-aligned boxes of a two-contour bowl (omicron)."""
+    from fontTools.pens.recordingPen import DecomposingRecordingPen
+    font = TTFont(str(font_path))
+    gs = font.getGlyphSet()
+    pen = DecomposingRecordingPen(gs)
+    gs[name].draw(pen)
+    conts, cur = [], []
+    for op, args in pen.value:
+        if op == "moveTo":
+            if cur:
+                conts.append(cur)
+            a0 = args[0] if args and isinstance(args[0], (tuple, list)) else args
+            cur = [a0]
+        elif op in ("lineTo",):
+            a0 = args[0] if args and isinstance(args[0], (tuple, list)) else args
+            cur.append(a0)
+        elif op == "curveTo":
+            pts = args if (args and isinstance(args[0], tuple) and len(args[0]) == 2) else args
+            cur.extend(pts)
+        elif op == "closePath":
+            if cur:
+                conts.append(cur)
+            cur = []
+    if cur:
+        conts.append(cur)
+
+    def box(pts):
+        xs = [p[0] for p in pts]
+        ys = [p[1] for p in pts]
+        return min(xs), min(ys), max(xs), max(ys)
+
+    conts = sorted(
+        conts,
+        key=lambda c: (box(c)[2] - box(c)[0]) * (box(c)[3] - box(c)[1]),
+        reverse=True,
+    )
+    return box(conts[0]), box(conts[1])
+
+
+def _bowl_stress(font_path, name):
+    """Vertical-side thickness / horizontal-side thickness of a bowl.
+
+    Didone caps (Omicron) sit around 4; even-ink minuscule omicron is < 1.
+    Handwritten minuscules that harmonize with the caps need vertical stress
+    visibly above even (the even-embolden pass flattened this).
+    """
+    (x0, y0, x1, y1), (ix0, iy0, ix1, iy1) = _contour_bboxes(font_path, name)
+    vert = (x1 - x0) - (ix1 - ix0)
+    horz = (y1 - y0) - (iy1 - iy0)
+    return vert, horz, vert / horz if horz else 0.0
+
+
+def test_minuscule_stroke_contrast():
+    """E. Minuscule bowls keep pen contrast next to the Didone caps."""
+    v, h, r = _bowl_stress(CURSIVE, "omicron")
+    ov, oh, o_r = _bowl_stress(CURSIVE, "Omicron")
+    _, _, base_or = _bowl_stress(BASE, "Omicron")
+    print(f"    omicron stress v/h={r:.3f}  Omicron v/h={o_r:.3f}")
+    # Even marker-pen ink is ~0.92; a written/Didone-harmonized bowl is > 1.
+    check(r >= 1.20,
+          "minuscule omicron has vertical stroke stress (not even ink)",
+          f"v/h={r:.3f} vert={v:.1f} horz={h:.1f}")
+    check(o_r > 3.0, "majuscule Omicron keeps Didone contrast", f"v/h={o_r:.3f}")
+    check(abs(o_r - base_or) < 0.05,
+          "majuscule Omicron contrast unchanged vs upright",
+          f"curs={o_r:.3f} base={base_or:.3f}")
+
+
+def test_majuscules_untouched():
+    """Greek display caps on the John 1 title stay the upright cut.
+
+    Epsilon/Gamma and their polytonic composites already differ from the
+    upright face in the shipped cursive (ligature-engine decompose); they
+    are not recut here. The other Lu letters must stay byte-identical.
+    """
+    curs = TTFont(str(CURSIVE))
+    base = TTFont(str(BASE))
+    keep = (
+        "Alpha", "Beta", "uni0394", "Zeta", "Eta", "Theta", "Iota",
+        "Kappa", "Lambda", "Mu", "Nu", "Xi", "Omicron", "Pi", "Rho",
+        "Sigma", "Tau", "Upsilon", "Phi", "Chi", "Psi", "uni03A9",
+    )
+    bad = []
+    for gn in keep:
+        if _glyph_points(curs, gn) != _glyph_points(base, gn):
+            bad.append(gn)
+            continue
+        if curs["hmtx"].metrics[gn][0] != base["hmtx"].metrics[gn][0]:
+            bad.append(gn + ":adv")
+    check(not bad,
+          f"display Lu {len(keep) - len(bad)}/{len(keep)} identical to upright",
+          str(bad))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--font", default=str(CURSIVE))
@@ -291,6 +386,10 @@ def main():
     test_copy_invariant(font)
     print("== D. true-master audit (not a faux-italic shear) ==")
     test_true_masters()
+    print("== E. minuscule stroke contrast vs Didone caps ==")
+    test_minuscule_stroke_contrast()
+    print("== F. majuscules untouched ==")
+    test_majuscules_untouched()
     print()
     if FAILS:
         print(f"{len(FAILS)} FAILURES:")

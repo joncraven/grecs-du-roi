@@ -41,8 +41,8 @@
       "family": "GrecsRoi Greek Cursive",
       "license": "OFL-1.1",
       "provenance": "Desktop twin of the cursive woff2",
-      "sha256": "4168e4a2c1b52a9a8a586676eb7d99308003c3ccfefd07e091d822e33100b678",
-      "bytes": 204608,
+      "sha256": "52eda6ffb8ff4103e1368d1654207ded92608298b4113b475afb6ebbc8341d5d",
+      "bytes": 206412,
       "license_file": "OFL-GFSGazis.txt",
       "license_sha256": "d4c4c42b54e30321fc1f3d8c8fd4d3c62bc7f64f4f8702ef27ffc0c89144c40e"
     },
@@ -50,8 +50,8 @@
       "family": "GrecsRoi Greek Cursive",
       "license": "OFL-1.1",
       "provenance": "Phase-2.1/2.2 slanted derivative + fused ligatures (tools/cursive_masters.py, tools/ligature_engine.py)",
-      "sha256": "4369ee291de96580a1504ee0b534e3d975c4c4b628ff4db96353057a3bf15031",
-      "bytes": 38172,
+      "sha256": "fc95337bc8b5bc010cfda82279c2e6d3b8a72fbf8fa6b10adbed43fb61799827",
+      "bytes": 64400,
       "license_file": "OFL-GFSGazis.txt",
       "license_sha256": "d4c4c42b54e30321fc1f3d8c8fd4d3c62bc7f64f4f8702ef27ffc0c89144c40e"
     },
