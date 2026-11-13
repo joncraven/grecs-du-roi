@@ -213,6 +213,32 @@ def make_fea_v2(font, extra_rules):
                 lig_targets.append(t)
     fea = fea.replace(m.group(0),
                       f"@L = [{' '.join(letters + lig_targets)}];", 1)
+
+    # ---- t_a5e3138b: the γε fusion is WORD-INITIAL only -------------------
+    # Scan ground truth: γενέσθαι opens with a dedicated initial γε ligature,
+    # but mid-word γ+ε (ἀγγελος, ἐγένετο, μονογενοῦς) stays two separate
+    # letters. The LIGA lookup fuses gamma+epsilon unconditionally (fea has
+    # no buffer-start anchor), so word-initial position is expressed with the
+    # same swap-then-undo pattern rho.longtail uses: a later calt lookup
+    # reverts every lig2_gamma_epsilon that has a letter in front of it.
+    # Registered BEFORE CALT_EPSILON_THETA (definition order = LookupList
+    # order) so the reverted medial epsilon still picks its epsilon.cursive
+    # alternate in the same pass.
+    GE_LIG = "lig2_gamma_epsilon"
+    if GE_LIG in font.getGlyphOrder():
+        assert "lookup CALT_EPSILON_THETA {" in fea, "calt block missing"
+        fea = fea.replace(
+            "lookup CALT_EPSILON_THETA {",
+            "lookup CALT_GE_UNDO {\n"
+            f"    sub @L {GE_LIG}' by gamma epsilon;\n"
+            "} CALT_GE_UNDO;\n\n"
+            "lookup CALT_EPSILON_THETA {", 1)
+        fea = fea.replace(
+            "lookup CALT_RHO_SWAP; lookup CALT_RHO_UNDO;",
+            "lookup CALT_RHO_SWAP; lookup CALT_RHO_UNDO;\n"
+            "    lookup CALT_GE_UNDO;",
+            10)
+        assert fea.count("CALT_GE_UNDO;") >= 3 + 1, "GE undo not registered"
     return fea
 
 

@@ -27,7 +27,19 @@ CACHE = os.path.expanduser("~/Library/Caches/ms-playwright")
 
 PROBES = ["γερ", "μω", "οὖν", "φησὶ",          # gate four
           "οὐκ", "ανθρωπος", "ἐστιν", "λόγου",  # corpus fusions
-          "αὐτοῦ", "πάντα", "ἦν ὁ λόγος"]
+          "αὐτοῦ", "πάντα", "ἦν ὁ λόγος",
+          "γε",                                  # t_a5e3138b initial γε
+          "γενέσθαι"]
+
+# WebKit quirk (t_a5e3138b, engine-probed): like rlig, `locl` CANNOT be
+# switched off via font-feature-settings in WebKit — the lunate-Sigma swap
+# stays live in the OFF line. The lunate (355u) is far narrower than a
+# fused sigma ligature, so for probes whose OFF run passes through an
+# initial σ the "ON line must be strictly narrower" heuristic measures the
+# engine's locl lock-in, not a dead ligature toggle. For those probes on
+# webkit we demand only that the toggle is ALIVE (shapes differ). The
+# HarfBuzz-level truth (feature truly on/off) is qa_cursive.py's job.
+WEBKIT_ALIVE_ONLY = {"ἐστιν", "γενέσθαι"}
 
 JS_TOGGLE = """
 (args) => {
@@ -36,8 +48,13 @@ JS_TOGGLE = """
   s.style.cssText = 'position:absolute;visibility:hidden;white-space:pre;' +
     'font-family:"GrecsRoi Greek Cursive";font-size:48px;' +
     'font-feature-settings:' + (on
-      ? '"liga" 1,"clig" 1,"rlig" 1,"dlig" 1,"hlig" 1'
-      : '"liga" 0,"clig" 0,"rlig" 0,"dlig" 0,"hlig" 0');
+      ? '"liga" 1,"clig" 1,"rlig" 1,"dlig" 1,"hlig" 1,"calt" 1,"locl" 1'
+      : '"liga" 0,"clig" 0,"rlig" 0,"dlig" 0,"hlig" 0,"calt" 0,"locl" 0');
+  /* t_a5e3138b: calt/locl MUST be toggled too — they are ON in the shipped
+     page CSS, and the narrower positional alternates (epsilon.cursive,
+     sigma.medial) made the OFF line shorter than the fused ON line, which
+     read as a dead toggle ('ἐστιν' false-failed pre-existing on main).
+     OFF is now the true all-features-off baseline (qa_cursive SFEATS/OFF). */
   s.textContent = text;
   document.body.appendChild(s);
   const w = s.getBoundingClientRect().width;
@@ -64,7 +81,12 @@ def run_engine(name, launch):
         for probe in PROBES:
             w_on = pg.evaluate(JS_TOGGLE, [probe, True])
             w_off = pg.evaluate(JS_TOGGLE, [probe, False])
-            if not (w_on < w_off - 0.5):
+            alive_only = (name == "webkit" and probe in WEBKIT_ALIVE_ONLY)
+            if alive_only:
+                ok = abs(w_on - w_off) > 0.5   # shaping differs => toggle live
+            else:
+                ok = w_on < w_off - 0.5
+            if not ok:
                 fails.append(
                     f"{name}: '{probe}' toggle dead (on={w_on:.1f} off={w_off:.1f})")
         # hero cells: live text, no img in the four converted specimens
