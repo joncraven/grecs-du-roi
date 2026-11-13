@@ -28,6 +28,9 @@ import unicodedata
 import json
 import urllib.request
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from check_page_text import check_copy  # shared collation invariant
+
 BASE = "/Volumes/RAID10/jon/Projects/grecs-du-roi"
 URL = "file://" + BASE + "/src/estienne-john1.html"
 EV = BASE + "/qa-evidence"
@@ -46,59 +49,7 @@ COPY_JS = """
 }
 """
 
-def load_corpus_text():
-    d = json.load(open(BASE + "/corpus/john1_wh.json", encoding="utf-8"))
-    return unicodedata.normalize("NFC",
-        " ".join(d[k] for k in sorted(d, key=int)))
-
-def check_copy(name, copied, verse_pairs=None):
-    """Return list of failures for a browser's copied string (+ per-verse data)."""
-    fails = []
-    pua = [c for c in copied if 0xE000 <= ord(c) <= 0xF8FF or 0xF0000 <= ord(c)]
-    if pua:
-        fails.append(f"{name}: {len(pua)} PUA chars in copy: {pua[:5]!r}")
-    if "ἦν ὁ λόγος" not in copied:
-        fails.append(f"{name}: John 1:1 core phrase missing from copy")
-    for letters in ("ΘΣ", "ΧΣ"):
-        no_macron = copied.replace("\u0304", "").replace("\u0305", "")
-        if letters not in copied and letters not in no_macron:
-            fails.append(f"{name}: nomen sacrum letters {letters} lost on copy")
-    # per-verse NFC copy-diff against the corpus — two tiers:
-    #   strict   : byte-exact NFC equality (Phase 2.4's acceptance gate; will
-    #              only pass when the page matches the transcription exactly,
-    #              incl. drop-cap casing and nomina rendering)
-    #   skeleton : letters only, casefolded, combining marks stripped — proves
-    #              the copy carries the SAME Unicode text (no PUA substitution)
-    #              today; this is the Phase 2.0 gate.
-    if verse_pairs is not None:
-        corpus = json.load(open(BASE + "/corpus/john1_wh.json", encoding="utf-8"))
-
-        def skel(s):
-            s = unicodedata.normalize("NFD", s)
-            s = "".join(c for c in s if not unicodedata.combining(c))
-            s = "".join(c for c in s if not c.isspace())
-            return s.casefold()
-
-        strict_diffs, skel_diffs = [], []
-        for v, text in verse_pairs:
-            if str(v) not in corpus:
-                continue
-            want = unicodedata.normalize("NFC", corpus[str(v)])
-            got = unicodedata.normalize("NFC", text).replace("\u0304", "").replace("\u0305", "")
-            if " ".join(want.split()) != " ".join(got.split()):
-                strict_diffs.append(v)
-            if skel(want) != skel(" ".join(got.split())):
-                skel_diffs.append((v, " ".join(want.split())[:40],
-                                   " ".join(got.split())[:40]))
-        if skel_diffs:
-            fails.append(f"{name}: NFC copy-diff NOT empty on {len(skel_diffs)} verse(s): "
-                         + "; ".join(f"v{v} want {w!r} got {g!r}"
-                                     for v, w, g in skel_diffs[:3]))
-        if strict_diffs:
-            print(f"    [{name}] strict-byte NFC diff pending on verses "
-                  f"{','.join(map(str, strict_diffs))} (drop-cap/nomina display "
-                  f"forms — Phase 2.4 collation target)")
-    return fails
+from check_page_text import check_copy  # noqa: E402  (shared collation invariant)
 
 VERSES_JS = """
 () => {
