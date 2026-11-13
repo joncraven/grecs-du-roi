@@ -162,6 +162,50 @@ def test_liga_regression(font):
               f"1a OFF: '{txt}' unfolded")
 
 
+# ------------------------------------------------- A3. word-initial γε (t_a5e3138b)
+def test_initial_gamma_epsilon(font):
+    """γενέσθαι opens with the dedicated γε ligature; mid-word γ+ε stays two
+    letters. The fusion itself lives in LIGA (unconditional); the word-initial
+    restriction is a later calt lookup (CALT_GE_UNDO) that reverts any
+    lig2_gamma_epsilon with a preceding letter. Probes here mirror the card:
+    word-initial γενέσθαι fuses, ἀγγελος / ἐγεννήθησαν / μονογενοῦς do not."""
+    GE = "lig2_gamma_epsilon"
+
+    def run(text, feats=SFEATS):
+        infos, _ = shape(font, text, feats)
+        return gnames(font, infos)
+
+    # 1) initial γε in the hero word fuses (single glyph for γ+ε)
+    seq = run("γενέσθαι")
+    check(GE in seq, "initial γε: 'γενέσθαι' -> lig2_gamma_epsilon", str(seq))
+    check("nu" in seq and "epsilontonos" in seq,
+          "initial γε: rest of 'γενέσθαι' intact", str(seq))
+    check(GE not in run("γενέσθαι", OFF),
+          "initial γε OFF: 'γενέσθαι' unfolded")
+
+    # 2) the bare word-initial pair, and after a space (word boundary)
+    check(GE in run("γε"), "initial γε: bare 'γε' fuses")
+    seq = run("καὶ γε")
+    check(GE in seq, "initial γε: 'γε' after space fuses", str(seq))
+
+    # 3) mid-word γ+ε must NOT fuse (card's αγγελος + corpus neighbours)
+    for txt in ("αγγελος", "ἀγγελος", "ἐγεννήθησαν", "μονογενοῦς",
+                "ἐγένετο", "γέγονεν"):
+        seq = run(txt)
+        check(GE not in seq, f"mid-word γε untouched: '{txt}'", str(seq))
+
+    # 4) a reverted medial epsilon still earns its positional alternate
+    #    (CALT_GE_UNDO must be registered BEFORE CALT_EPSILON_THETA)
+    seq = run("ἐγεννήθησαν")
+    check("epsilon.cursive" in seq,
+          "mid-word: reverted ε takes epsilon.cursive", str(seq))
+
+    # 5) repeated pairs: only the initial one stays fused
+    seq = run("γεγε")
+    check(seq.count(GE) == 1, "initial-only: 'γεγε' fuses the first pair",
+          str(seq))
+
+
 # ------------------------------------------------------------------ B. tofu
 def test_no_tofu(font):
     # share the corpus loader with fusion-coverage.py: the scan-collation
@@ -400,6 +444,8 @@ def main():
     test_positional(font)
     print("== A2. liga regression (named fusions still live) ==")
     test_liga_regression(font)
+    print("== A3. word-initial γε (t_a5e3138b) ==")
+    test_initial_gamma_epsilon(font)
     print("== B. zero tofu over corpus ==")
     test_no_tofu(font)
     print("== C. copy invariant (no PUA codepoints) ==")

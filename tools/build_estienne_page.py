@@ -154,14 +154,16 @@ body {{
   margin: 0; background: #d3bd8c;
   font-family: "GrecsRoi Greek Cursive", "GrecsRoi Greek", "GFS Didot", "Cardo", Georgia, "Times New Roman", serif;
   color: var(--ink);
-  font-feature-settings: "liga" 1, "clig" 1, "rlig" 1, "dlig" 1, "hlig" 1;
+  font-feature-settings: "liga" 1, "clig" 1, "rlig" 1, "dlig" 1, "hlig" 1,
+                         "calt" 1, "locl" 1;
   font-variant-ligatures: contextual discretionary;
 }}
 /* Phase 2.5 reading-site toggle: "modern polytonic (Cardo)" swaps ONLY the
    font-family on the identical NFC text nodes — no text substitution. */
 body.mode-modern .folio {{
   font-family: "Cardo Polytonic", "GFS Didot", Cardo, Georgia, "Times New Roman", serif;
-  font-feature-settings: "liga" 0, "clig" 0, "rlig" 0, "dlig" 0, "hlig" 0;
+  font-feature-settings: "liga" 0, "clig" 0, "rlig" 0, "dlig" 0, "hlig" 0,
+                         "calt" 0, "locl" 0;
   font-variant-ligatures: none;
 }}
 body.mode-modern {{ background: #cbb684; }}

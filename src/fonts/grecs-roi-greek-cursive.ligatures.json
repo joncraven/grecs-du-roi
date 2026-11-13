@@ -1048,15 +1048,15 @@
       "rules": 1
     },
     {
-      "seq": "ΙΣΜΑ",
-      "glyph": "lig2_Iota_Sigma_Mu_Alpha",
+      "seq": "ΨΗΦΙ",
+      "glyph": "lig2_Psi_Eta_Phi_Iota",
       "parts": [
-        "Iota",
-        "Sigma",
-        "Mu",
-        "Alpha"
+        "Psi",
+        "Eta",
+        "Phi",
+        "Iota"
       ],
-      "advance": 2514,
+      "advance": 2558,
       "rules": 1
     },
     {
