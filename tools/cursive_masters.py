@@ -964,7 +964,11 @@ def alt_sigma_medial():
 
 
 def alt_epsilon_cursive():
-    """ε cursive medial variant: fully rounded loop with entry+exit strokes."""
+    """ε cursive medial variant: rounded loop with entry+exit strokes AND
+    the epsilon middle arm (tongue) projecting right at the mid-band.
+    (t_9968d544: the old master was a bare loop with no arm — at reading
+    size the calt-swapped medial ε in Θεὸν read as a final sigma/c-shape;
+    the arm keeps it unmistakably an epsilon like every other ε in the run.)"""
     w = 430
     ops = [
         ("moveTo", (26, 128)),
@@ -972,8 +976,16 @@ def alt_epsilon_cursive():
         ("curveTo", ((216, 22), (282, 34), (322, 72))),
         ("curveTo", ((304, 92), (292, 104), (286, 114))),
         ("curveTo", ((252, 80), (210, 72), (168, 82))),
-        ("curveTo", ((112, 98), (74, 152), (72, 226))),
-        ("curveTo", ((70, 304), (108, 368), (170, 392))),
+        # inner lower-left up to the arm's underside
+        ("curveTo", ((112, 98), (74, 150), (72, 198))),
+        # arm underside out to the tip
+        ("curveTo", ((150, 204), (238, 212), (300, 228))),
+        # rounded arm tip
+        ("curveTo", ((316, 236), (316, 256), (300, 264))),
+        # arm top back to the left spine
+        ("curveTo", ((238, 278), (150, 286), (72, 292))),
+        # inner upper-left
+        ("curveTo", ((70, 306), (108, 368), (170, 392))),
         ("curveTo", ((226, 414), (288, 402), (324, 366))),
         ("curveTo", ((350, 390), (382, 414), (414, 436))),
         ("curveTo", ((386, 424), (354, 408), (326, 392))),
