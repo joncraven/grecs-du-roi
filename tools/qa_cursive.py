@@ -376,33 +376,18 @@ def _bowl_stress(font_path, name):
 def test_minuscule_stroke_contrast():
     """E. Minuscule bowls keep pen contrast next to the Didone caps.
 
-    Page body is ~21px (1.32rem). A 1.20–1.25 v/h bump is sub-pixel there
-    (NIB_CONTRAST=18u ≈ 0.4px) and still reads as even italic next to
-    Omicron v/h ≈ 4.3. The floor is the *visible* thick/thin, not a
-    metric calibrated to a tiny offset.
+    t_9968d544: thresholds restored to the round-1 (ac2041a) gate; the
+    round-2 >=1.80 target drove NIB_CONTRAST to 72u and made the 21px body
+    read blotchy (live report 2026-11-13 15:55).
     """
     v, h, r = _bowl_stress(CURSIVE, "omicron")
     ov, oh, o_r = _bowl_stress(CURSIVE, "Omicron")
     _, _, base_or = _bowl_stress(BASE, "Omicron")
-    (x0, y0, x1, y1), (ix0, iy0, ix1, iy1) = _contour_bboxes(CURSIVE, "omicron")
-    inner_w, inner_h = ix1 - ix0, iy1 - iy0
-    print(f"    omicron stress v/h={r:.3f}  Omicron v/h={o_r:.3f}  "
-          f"counter={inner_w:.0f}x{inner_h:.0f}")
-    # 1.80 is well above the 1.25 miss; ~2px extra vertical vs horizontal
-    # at 21px (1px ≈ 48u) so thick sides vs thinner joins can be seen.
-    check(r >= 1.80,
-          "minuscule omicron has visible vertical stroke stress at body size",
+    print(f"    omicron stress v/h={r:.3f}  Omicron v/h={o_r:.3f}")
+    # Even marker-pen ink is ~0.92; a written/Didone-harmonized bowl is > 1.
+    check(r >= 1.20,
+          "minuscule omicron has vertical stroke stress (not even ink)",
           f"v/h={r:.3f} vert={v:.1f} horz={h:.1f}")
-    # Keep ο/α/σ counters open — no clog from the extra nib.
-    check(inner_w >= 140 and inner_h >= 200,
-          "omicron counter stays open (no clog)",
-          f"inner={inner_w:.0f}x{inner_h:.0f}")
-    for bowl in ("alpha", "sigma"):
-        _, (ax0, ay0, ax1, ay1) = _contour_bboxes(CURSIVE, bowl)
-        aw, ah = ax1 - ax0, ay1 - ay0
-        check(aw >= 120 and ah >= 160,
-              f"{bowl} counter stays open (no clog)",
-              f"inner={aw:.0f}x{ah:.0f}")
     check(o_r > 3.0, "majuscule Omicron keeps Didone contrast", f"v/h={o_r:.3f}")
     check(abs(o_r - base_or) < 0.05,
           "majuscule Omicron contrast unchanged vs upright",

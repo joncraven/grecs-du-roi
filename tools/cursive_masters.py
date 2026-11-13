@@ -78,13 +78,14 @@ MARK_Y_MIN = 460         # contour with min-y >= this = accent/breathing layer
 # t_00b749dd: even EMBOLDEN flattened bowls next to Didone caps (omicron
 # v/h ≈ 0.92 vs Omicron ≈ 4.3). Broad-nib thicken restores vertical-ish
 # stress; organic handles + softer joins add written irregularity.
-# Round-2 review: NIB_CONTRAST=18u is ~0.4px at 21px body (v/h 1.25) and
-# still reads as even italic. Square the align so thins barely grow;
-# 72u ≈ 1.5px/side on verticals — visible thick/thin without clogging ο.
-EMBOLDEN = 0.0          # no even floor: thins stay at the original cut
-NIB_CONTRAST = 72.0     # extra on the thick axis (align**2); ~1.5px at 21px
+# t_9968d544 REVERT of round-2 (2364e9d): NIB_CONTRAST=72 + squared align
+# measured +20% line ink over round 1 (median 2x-rendered stroke 4px->6px,
+# 1px hairline fraction doubled) and reads blotchy/blurry at 21px body —
+# live 2026-11-13 15:55 report. Restore the round-1 (ac2041a) parameters.
+EMBOLDEN = 3.0          # even floor so thins do not vanish
+NIB_CONTRAST = 18.0     # extra when the outward normal aligns with thick dir
 NIB_THICK_ANGLE = 12.0  # deg from +x: mostly vertical, slight handwritten oblique
-ORGANIC = 6.0           # lighter wobble so 168px bowls are not lumpy
+ORGANIC = 12.0          # cubic-handle wobble; keep off the grafted feet
 SOFT_BOW = 22.0         # leftover lineTo → cubic bow (was 14)
 FOOT_LEN = 136.0        # ~2.9px hook at 21px (proven on ι)
 HOOK_PERP = 32.0        # handle bow on the ι/π baseline foot
@@ -408,9 +409,7 @@ def _nib_thicken_contour(cont, base, contrast, want_grow):
     dists = []
     for nx, ny in _point_normals(pts):
         align = abs(nx * tx + ny * ty)
-        # Square so near-horizontal joins stay thin (Didone-like) instead of
-        # a global +ink bump that only darkens the 21px line.
-        dists.append(base + contrast * (align * align))
+        dists.append(base + contrast * align)
     off_pos = _offset_pts_var(pts, dists)
     grew = _span(off_pos) >= _span(pts) - 0.5
     off = off_pos if (want_grow == grew) else _offset_pts_var(pts, [-d for d in dists])
@@ -834,9 +833,8 @@ def handwritten_body(ops, name):
     out = []
     for i, cont in enumerate(contours):
         if holes[i]:
-            # Inner gets half the outer contrast so counters stay open at 21px.
             thick = _nib_thicken_contour(
-                cont, EMBOLDEN * 0.5, NIB_CONTRAST * 0.5, want_grow=False)
+                cont, EMBOLDEN * 0.7, NIB_CONTRAST * 0.7, want_grow=False)
             thick = _organic_contour(thick, rng)
         else:
             thick = _nib_thicken_contour(
