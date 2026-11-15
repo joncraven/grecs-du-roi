@@ -4,7 +4,10 @@
 Runs while the OVH A record is still pending by pointing Chromium at
 web01 directly (host-resolver-rules). Asserts, against the LIVE server:
   * reader page: face toggle works, Cardo + cursive webfonts fetch 200,
-    copied folio text is NFC polytonic with zero PUA;
+    copied folio text is polytonic with zero PUA and NFC-stable once the
+    nomina-sacra display bars (U+0304/U+0305) are stripped — the decomposed
+    macrons are deliberate (fb0a4e4: NFC would fold Υ+U+0304 to U+1FE9,
+    which the cursive font renders as iota);
   * specimen page: hero cells are live text (no <img>), zero tofu.
 Once DNS + enable-tls.sh land, the same checks work over https without
 the resolver flag: WEB01_IP= (empty) switches to the public https path.
@@ -47,9 +50,16 @@ with sync_playwright() as p:
         const s = getSelection(); s.removeAllRanges(); s.addRange(r);
         return s.toString();
     }""")
-    nfc = unicodedata.normalize("NFC", copied)
-    if nfc != copied:
-        fails.append("copied live text is not NFC-normalised")
+    # Intentional exception (fb0a4e4): the nomina-sacra display spans carry
+    # decomposed U+0304 macrons (Θ+U+0304+Υ+U+0304), because NFC would
+    # recompose Υ+U+0304 into precomposed U+1FE9 and the shipping cursive
+    # font renders that as an iota.  The invariant is therefore "NFC after
+    # the display bars are stripped" — the same tolerance the strict-byte
+    # tier in tools/check_page_text.py applies via strip_bars().
+    bars = copied.replace("\u0304", "").replace("\u0305", "")
+    if unicodedata.normalize("NFC", bars) != bars:
+        fails.append("copied live text is not NFC-normalised "
+                     "(after stripping nomina display bars)")
     pua = [hex(ord(c)) for c in copied if 0xE000 <= ord(c) <= 0xF8FF]
     if pua:
         fails.append(f"PUA in live copy: {pua}")
