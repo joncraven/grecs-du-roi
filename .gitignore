@@ -22,3 +22,6 @@ venv/
 dist/
 build/
 node_modules/
+
+# t_1259dd7a: human Polar allowfile — never commit
+deploy/PAYMENT_PUBLISH_APPROVED
