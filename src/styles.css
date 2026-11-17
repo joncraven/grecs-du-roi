@@ -762,11 +762,9 @@ main > section + section {
 }
 
 /* ============================================================
-   3g. CONTRIBUTE — one-off chargeable contribution via Polar
-   (t_f742647a). House style: illuminated card on the parchment
-   ground, double gold rule, rubric for the CTA. The payment URL
-   is in data-donate-link (not an <a href>), so this block is
-   purely presentational — no external anchors are emitted.
+   3g. CONTRIBUTE — retired (t_1259dd7a). Payment widgets stay off
+   until a human approves a Polar Checkout Link. Rules kept so a
+   future approved widget can reuse the house style.
    ============================================================ */
 
 .contribute {

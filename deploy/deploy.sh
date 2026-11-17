@@ -36,6 +36,9 @@ for f in estienne-scan.jpg estienne-chromium-full.png estienne-compare-harness.p
   [ -f "$ROOT/qa-evidence/$f" ] && cp "$ROOT/qa-evidence/$f" "$STAGE/qa-evidence/$f"
 done
 
+echo "[1b/5] payment publish gate (t_1259dd7a — Polar only, human allowfile)"
+python3 "$ROOT/deploy/gate_payment_publish.py" "$STAGE" --allowfile "$ROOT/deploy/PAYMENT_PUBLISH_APPROVED"
+
 if [ "${DRY_RUN:-0}" = "1" ]; then
   echo "[dry-run] staged tree:"; find "$STAGE" -type f | wc -l; exit 0
 fi
