@@ -1032,39 +1032,89 @@ ALTERNATES = {
 
 
 # ---- hand-drawn base-master overrides (t_8ad4e391) --------------------------
-def master_pi_flat():
-    """π: the scan ground truth (300-dpi secondsource + the canonical
-    minuscule chart) is a FLAT straight crossbar over two stems — no looped
-    left entry. Gazis' pi carries a hooked calligraphic entry that at 21px
-    reads as a looped top, so we replace the derived outline wholesale.
-    Drawn upright ~40u stroke (handwritten_body emboldens to ~60, the house
-    ductus); the build hook slants, thickens, and attaches feet like every
-    other minuscule."""
+def master_pi_var():
+    """π = the var-pi of the Estienne scan and the KO of 2026-11-15: "an
+    omega with a bar on top", NOT the flat Latin-style crossbar run 1970
+    shipped (that made every π read wrong next to the scan's rounded ϖ).
+
+    Body: the open-topped ω outline shifted onto pi's old stem positions —
+    left lobe ends at the old left stem (x≈120), right lobe at the old right
+    stem (x≈540), so the ligature engine recomposites every fused word from
+    the corrected body.  Bar: flat crossbar with end overshoot at the old
+    x-height (y 432–472).  Bridges tie each bar end down onto the lobe
+    shoulders (and across the notch) so the handwritten even-ink pass fuses
+    bar+body into one written piece instead of a floating lid.
+    Upright ~40u strokes; build_override slants/emboldens/feets as usual."""
     w = 700
-    ops = [
-        # crossbar: flat, dead-straight, ends overshoot both stems
+    dx = 21.0                       # 120 - omega_left(≈99); 540 - right(≈519)
+    body = [
+        (526, 210), ((529, 228), (531, 250), (531, 275)),
+        ((531, 348), (520, 394), (497, 414)),
+        ((484, 424), (468, 429), (451, 429)),
+        ((424, 429), (408, 421), (403, 405)),
+        ((401, 398), (407, 392), (421, 387)),
+        ((442, 380), (458, 372), (468, 361)),
+        ((490, 337), (501, 305), (501, 266)),
+        ((501, 248), (499, 229), (494, 208)),
+        ((473, 122), (432, 83), (369, 90)),
+        ((335, 96), (311, 120), (296, 162)),
+        ((291, 178), (291, 188), (297, 191)),
+        ((324, 204), (337, 225), (337, 253)),
+        ((337, 282), (316, 302), (295, 303)),
+        ((257, 305), (238, 286), (238, 247)),
+        ((239, 225), (244, 203), (253, 181)),
+        ((236, 115), (199, 82), (143, 82)),
+        ((132, 82), (123, 83), (114, 85)),
+        ((75, 98), (56, 134), (59, 193)),
+        ((62, 270), (93, 328), (150, 367)),
+        ((158, 374), (174, 381), (197, 389)),
+        ((211, 394), (218, 400), (217, 409)),
+        ((216, 428), (207, 437), (189, 437)),
+        ((180, 437), (170, 434), (159, 428)),
+        ((87, 384), (41, 307), (22, 198)),
+        ((18, 180), (16, 162), (16, 145)),
+        ((16, 61), (52, -4), (111, -5)),
+        ((174, 4), (228, 56), (272, 151)),
+        ((277, 87), (293, 42), (319, 15)),
+        ((330, 4), (343, -3), (357, -6)),
+        ((395, -5), (432, 21), (467, 73)),
+        ((496, 116), (516, 162), (526, 210)),
+    ]
+    ops = []
+    first = True
+    for item in body:
+        if isinstance(item, tuple) and isinstance(item[0], tuple):
+            pts = [(x + dx, y) for (x, y) in item]
+            ops.append(("curveTo", tuple(pts)))
+        else:
+            x, y = item
+            ops.append(("moveTo" if first else "lineTo", (x + dx, y)))
+            first = False
+    ops.append(("closePath", ()))
+    # crossbar: flat, dead-straight, ends overshoot both lobes
+    ops += [
         ("moveTo", (42, 432)),
         ("lineTo", (618, 432)),
         ("lineTo", (618, 472)),
         ("lineTo", (42, 472)),
         ("closePath", ()),
-        # left stem
-        ("moveTo", (100, -8)),
-        ("lineTo", (140, -8)),
-        ("lineTo", (140, 442)),
-        ("lineTo", (100, 442)),
+        # left bridge: bar underside down onto the left horn tip
+        ("moveTo", (172, 446)),
+        ("lineTo", (240, 446)),
+        ("lineTo", (232, 402)),
+        ("lineTo", (184, 402)),
         ("closePath", ()),
-        # right stem
-        ("moveTo", (520, -8)),
-        ("lineTo", (560, -8)),
-        ("lineTo", (560, 442)),
-        ("lineTo", (520, 442)),
+        # right bridge
+        ("moveTo", (462, 446)),
+        ("lineTo", (528, 446)),
+        ("lineTo", (514, 400)),
+        ("lineTo", (470, 404)),
         ("closePath", ()),
     ]
     return ops, w
 
 
-BASE_OVERRIDES = {"pi": master_pi_flat}
+BASE_OVERRIDES = {"pi": master_pi_var}
 
 
 def build_override(drawer, name):
