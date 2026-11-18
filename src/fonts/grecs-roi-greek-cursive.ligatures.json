@@ -392,8 +392,9 @@
         "gamma",
         "epsilon"
       ],
-      "advance": 1072,
-      "rules": 1
+      "advance": 1014,
+      "rules": 1,
+      "note": "t_a5e3138b r2: drawn design via tools/ge_ligature.py"
     },
     {
       "seq": "ἐκ",

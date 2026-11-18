@@ -205,6 +205,23 @@ def test_initial_gamma_epsilon(font):
     check(seq.count(GE) == 1, "initial-only: 'γεγε' fuses the first pair",
           str(seq))
 
+    # 6) round 2 (live KO 2026-11-15): the glyph must be a CONNECTED union,
+    #    not two masters sitting side by side. Shape contract owned by
+    #    tools/ge_ligature.py: 3 contours (gamma, epsilon pulled to 545,
+    #    tapered pen tongue), advance 1014, and the join band beneath
+    #    gamma's arm is actual ink (probe point inside the union).
+    from fontTools.pens.recordingPen import RecordingPen
+    import cursive_masters as _cm
+    ttf = TTFont(str(CURSIVE))
+    pen = RecordingPen(); ttf.getGlyphSet()[GE].draw(pen)
+    conts = _cm._contours(pen.value)
+    check(len(conts) == 3, f"r2 shape: {GE} has 3 contours", str(len(conts)))
+    adv = ttf["hmtx"].metrics[GE][0]
+    check(adv == 1014, "r2 shape: advance 1014 (tight join)", str(adv))
+    probe = (600, 255)     # under gamma's arm / before epsilon's flank
+    inside = any(_cm._point_in_contour(probe, c) for c in conts)
+    check(inside, "r2 shape: join band carries ink (ligature is connected)")
+
 
 # ------------------------------------------------------------------ B. tofu
 def test_no_tofu(font):

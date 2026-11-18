@@ -303,8 +303,19 @@ def main(argv=None):
         cmds_by_part = [original[g] for g in glyph_seq]
         widths = [hmtx.get(g, (500, 0))[0] for g in glyph_seq]
         ops, w = fuse_outline(cmds_by_part, widths, args.overlap)
+        # t_a5e3138b round 2: the γε fusion is NOT a plain side-by-side
+        # composite — gamma's deep-left descender leaves a hole under its
+        # rising arm and the pair reads as two loose letters. ge_ligature
+        # owns the drawn design (epsilon pulled tighter + a tapered pen
+        # tongue joining arm to flank). The engine rebuilds the glyph from
+        # that single source every run so a full rebuild can't regress it.
+        if seq == "γε" and glyph_seq == ["gamma", "epsilon"]:
+            import ge_ligature as _gel
+            ops, w = _gel.build_ops(glyphset)
+            name = lig_name(seq, glyph_seq)
+            new_glyphs[name] = (ops, w)   # force override, even if shipped
         name = lig_name(seq, glyph_seq)
-        if name in original:
+        if name in original and name not in new_glyphs:
             continue
         new_glyphs[name] = (ops, w)
         any_new = False
