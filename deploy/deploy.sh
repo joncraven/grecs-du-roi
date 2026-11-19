@@ -97,14 +97,28 @@ fi
 docker compose restart caddy
 REMOTE
 
-echo "[5/5] smoke"
+echo "[5/5] smoke (authenticated through the hetzner-sites private-mode gate)"
+# greek.craven.fr is whole-host basic_auth gated (basic_auth @hs_greek in its
+# Caddy block, t_777fca0a). Anon probes get 401 (https) or a bare 308 (http,
+# 0 bytes) so the old uncredentialed http:// smoke proved nothing. Creds file
+# is "user:pw" — split on FIRST colon (whole file as pw = invitedguest:invi…
+# → 401, see skill hetzner-sites-private-mode). Gate is on the TLS listener;
+# probe https with --resolve pinned to web01 and -u, fail loudly on 401.
+SECRETS_FILE="${INVITEDGUEST_FILE:-$HOME/.secrets/invitedguest}"
+[ -f "$SECRETS_FILE" ] || { echo "missing gate creds file $SECRETS_FILE (format user:pw)"; exit 1; }
+GATE_CREDS="$(tr -d '\n' < "$SECRETS_FILE")"
+GATE_USER="${GATE_CREDS%%:*}"
+GATE_PASS="${GATE_CREDS#*:}"
+[ -n "$GATE_USER" ] && [ -n "$GATE_PASS" ] || { echo "malformed creds in $SECRETS_FILE (want user:pw)"; exit 1; }
 ok=1
 for path in / /index.html /estienne-john1.html /fonts/grecs-roi-greek-cursive.woff2 \
             /fonts/cardo-polytonic.woff2 /fonts/LICENSES.json \
             /qa-evidence/estienne-scan.jpg; do
   read -r code size < <(curl -s -o /dev/null -w '%{http_code} %{size_download}' \
-    --resolve "$SITE_HOST:80:$WEB01_HOST" "http://$SITE_HOST$path" || echo "000 0")
-  echo "  http://$SITE_HOST$path → $code ($size B)"
+    --resolve "$SITE_HOST:443:$WEB01_HOST" -u "$GATE_USER:$GATE_PASS" \
+    "https://$SITE_HOST$path" || echo "000 0")
+  echo "  https://$SITE_HOST$path → $code ($size B)"
+  [ "$code" = "401" ] && { echo "  gate rejected creds for $GATE_USER (401) — check $SECRETS_FILE matches web01 /root/.secrets"; ok=0; continue; }
   # content-type check: a 200 that serves 0 bytes is a misconfigured vhost
   { [ "$code" = "200" ] && [ "$size" -gt 0 ]; } || ok=0
 done
