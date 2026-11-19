@@ -20,6 +20,34 @@ CACHE = os.path.expanduser("~/Library/Caches/ms-playwright")
 WEB01 = os.environ.get("WEB01_IP", "")  # set to pin (pre-DNS http path); unset = public https
 BASE = ("http://greek.craven.fr" if WEB01 else "https://greek.craven.fr")
 
+# greek.craven.fr is behind the hetzner-sites whole-host basic_auth gate
+# (basic_auth @hs_greek). Without credentials every navigation dies with
+# ERR_INVALID_AUTH_CREDENTIALS (t_22b45eda). Creds file is "user:pw" on one
+# line — split on the FIRST colon (the whole file as the password means
+# invitedguest:invitedguest:<pw> → 401; skill hetzner-sites-private-mode).
+# Env INVITEDGUEST_PASS (user=invitedguest, as in qa_live_ge_probe.py) wins;
+# otherwise read the secrets file.
+def _gate_auth():
+    pw = os.environ.get("INVITEDGUEST_PASS")
+    if pw:
+        return {"username": "invitedguest", "password": pw,
+                "origin": "https://greek.craven.fr", "send": "always"}
+    path = os.environ.get("INVITEDGUEST_FILE",
+                          os.path.expanduser("~/.secrets/invitedguest"))
+    try:
+        with open(path) as f:
+            raw = f.read().strip()
+    except OSError:
+        raise SystemExit(f"gate creds needed: set INVITEDGUEST_PASS or provide {path} (user:pw)")
+    user, sep, pw = raw.partition(":")
+    if not sep or not user or not pw:
+        raise SystemExit(f"malformed gate creds in {path} (want user:pw)")
+    return {"username": user, "password": pw,
+            "origin": "https://greek.craven.fr", "send": "always"}
+
+
+AUTH = _gate_auth()
+
 chrom = sorted(glob.glob(
     CACHE + "/chromium-*/chrome-mac-arm64/*.app/Contents/MacOS/Google Chrome for Testing"))[-1]
 
@@ -29,7 +57,11 @@ fails = []
 args = [f"--host-resolver-rules=MAP greek.craven.fr {WEB01}"] if WEB01 else []
 with sync_playwright() as p:
     b = p.chromium.launch(executable_path=chrom, args=args)
-    pg = b.new_page()
+    # Authenticated context (pattern proven by qa-evidence/live-john1-varpi.png):
+    # http_credentials at context level so every subresource (fonts, images)
+    # carries the gate credential, not just the top-level navigation.
+    ctx = b.new_context(http_credentials=AUTH)
+    pg = ctx.new_page()
     bad_resp = []
     pg.on("response", lambda r: bad_resp.append(r.url) if r.status >= 400 else None)
 
