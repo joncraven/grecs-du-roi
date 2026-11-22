@@ -222,7 +222,7 @@
         "pi",
         "alpha"
       ],
-      "advance": 1277,
+      "advance": 1012,
       "rules": 1
     },
     {
@@ -282,7 +282,7 @@
         "uni1F10",
         "pi"
       ],
-      "advance": 1144,
+      "advance": 865,
       "rules": 1
     },
     {
@@ -352,7 +352,7 @@
         "uni1F00",
         "pi"
       ],
-      "advance": 1282,
+      "advance": 1004,
       "rules": 1
     },
     {
@@ -392,9 +392,8 @@
         "gamma",
         "epsilon"
       ],
-      "advance": 1014,
-      "rules": 1,
-      "note": "t_a5e3138b r2: drawn design via tools/ge_ligature.py"
+      "advance": 1072,
+      "rules": 1
     },
     {
       "seq": "ἐκ",
@@ -563,7 +562,7 @@
         "pi",
         "omicron"
       ],
-      "advance": 1146,
+      "advance": 881,
       "rules": 1
     },
     {
@@ -574,16 +573,6 @@
         "uni1FC7"
       ],
       "advance": 988,
-      "rules": 1
-    },
-    {
-      "seq": "πρ",
-      "glyph": "lig2_pi_rho",
-      "parts": [
-        "pi",
-        "rho"
-      ],
-      "advance": 1237,
       "rules": 1
     },
     {
@@ -683,7 +672,7 @@
         "uni1F51",
         "pi"
       ],
-      "advance": 1229,
+      "advance": 950,
       "rules": 1
     },
     {
@@ -714,7 +703,7 @@
         "pi",
         "omega"
       ],
-      "advance": 1335,
+      "advance": 1070,
       "rules": 1
     },
     {
@@ -1049,15 +1038,15 @@
       "rules": 1
     },
     {
-      "seq": "ΙΣΜΑ",
-      "glyph": "lig2_Iota_Sigma_Mu_Alpha",
+      "seq": "ΦΙΣΜ",
+      "glyph": "lig2_Phi_Iota_Sigma_Mu",
       "parts": [
+        "Phi",
         "Iota",
         "Sigma",
-        "Mu",
-        "Alpha"
+        "Mu"
       ],
-      "advance": 2514,
+      "advance": 2557,
       "rules": 1
     },
     {

@@ -380,6 +380,94 @@ def main(argv=None):
         drawn.append({"seq": seq_txt, "glyph": name, "parts": list(combo),
                       "advance": w, "gate": True})
 
+    # ---- t_8ad4e391: drawn ην body + π+ρ ligature (not fuse_outline) ------
+    if "eta.nu" in original:
+        body = original["eta.nu"]
+        bw = hmtx.get("eta.nu", (560, 0))[0]
+        for lig, acc in (
+            ("lig2_eta_nu", None),
+            ("lig2_uni1F26_nu", "uni1F26"),
+            ("lig2_uni1F24_nu", "uni1F24"),
+            ("lig2_uni1F23_nu", "uni1F23"),
+            ("lig2_etatonos_nu", "etatonos"),
+        ):
+            ops = []
+            for cont in cm._contours(body):
+                ops.extend(cont)
+                ops.append(("closePath", ()))
+            if acc == "uni1F26":
+                for cont in cm._contours(cm.dl.alt_eta_nu_marks()):
+                    ops.extend(cm._slant_ops(cont))
+                    ops.append(("closePath", ()))
+            elif acc and acc in original:
+                mark_conts = []
+                for cont in cm._contours(original[acc]):
+                    ys = [p[1] for p in cm._contour_pts(cont)]
+                    if ys and min(ys) >= MARK_Y_MIN:
+                        mark_conts.append(cont)
+                if mark_conts:
+                    xs, ys = [], []
+                    for c in mark_conts:
+                        for x, y in cm._contour_pts(c):
+                            xs.append(x)
+                            ys.append(y)
+                    # Sit on the RIGHT bowl, not above the tallest spike.
+                    bowl_top = 0.0
+                    bowl_n = 0
+                    for cont in cm._contours(body):
+                        for x, y in cm._contour_pts(cont):
+                            if x >= bw * 0.45:
+                                bowl_top = max(bowl_top, y)
+                                bowl_n += 1
+                    if bowl_n == 0:
+                        bowl_top = max(
+                            p[1]
+                            for cont in cm._contours(body)
+                            for p in cm._contour_pts(cont)
+                        )
+                    cx = sum(xs) / len(xs)
+                    mn = min(ys)
+                    s = 0.50  # scan has a small wave on the bowl, not a full stack
+                    dx = bw * 0.68 - cx
+                    dy = (bowl_top + 8) - mn
+
+                    def xf(x, y):
+                        return ((x - cx) * s + cx + dx, (y - mn) * s + mn + dy)
+
+                    for cont in mark_conts:
+                        scaled = []
+                        for op, pts in cont:
+                            if op == "closePath":
+                                scaled.append((op, ()))
+                            elif op in ("moveTo", "lineTo"):
+                                scaled.append((op, xf(pts[0], pts[1])))
+                            elif op == "curveTo":
+                                scaled.append((op, tuple(xf(x, y) for (x, y) in pts)))
+                        ops.extend(scaled)
+                        ops.append(("closePath", ()))
+            right = bw
+            for cont in cm._contours(ops):
+                for x, _y in cm._contour_pts(cont):
+                    right = max(right, x)
+            new_glyphs[lig] = (ops, int(math.ceil(right)) + 8)
+            print(f"  stamped {lig} from eta.nu"
+                  + (f" + {acc} marks" if acc else ""))
+    if ("pi", "rho") not in existing_inputs:
+        existing_inputs.add(("pi", "rho"))
+        rules.append("sub pi rho by pi.rho;")
+        print("  liga: sub pi rho by pi.rho")
+    for parts, lig in (
+        (("eta", "nu"), "lig2_eta_nu"),
+        (("uni1F26", "nu"), "lig2_uni1F26_nu"),
+        (("uni1F24", "nu"), "lig2_uni1F24_nu"),
+        (("uni1F23", "nu"), "lig2_uni1F23_nu"),
+        (("etatonos", "nu"), "lig2_etatonos_nu"),
+    ):
+        if parts not in existing_inputs:
+            existing_inputs.add(parts)
+            rules.append(f"sub {' '.join(parts)} by {lig};")
+            print(f"  liga: sub {' '.join(parts)} by {lig}")
+
     # longest sequences first inside the lookup (HB is leftmost/longest within
     # a lookup anyway, but deterministic order keeps diffs auditable)
     rules.sort(key=lambda r: -r.split(" by ")[0].count(" "))

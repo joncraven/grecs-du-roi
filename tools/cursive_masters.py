@@ -59,6 +59,7 @@ from fontTools.ttLib import TTFont
 from fontTools.feaLib.builder import addOpenTypeFeaturesFromString
 
 ROOT = Path(__file__).resolve().parent.parent
+import drawn_ligatures as dl  # noqa: E402  (t_8ad4e391 hand-drawn π / πρ / ην)
 
 ANGLE = 11.0
 SKEW = math.tan(math.radians(ANGLE))
@@ -182,15 +183,15 @@ def _slant_ops(ops):
     return out
 
 
-def _nudge_ops(ops, dx):
+def _nudge_ops(ops, dx, dy=0):
     out = []
     for op, args in ops:
         if op == "closePath":
             out.append((op, ()))
         elif op in ("moveTo", "lineTo"):
-            out.append((op, (args[0] + dx, args[1])))
+            out.append((op, (args[0] + dx, args[1] + dy)))
         elif op == "curveTo":
-            out.append((op, tuple((x + dx, y) for (x, y) in args)))
+            out.append((op, tuple((x + dx, y + dy) for (x, y) in args)))
     return out
 
 
@@ -1022,13 +1023,31 @@ def alt_theta_cursive():
     return ops, w
 
 
+def alt_pi_rho():
+    """πρ fused: Estienne varpi/æ (omega body + top flourish).  Varpi is
+    ONLY this ligature — standalone π is the two-stem flat-crossbar.
+    Outline lives in drawn_ligatures.py (slanted in main, no organic)."""
+    return dl.alt_pi_rho()
+
+
+def alt_eta_nu():
+    """ην / ἦν: scan double-u (tall left stem + two u-bowls)."""
+    return dl.alt_eta_nu()
+
+
 ALTERNATES = {
     "lunateSigma": alt_lunate_sigma,
     "sigma.cursive": alt_sigma_cursive,
     "sigma.medial": alt_sigma_medial,
     "epsilon.cursive": alt_epsilon_cursive,
     "theta.cursive": alt_theta_cursive,
+    "pi.rho": alt_pi_rho,
+    "eta.nu": alt_eta_nu,
 }
+
+# Ligatures drawn as finished ink (smooth ribbons / even-odd bowls). The
+# organic handwritten pass sawtooths dense offsets, so main() only slants.
+SKIP_HANDWRITTEN = {"pi.rho", "eta.nu", "pi"}
 
 
 # ---- hand-drawn base-master overrides (t_8ad4e391) --------------------------
@@ -1114,7 +1133,10 @@ def master_pi_var():
     return ops, w
 
 
-BASE_OVERRIDES = {"pi": master_pi_var}
+# t_8ad4e391: 75397e9 made standalone pi systematic varpi — wrong.
+# The scan shows varpi ONLY where pi is fused with rho (πρὸς etc.);
+# standalone π is a two-stem flat-crossbar.  The fused piece is pi.rho.
+BASE_OVERRIDES = {"pi": dl.master_pi_flat}
 
 
 def build_override(drawer, name):
@@ -1125,7 +1147,8 @@ def build_override(drawer, name):
     for cont in _contours(ops0):
         ops.extend(_slant_ops(cont))
         ops.append(("closePath", ()))
-    ops = handwritten_body(ops, name)
+    if name not in SKIP_HANDWRITTEN:
+        ops = handwritten_body(ops, name)
     right = 0.0
     for cont in _contours(ops):
         for x, _y in _contour_pts(cont):
@@ -1197,7 +1220,7 @@ def make_fea(font):
         elif is_punct_cp(cp):
             puncts.add(gn)
     letters |= {"sigma.cursive", "sigma.medial", "rho.longtail",
-                "epsilon.cursive", "theta.cursive"}
+                "epsilon.cursive", "theta.cursive", "pi.rho", "eta.nu"}
     letters = sorted(letters)
     lat = " ".join(letters)
     liga_rules = dump_existing_liga(font)
@@ -1242,6 +1265,11 @@ lookup CALT_RHO_UNDO {{
     sub @L rho.longtail' by rho;
 }} CALT_RHO_UNDO;
 
+lookup CALT_PI_RHO {{
+    # pi+rho fused: dedicated pi.rho glyph (varpi body + cursive rho)
+    sub pi rho by pi.rho;
+}} CALT_PI_RHO;
+
 lookup CALT_EPSILON_THETA {{
     sub @L epsilon' @L by epsilon.cursive;
     sub @L theta' @L by theta.cursive;
@@ -1262,12 +1290,15 @@ feature locl {
 feature calt {
     script DFLT; language dflt;
     lookup CALT_SIGMA; lookup CALT_RHO_SWAP; lookup CALT_RHO_UNDO;
+    lookup CALT_PI_RHO;
     lookup CALT_EPSILON_THETA;
     script grek; language dflt;
     lookup CALT_SIGMA; lookup CALT_RHO_SWAP; lookup CALT_RHO_UNDO;
+    lookup CALT_PI_RHO;
     lookup CALT_EPSILON_THETA;
     script latn; language dflt;
     lookup CALT_SIGMA; lookup CALT_RHO_SWAP; lookup CALT_RHO_UNDO;
+    lookup CALT_PI_RHO;
     lookup CALT_EPSILON_THETA;
 } calt;
 """
@@ -1369,7 +1400,19 @@ def main(argv=None):
     # 2. hand-drawn alternate masters (same ductus so they share ink)
     for name, drawer in ALTERNATES.items():
         ops, w = drawer()
-        ops = handwritten_body(ops, name)
+        if name in SKIP_HANDWRITTEN:
+            slanted = []
+            for cont in _contours(ops):
+                slanted.extend(_slant_ops(cont))
+                slanted.append(("closePath", ()))
+            ops = slanted
+            right = 0.0
+            for cont in _contours(ops):
+                for x, _y in _contour_pts(cont):
+                    right = max(right, x)
+            w = max(w, int(math.ceil(right)) + 8)
+        else:
+            ops = handwritten_body(ops, name)
         if name not in order:
             order.append(name)
         set_charstring(top, cff, name, charstring_from_ops(top, cff, ops, w))
