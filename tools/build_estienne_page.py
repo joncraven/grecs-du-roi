@@ -24,6 +24,17 @@ ROOT = Path(__file__).resolve().parent.parent
 WH = json.loads((ROOT / "corpus" / "john1_wh.json").read_text(encoding="utf-8"))
 SCAN = json.loads((ROOT / "corpus" / "john1_estienne1550.json").read_text(encoding="utf-8"))
 OUT = ROOT / "src" / "estienne-john1.html"
+MATRIX_PATH = ROOT / "corpus" / "john1_word_matrix.json"
+
+# t_717701c6: word-by-word correction cycle. Every rendered word token
+# carries the matrix entry for its (verse, index) as data attributes, so a
+# "review marks" mode can show open scan-vs-WH diffs in place. If the
+# matrix is absent the page still builds (plain, unmarked).
+MATRIX = {}
+if MATRIX_PATH.exists():
+    MATRIX = {(w["verse"], w["index"]): w
+              for w in json.loads(MATRIX_PATH.read_text(encoding="utf-8"))["words"]
+              if w["index"] > 0}
 
 # Nomina sacra verified on this folio (corpus.nomina_sacra.attested_forms):
 # Υ-final overlined contractions at 1:6/1:13/1:17. Keys are the scan-form
@@ -58,19 +69,58 @@ def nom_render(word: str, caps: str) -> str:
     disp = "".join(ch + "\u0304" for ch in caps)
     return (f'<span class="nom" data-full="{word}">{disp}</span>')
 
+def render_token(n: int, idx: int, word: str, inner: str = "") -> str:
+    """One whitespace token → inline <span class="w"> carrying its word-
+    matrix entry (key/status/WH reading) for the review-marks mode.
+    Text content is unchanged — same-Unicode copy invariant is untouched.
+    `inner` overrides the visible markup (drop-cap Ε) but keeps the word's
+    plain letters first in the text stream (Ε + ν = Ἐν on copy)."""
+    if not inner:
+        inner = word
+        stem = word.rstrip(".,·;:()\"'\u02bc\u2019")
+        trail = word[len(stem):]
+        if stem in NOMINA:
+            caps, cls = NOMINA[stem]
+            inner = nom_render(stem, caps) + trail
+    entry = MATRIX.get((n, idx))
+    attrs = ""
+    if entry:
+        title = ""
+        if entry["wh"] and entry["status"] != "match":
+            title = entry["wh"]
+        if entry.get("decision"):
+            title = (title + " — " if title else "") + \
+                f"decided: {entry['decision']['verdict']} (round {entry['decision'].get('round')})"
+        if entry["contested_note"]:
+            title = (title + " — " if title else "") + entry["contested_note"]
+        attrs = (f' data-wkey="{entry["key"]}" data-wstat="{entry["status"]}"'
+                 + (' data-wcontest="1"' if entry["contested_note"] else "")
+                 + (' data-wdecided="1"' if entry.get("decision") else "")
+                 + (f' data-wwh="{title}"' if title else ""))
+    return f'<span class="w"{attrs}>{inner}</span>'
+
+
+def render_words(n: int, text: str) -> str:
+    return " ".join(render_token(n, i + 1, w)
+                    for i, w in enumerate(text.split()))
+
+
 def render_verse(n: int, text: str) -> str:
-    esc = text
-    for word, (caps, cls) in NOMINA.items():
-        esc = re.sub(rf'(?<![\u0370-\u1FFF])' + re.escape(word) + r'(?![\u0370-\u1FFF])',
-                     nom_render(word, caps), esc)
     vn = greek_numeral(n)
     first = n == 1
-    body = esc
     if first:
         # drop-cap Ε lives inside the text flow: copy yields "Ἐν ἀρχῇ…" whole
-        assert body.startswith("Ἐν ἀρχῇ"), body[:12]
-        body = ('<span class="initial" aria-hidden="false">Ε</span>'
-                '<span class="initial-rest">ν ἀρχῇ</span>' + body[len("Ἐν ἀρχῇ"):])
+        assert text.startswith("Ἐν ἀρχῇ"), text[:12]
+        words = text.split()
+        assert words[0] == "Ἐν" and words[1] == "ἀρχῇ", words[:2]
+        cap = render_token(
+            n, 1, "Ἐν",
+            inner='<span class="initial" aria-hidden="false">Ε</span>'
+                  '<span class="initial-rest">ν</span>')
+        body = cap + " " + render_token(n, 2, words[1]) + " " + " ".join(
+            render_token(n, i + 1, w) for i, w in enumerate(words[2:], start=2))
+    else:
+        body = render_words(n, text)
     marg_html = ""
     for m in MARG_BY_VERSE.get(n, []):
         conf = m["confidence"]
@@ -79,9 +129,10 @@ def render_verse(n: int, text: str) -> str:
     tail = ""
     if n == 19:  # page break: folio 161 stops at 'ὅτε'
         attested, rest = text.split(" ὅτε", 1)
-        body = (f'<span title="attested to here on fol. 161">{attested} ὅτε</span>'
-                f'<span class="pagebreak-tail" title="continues on fol. 162; supplied from WH">'
-                + rest + "</span>")
+        body = (f'<span title="attested to here on fol. 161">'
+                + render_words(n, attested + " ὅτε") + '</span>'
+                '<span class="pagebreak-tail" title="continues on fol. 162; supplied from WH">'
+                + (" " + render_words(n + 100, rest) if rest else "") + "</span>")
     return (f'<div class="verse" data-verse="{n}">'
             f'<span class="vnum" aria-hidden="true">{vn}</span>'
             f'{marg_html}<span class="vtext">{body}</span></div>')
@@ -220,6 +271,42 @@ body.mode-modern {{ background: #cbb684; }}
   display: flex; gap: 1rem; align-items: center;
 }}
 .toolbar a {{ color: #5c1f12; }}
+/* t_717701c6 — scan beside the text + word-by-word review marks.
+   .folio-wrap is a plain block by default (single-column page unchanged);
+   body.show-scan turns it into a two-column flex with the source scan
+   sticky next to the text. Review marks colour the word spans the builder
+   tagged with data-wstat/data-wkey; text nodes are untouched either way. */
+.folio-wrap {{ display: block; }}
+.scan-pane {{ display: none; }}
+body.show-scan .folio-wrap {{
+  display: flex; gap: 1.4rem; align-items: flex-start;
+  max-width: 1500px; margin: 0 auto; padding: 0 1.2rem;
+}}
+body.show-scan .folio {{ margin: 2rem 0; flex: 1 1 60%; min-width: 0; }}
+body.show-scan .scan-pane {{
+  display: block; flex: 0 1 40%; position: sticky; top: .8rem;
+  margin-top: 2rem; background: #efe9dc; padding: .5rem;
+  box-shadow: 0 2px 12px rgba(42,33,21,.35);
+}}
+.scan-pane img {{ display: block; width: 100%; height: auto; }}
+.scan-pane figcaption {{
+  font-family: Georgia, serif; font-size: .68rem; color: #453a27;
+  padding: .35rem .2rem .1rem;
+}}
+/* review marks: open diffs are visible; decided/match words are not */
+body.review-marks .w {{ position: relative; }}
+body.review-marks .w[data-wcontest="1"] {{ background: #f6dfb9; }}
+body.review-marks .w[data-wstat="variant"]:not([data-wcontest]) {{ background: #f3c9b4; }}
+body.review-marks .w[data-wstat="scan_only"] {{ background: #e7d3f0; }}
+body.review-marks .w[data-wstat="wh_only"] {{ background: #cfe3f3; }}
+body.review-marks .w[data-wdecided="1"] {{ background: #dcecd2; }}
+.review-legend {{
+  display: none; gap: 1rem; flex-wrap: wrap; font-family: Georgia, serif;
+  font-size: .72rem; color: #453a27; max-width: 820px; margin: 0 auto;
+  padding: 0 2.2rem;
+}}
+body.review-marks .review-legend {{ display: flex; }}
+.review-legend i {{ font-style: normal; padding: 0 .35rem; border-radius: 2px; }}
 @media print {{ .toolbar {{ display: none; }} .folio {{ box-shadow: none; margin: 0; }} }}
 </style>
 </head>
@@ -230,9 +317,20 @@ body.mode-modern {{ background: #cbb684; }}
     <label><input type="radio" name="face" value="modern"> modern polytonic (Cardo)</label>
   </span>
   <label><input type="checkbox" id="nomTgl" checked> nomina sacra (ΘΥ̅)</label>
+  <label><input type="checkbox" id="scanTgl"> show scan beside text</label>
+  <label><input type="checkbox" id="revTgl"> review marks</label>
   <span>text: Estienne 1550 scan-collated (PD) · <a href="index.html">ligature specimen</a> ·
         <a href="../qa-evidence/estienne-scan.jpg">source scan (PD)</a></span>
 </div>
+<div class="review-legend" aria-label="Review mark legend">
+  <span>open word-diffs (t_717701c6 cycle):</span>
+  <i style="background:#f6dfb9">contested reading</i>
+  <i style="background:#f3c9b4">variant vs WH</i>
+  <i style="background:#e7d3f0">scan-only word</i>
+  <i style="background:#dcecd2">decided</i>
+  <span>· hover a word for its WH reading / note / decision</span>
+</div>
+<div class="folio-wrap">
 <main class="folio" id="folio">
   <div class="folio-no" aria-hidden="true">161</div>
   {HEADPIECE}
@@ -242,6 +340,36 @@ body.mode-modern {{ background: #cbb684; }}
   </section>
   <div class="endmark" aria-hidden="true" title="end-of-page mark attested below the last line (right side)">l. i.</div>
 </main>
+<figure class="scan-pane" id="scanPane">
+  <img src="estienne-scan.jpg" alt="source scan: Estienne 1550 fol. 161 verso, the same page rendered at left" loading="lazy">
+  <figcaption>source scan — Estienne 1550 (Editio Regia), fol. 161 verso
+    (PD, Wikimedia Commons). The text at left is this page, recreated.</figcaption>
+</figure>
+</div><!-- /folio-wrap -->
+<script>
+/* t_717701c6: scan-beside-text and review-marks toggles. Persisted like
+   the face toggle; neither changes any text node (same-Unicode invariant). */
+const scanTgl = document.getElementById('scanTgl');
+function applyScan() {{
+  document.body.classList.toggle('show-scan', scanTgl.checked);
+  try {{ localStorage.setItem('gdr-scan', scanTgl.checked ? '1' : '0'); }} catch (e) {{}}
+}}
+scanTgl.addEventListener('change', applyScan);
+const revTgl = document.getElementById('revTgl');
+function applyRev() {{
+  document.body.classList.toggle('review-marks', revTgl.checked);
+  document.querySelectorAll('.w[data-wwh]').forEach(s => {{
+    if (revTgl.checked) s.setAttribute('title', s.dataset.wwh);
+    else s.removeAttribute('title');
+  }});
+  try {{ localStorage.setItem('gdr-rev', revTgl.checked ? '1' : '0'); }} catch (e) {{}}
+}}
+revTgl.addEventListener('change', applyRev);
+try {{
+  if (localStorage.getItem('gdr-scan') === '1') {{ scanTgl.checked = true; applyScan(); }}
+  if (localStorage.getItem('gdr-rev') === '1') {{ revTgl.checked = true; applyRev(); }}
+}} catch (e) {{}}
+</script>
 <script>
 /* Nomina-sacra toggle: swaps ΘΥ̅ ⇄ full scan word. Both forms are real Unicode. */
 const tgl = document.getElementById('nomTgl');
