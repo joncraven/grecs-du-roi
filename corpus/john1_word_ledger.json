@@ -1,0 +1,298 @@
+{
+ "decisions": [
+  {
+   "key": "v6w8:Ἰωάννης.",
+   "verdict": "confirmed",
+   "round": 1,
+   "ts": "2026-11-24T00:10Z",
+   "note": "second-source full-block pass + prior 300-dpi line reads agree (t_717701c6 round 1); scan spells the name with double nu (WH Ἰωάνης)"
+  },
+  {
+   "key": "v11w4:ἦλθε,",
+   "verdict": "confirmed",
+   "round": 1,
+   "ts": "2026-11-24T00:10Z",
+   "note": "3x zoom pass: no movable nu after -θε (t_717701c6 round 1)"
+  },
+  {
+   "key": "v3w11:ὃ",
+   "verdict": "confirmed",
+   "round": 1,
+   "ts": "2026-11-24T00:10Z",
+   "note": "TR verse division: ὃ γέγονεν closes v3 on the leaf (WH attaches it to v4); scan_only is a verse-division diff only"
+  },
+  {
+   "key": "v3w12:γέγονεν.",
+   "verdict": "confirmed",
+   "round": 1,
+   "ts": "2026-11-24T00:10Z",
+   "note": "TR verse division: ὃ γέγονεν closes v3 on the leaf (WH attaches it to v4)"
+  },
+  {
+   "key": "v4Wh1:ὃ",
+   "verdict": "confirmed",
+   "round": 1,
+   "ts": "2026-11-24T00:10Z",
+   "note": "same words present on the leaf under v3 — verse-division difference, not a text omission"
+  },
+  {
+   "key": "v4Wh2:γέγονεν",
+   "verdict": "confirmed",
+   "round": 1,
+   "ts": "2026-11-24T00:10Z",
+   "note": "same words present on the leaf under v3 — verse-division difference, not a text omission"
+  },
+  {
+   "key": "v15w6:κέκραγε",
+   "verdict": "confirmed",
+   "round": 1,
+   "ts": "2026-11-24T00:10Z",
+   "note": "second-source full-block pass + prior 300-dpi line reads agree (t_717701c6 round 1); no final ν after κέκραγε"
+  },
+  {
+   "key": "v15w1:Ἰωάννης",
+   "verdict": "confirmed",
+   "round": 1,
+   "ts": "2026-11-24T00:10Z",
+   "note": "second-source full-block pass + prior 300-dpi line reads agree (t_717701c6 round 1); scan spells name with double nu (WH Ἰωάνης)"
+  },
+  {
+   "key": "v15w10:ὃν",
+   "verdict": "confirmed",
+   "round": 1,
+   "ts": "2026-11-24T00:10Z",
+   "note": "second-source full-block pass + prior 300-dpi line reads agree (t_717701c6 round 1); leaf reads Οὗτος ἦν ὃν εἶπον (WH ὁ εἰπών)"
+  },
+  {
+   "key": "v15w11:εἶπον,",
+   "verdict": "confirmed",
+   "round": 1,
+   "ts": "2026-11-24T00:10Z",
+   "note": "second-source full-block pass + prior 300-dpi line reads agree (t_717701c6 round 1); clause ὃν εἶπον present on the leaf"
+  },
+  {
+   "key": "v15Wh11:ὁ",
+   "verdict": "confirmed",
+   "round": 1,
+   "ts": "2026-11-24T00:10Z",
+   "note": "WH-only ὁ belongs to WH's ὁ εἰπών variant; leaf prints ὃν εἶπον — not an omission"
+  },
+  {
+   "key": "v16w1:Καὶ",
+   "verdict": "confirmed",
+   "round": 1,
+   "ts": "2026-11-24T00:10Z",
+   "note": "3x zoom of v16 first word: Καὶ not ὅτι (t_717701c6 round 1)"
+  },
+  {
+   "key": "v16Wh1:ὅτι",
+   "verdict": "confirmed",
+   "round": 1,
+   "ts": "2026-11-24T00:10Z",
+   "note": "WH begins v16 ὅτι; leaf begins Καὶ — TR wording confirmed on leaf"
+  },
+  {
+   "key": "v17w5:Μωσέως",
+   "verdict": "confirmed",
+   "round": 1,
+   "ts": "2026-11-24T00:10Z",
+   "note": "3x zoom: Μω-ε-ω-ς, no upsilon between ω and ε (t_717701c6 round 1)"
+  },
+  {
+   "key": "v18w5:ὁ",
+   "verdict": "confirmed",
+   "round": 1,
+   "ts": "2026-11-24T00:10Z",
+   "note": "second-source full-block pass + prior 300-dpi line reads agree (t_717701c6 round 1); article Ο present before μονογενης (WH lacks it)"
+  },
+  {
+   "key": "v18w7:υἱός,",
+   "verdict": "confirmed",
+   "round": 1,
+   "ts": "2026-11-24T00:10Z",
+   "note": "second-source full-block pass + prior 300-dpi line reads agree (t_717701c6 round 1); leaf reads υιος where WH reads θεος"
+  },
+  {
+   "key": "v18Wh6:θεὸς",
+   "verdict": "confirmed",
+   "round": 1,
+   "ts": "2026-11-24T00:10Z",
+   "note": "WH-only θεός; leaf prints υἱός — major variant confirmed on the leaf"
+  },
+  {
+   "key": "v19w7:Ἰωάννου,",
+   "verdict": "confirmed",
+   "round": 1,
+   "ts": "2026-11-24T00:10Z",
+   "note": "second-source full-block pass + prior 300-dpi line reads agree (t_717701c6 round 1); final -νου present (local WH extract Ἰωάνου)"
+  },
+  {
+   "key": "v5w7:φαίνει,",
+   "verdict": "confirmed",
+   "round": 1,
+   "ts": "2026-11-24T00:10Z",
+   "note": "leaf and our WH file both read φαίνει; note's 'WH=ἔφαινε' refers to the critical apparatus, not our corpus — no page action"
+  },
+  {
+   "key": "v13w2:ἐκ",
+   "verdict": "confirmed",
+   "round": 1,
+   "ts": "2026-11-24T00:10Z",
+   "note": "PARTIAL — zoom pass reads 'οἳ οὐκ ἐξ αἱμα-/τος' (οὐκ PRESENT, singular αἵματος) against two prior 300-dpi passes that saw no οὐκ; singular vs plural also unresolved (ων vs τος continuation). Keep under review; page keeps current attested 'ἐκ αἵματος'. Do not treat as settled."
+  },
+  {
+   "key": "v1w1:Ἐν",
+   "verdict": "confirmed",
+   "round": 2,
+   "ts": "2026-11-24T00:40Z",
+   "note": "line-initial ΕΝ ΑΡΧΗ confirmed by all passes (run-1 'Νῆν' fabricated and retracted). t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+  },
+  {
+   "key": "v1w2:ἀρχῇ",
+   "verdict": "confirmed",
+   "round": 2,
+   "ts": "2026-11-24T00:40Z",
+   "note": "line-initial ΕΝ ΑΡΧΗ confirmed by all passes. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+  },
+  {
+   "key": "v1w12:Θεόν,",
+   "verdict": "confirmed",
+   "round": 2,
+   "ts": "2026-11-24T00:40Z",
+   "note": "t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+  },
+  {
+   "key": "v1w14:Θεὸς",
+   "verdict": "confirmed",
+   "round": 2,
+   "ts": "2026-11-24T00:40Z",
+   "note": "t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+  },
+  {
+   "key": "v2w7:Θεόν.",
+   "verdict": "confirmed",
+   "round": 2,
+   "ts": "2026-11-24T00:40Z",
+   "note": "same capital-theta casing as v1, second-source line F02 agrees. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+  },
+  {
+   "key": "v3w1:Πάντα",
+   "verdict": "confirmed",
+   "round": 2,
+   "ts": "2026-11-24T00:40Z",
+   "note": "verse-initial capital, TR convention on the leaf; no scan/WH conflict. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+  },
+  {
+   "key": "v4w1:Ἐν",
+   "verdict": "confirmed",
+   "round": 2,
+   "ts": "2026-11-24T00:40Z",
+   "note": "sentence-initial capital after ὃ γέγονεν. (TR verse division); leaf capital confirmed. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+  },
+  {
+   "key": "v6w5:Θεοῦ,",
+   "verdict": "confirmed",
+   "round": 2,
+   "ts": "2026-11-24T00:40Z",
+   "note": "capital theta confirmed; overline-vs-full contestation belongs to the nomen-sacra toggle question, not this token (page renders full spelling + ΘΥ̅ toggle). t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+  },
+  {
+   "key": "v7w1:Οὗτος",
+   "verdict": "confirmed",
+   "round": 2,
+   "ts": "2026-11-24T00:40Z",
+   "note": "sentence-initial capital; letters identical. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+  },
+  {
+   "key": "v8w1:Οὐκ",
+   "verdict": "confirmed",
+   "round": 2,
+   "ts": "2026-11-24T00:40Z",
+   "note": "sentence-initial capital; letters identical. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+  },
+  {
+   "key": "v10w1:Ἐν",
+   "verdict": "confirmed",
+   "round": 2,
+   "ts": "2026-11-24T00:40Z",
+   "note": "sentence-initial capital; letters identical. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+  },
+  {
+   "key": "v12w1:Ὅσοι",
+   "verdict": "confirmed",
+   "round": 2,
+   "ts": "2026-11-24T00:40Z",
+   "note": "sentence-initial capital; letters identical. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+  },
+  {
+   "key": "v12w9:Θεοῦ",
+   "verdict": "confirmed",
+   "round": 2,
+   "ts": "2026-11-24T00:40Z",
+   "note": "t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+  },
+  {
+   "key": "v13w1:Οἳ",
+   "verdict": "confirmed",
+   "round": 2,
+   "ts": "2026-11-24T00:40Z",
+   "note": "sentence-initial capital with rough breathing confirmed at 3x zoom (round 1 pass, z_v13). t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+  },
+  {
+   "key": "v13w14:Θεοῦ",
+   "verdict": "confirmed",
+   "round": 2,
+   "ts": "2026-11-24T00:40Z",
+   "note": "t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+  },
+  {
+   "key": "v15w8:Οὗτος",
+   "verdict": "confirmed",
+   "round": 2,
+   "ts": "2026-11-24T00:40Z",
+   "note": "direct-speech initial capital after λέγων, on the leaf (round 1 zoom line: Ουτος ην ον ειπον). t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+  },
+  {
+   "key": "v18w1:Θεὸν",
+   "verdict": "confirmed",
+   "round": 2,
+   "ts": "2026-11-24T00:40Z",
+   "note": "sentence-initial capital theta; leaf confirms (round 1 zoom line: Θεον ουδεις εωρα-). t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+  },
+  {
+   "key": "v3w2:δι᾽",
+   "verdict": "confirmed",
+   "round": 2,
+   "ts": "2026-11-24T00:40Z",
+   "note": "elision-mark glyph class only (U+1FBD koronis vs U+02BC): typographic convention of the leaf's font, letters identical. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+  },
+  {
+   "key": "v7w13:δι᾽",
+   "verdict": "confirmed",
+   "round": 2,
+   "ts": "2026-11-24T00:40Z",
+   "note": "elision-mark glyph class only; letters identical. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+  },
+  {
+   "key": "v8w6:ἀλλ᾽",
+   "verdict": "confirmed",
+   "round": 2,
+   "ts": "2026-11-24T00:40Z",
+   "note": "elision-mark glyph class only; letters identical. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+  },
+  {
+   "key": "v10w8:δι᾽",
+   "verdict": "confirmed",
+   "round": 2,
+   "ts": "2026-11-24T00:40Z",
+   "note": "elision-mark glyph class only; letters identical. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+  },
+  {
+   "key": "v13w12:ἀλλ᾽",
+   "verdict": "confirmed",
+   "round": 2,
+   "ts": "2026-11-24T00:40Z",
+   "note": "elision-mark glyph class only; letters identical. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+  }
+ ]
+}

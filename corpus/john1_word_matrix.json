@@ -1,0 +1,2718 @@
+{
+ "_meta": {
+  "generated_from": [
+   "john1_estienne1550.json",
+   "john1_wh.json"
+  ],
+  "decisions_from": "john1_word_ledger.json",
+  "note": "derived file — rebuild with tools/word_matrix.py; decisions live in corpus/john1_word_ledger.json and survive rebuilds"
+ },
+ "words": [
+  {
+   "key": "v1w1:Ἐν",
+   "verse": 1,
+   "index": 1,
+   "scan": "Ἐν",
+   "wh": "ΕΝ",
+   "status": "casing",
+   "contested_note": "First line after the initial reads ΕΝ ΑΡΧΗ ἦν ὁ λόγος, καὶ ὁ λόγος ἦν (run-1 'Νῆν λιῦ' was fabricated). Scan spells Θεόν/Θεὸς in full with capital theta; WH has lowercase θεόν/θεὸς. Overline status contested: two 300dpi passes report overlined Θ-signs, the single-line reads report full spelling — see nomina_sacra.",
+   "decision": {
+    "key": "v1w1:Ἐν",
+    "verdict": "confirmed",
+    "round": 2,
+    "ts": "2026-11-24T00:40Z",
+    "note": "line-initial ΕΝ ΑΡΧΗ confirmed by all passes (run-1 'Νῆν' fabricated and retracted). t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+   }
+  },
+  {
+   "key": "v1w2:ἀρχῇ",
+   "verse": 1,
+   "index": 2,
+   "scan": "ἀρχῇ",
+   "wh": "ΑΡΧΗ",
+   "status": "casing",
+   "contested_note": "First line after the initial reads ΕΝ ΑΡΧΗ ἦν ὁ λόγος, καὶ ὁ λόγος ἦν (run-1 'Νῆν λιῦ' was fabricated). Scan spells Θεόν/Θεὸς in full with capital theta; WH has lowercase θεόν/θεὸς. Overline status contested: two 300dpi passes report overlined Θ-signs, the single-line reads report full spelling — see nomina_sacra.",
+   "decision": {
+    "key": "v1w2:ἀρχῇ",
+    "verdict": "confirmed",
+    "round": 2,
+    "ts": "2026-11-24T00:40Z",
+    "note": "line-initial ΕΝ ΑΡΧΗ confirmed by all passes. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+   }
+  },
+  {
+   "key": "v1w3:ἦν",
+   "verse": 1,
+   "index": 3,
+   "scan": "ἦν",
+   "wh": "ἦν",
+   "status": "match",
+   "contested_note": "First line after the initial reads ΕΝ ΑΡΧΗ ἦν ὁ λόγος, καὶ ὁ λόγος ἦν (run-1 'Νῆν λιῦ' was fabricated). Scan spells Θεόν/Θεὸς in full with capital theta; WH has lowercase θεόν/θεὸς. Overline status contested: two 300dpi passes report overlined Θ-signs, the single-line reads report full spelling — see nomina_sacra."
+  },
+  {
+   "key": "v1w4:ὁ",
+   "verse": 1,
+   "index": 4,
+   "scan": "ὁ",
+   "wh": "ὁ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v1w5:λόγος,",
+   "verse": 1,
+   "index": 5,
+   "scan": "λόγος,",
+   "wh": "λόγος,",
+   "status": "match",
+   "contested_note": "First line after the initial reads ΕΝ ΑΡΧΗ ἦν ὁ λόγος, καὶ ὁ λόγος ἦν (run-1 'Νῆν λιῦ' was fabricated). Scan spells Θεόν/Θεὸς in full with capital theta; WH has lowercase θεόν/θεὸς. Overline status contested: two 300dpi passes report overlined Θ-signs, the single-line reads report full spelling — see nomina_sacra."
+  },
+  {
+   "key": "v1w6:καὶ",
+   "verse": 1,
+   "index": 6,
+   "scan": "καὶ",
+   "wh": "καὶ",
+   "status": "match",
+   "contested_note": "First line after the initial reads ΕΝ ΑΡΧΗ ἦν ὁ λόγος, καὶ ὁ λόγος ἦν (run-1 'Νῆν λιῦ' was fabricated). Scan spells Θεόν/Θεὸς in full with capital theta; WH has lowercase θεόν/θεὸς. Overline status contested: two 300dpi passes report overlined Θ-signs, the single-line reads report full spelling — see nomina_sacra."
+  },
+  {
+   "key": "v1w7:ὁ",
+   "verse": 1,
+   "index": 7,
+   "scan": "ὁ",
+   "wh": "ὁ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v1w8:λόγος",
+   "verse": 1,
+   "index": 8,
+   "scan": "λόγος",
+   "wh": "λόγος",
+   "status": "match",
+   "contested_note": "First line after the initial reads ΕΝ ΑΡΧΗ ἦν ὁ λόγος, καὶ ὁ λόγος ἦν (run-1 'Νῆν λιῦ' was fabricated). Scan spells Θεόν/Θεὸς in full with capital theta; WH has lowercase θεόν/θεὸς. Overline status contested: two 300dpi passes report overlined Θ-signs, the single-line reads report full spelling — see nomina_sacra."
+  },
+  {
+   "key": "v1w9:ἦν",
+   "verse": 1,
+   "index": 9,
+   "scan": "ἦν",
+   "wh": "ἦν",
+   "status": "match",
+   "contested_note": "First line after the initial reads ΕΝ ΑΡΧΗ ἦν ὁ λόγος, καὶ ὁ λόγος ἦν (run-1 'Νῆν λιῦ' was fabricated). Scan spells Θεόν/Θεὸς in full with capital theta; WH has lowercase θεόν/θεὸς. Overline status contested: two 300dpi passes report overlined Θ-signs, the single-line reads report full spelling — see nomina_sacra."
+  },
+  {
+   "key": "v1w10:πρὸς",
+   "verse": 1,
+   "index": 10,
+   "scan": "πρὸς",
+   "wh": "πρὸς",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v1w11:τὸν",
+   "verse": 1,
+   "index": 11,
+   "scan": "τὸν",
+   "wh": "τὸν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v1w12:Θεόν,",
+   "verse": 1,
+   "index": 12,
+   "scan": "Θεόν,",
+   "wh": "θεόν,",
+   "status": "casing",
+   "contested_note": "First line after the initial reads ΕΝ ΑΡΧΗ ἦν ὁ λόγος, καὶ ὁ λόγος ἦν (run-1 'Νῆν λιῦ' was fabricated). Scan spells Θεόν/Θεὸς in full with capital theta; WH has lowercase θεόν/θεὸς. Overline status contested: two 300dpi passes report overlined Θ-signs, the single-line reads report full spelling — see nomina_sacra.",
+   "decision": {
+    "key": "v1w12:Θεόν,",
+    "verdict": "confirmed",
+    "round": 2,
+    "ts": "2026-11-24T00:40Z",
+    "note": "t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+   }
+  },
+  {
+   "key": "v1w13:καὶ",
+   "verse": 1,
+   "index": 13,
+   "scan": "καὶ",
+   "wh": "καὶ",
+   "status": "match",
+   "contested_note": "First line after the initial reads ΕΝ ΑΡΧΗ ἦν ὁ λόγος, καὶ ὁ λόγος ἦν (run-1 'Νῆν λιῦ' was fabricated). Scan spells Θεόν/Θεὸς in full with capital theta; WH has lowercase θεόν/θεὸς. Overline status contested: two 300dpi passes report overlined Θ-signs, the single-line reads report full spelling — see nomina_sacra."
+  },
+  {
+   "key": "v1w14:Θεὸς",
+   "verse": 1,
+   "index": 14,
+   "scan": "Θεὸς",
+   "wh": "θεὸς",
+   "status": "casing",
+   "contested_note": "First line after the initial reads ΕΝ ΑΡΧΗ ἦν ὁ λόγος, καὶ ὁ λόγος ἦν (run-1 'Νῆν λιῦ' was fabricated). Scan spells Θεόν/Θεὸς in full with capital theta; WH has lowercase θεόν/θεὸς. Overline status contested: two 300dpi passes report overlined Θ-signs, the single-line reads report full spelling — see nomina_sacra.",
+   "decision": {
+    "key": "v1w14:Θεὸς",
+    "verdict": "confirmed",
+    "round": 2,
+    "ts": "2026-11-24T00:40Z",
+    "note": "t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+   }
+  },
+  {
+   "key": "v1w15:ἦν",
+   "verse": 1,
+   "index": 15,
+   "scan": "ἦν",
+   "wh": "ἦν",
+   "status": "match",
+   "contested_note": "First line after the initial reads ΕΝ ΑΡΧΗ ἦν ὁ λόγος, καὶ ὁ λόγος ἦν (run-1 'Νῆν λιῦ' was fabricated). Scan spells Θεόν/Θεὸς in full with capital theta; WH has lowercase θεόν/θεὸς. Overline status contested: two 300dpi passes report overlined Θ-signs, the single-line reads report full spelling — see nomina_sacra."
+  },
+  {
+   "key": "v1w16:ὁ",
+   "verse": 1,
+   "index": 16,
+   "scan": "ὁ",
+   "wh": "ὁ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v1w17:λόγος.",
+   "verse": 1,
+   "index": 17,
+   "scan": "λόγος.",
+   "wh": "λόγος.",
+   "status": "match",
+   "contested_note": "First line after the initial reads ΕΝ ΑΡΧΗ ἦν ὁ λόγος, καὶ ὁ λόγος ἦν (run-1 'Νῆν λιῦ' was fabricated). Scan spells Θεόν/Θεὸς in full with capital theta; WH has lowercase θεόν/θεὸς. Overline status contested: two 300dpi passes report overlined Θ-signs, the single-line reads report full spelling — see nomina_sacra."
+  },
+  {
+   "key": "v2w1:Οὗτος",
+   "verse": 2,
+   "index": 1,
+   "scan": "Οὗτος",
+   "wh": "Οὗτος",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v2w2:ἦν",
+   "verse": 2,
+   "index": 2,
+   "scan": "ἦν",
+   "wh": "ἦν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v2w3:ἐν",
+   "verse": 2,
+   "index": 3,
+   "scan": "ἐν",
+   "wh": "ἐν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v2w4:ἀρχῇ",
+   "verse": 2,
+   "index": 4,
+   "scan": "ἀρχῇ",
+   "wh": "ἀρχῇ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v2w5:πρὸς",
+   "verse": 2,
+   "index": 5,
+   "scan": "πρὸς",
+   "wh": "πρὸς",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v2w6:τὸν",
+   "verse": 2,
+   "index": 6,
+   "scan": "τὸν",
+   "wh": "τὸν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v2w7:Θεόν.",
+   "verse": 2,
+   "index": 7,
+   "scan": "Θεόν.",
+   "wh": "θεόν.",
+   "status": "casing",
+   "contested_note": "",
+   "decision": {
+    "key": "v2w7:Θεόν.",
+    "verdict": "confirmed",
+    "round": 2,
+    "ts": "2026-11-24T00:40Z",
+    "note": "same capital-theta casing as v1, second-source line F02 agrees. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+   }
+  },
+  {
+   "key": "v3w1:Πάντα",
+   "verse": 3,
+   "index": 1,
+   "scan": "Πάντα",
+   "wh": "πάντα",
+   "status": "casing",
+   "contested_note": "",
+   "decision": {
+    "key": "v3w1:Πάντα",
+    "verdict": "confirmed",
+    "round": 2,
+    "ts": "2026-11-24T00:40Z",
+    "note": "verse-initial capital, TR convention on the leaf; no scan/WH conflict. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+   }
+  },
+  {
+   "key": "v3w2:δι᾽",
+   "verse": 3,
+   "index": 2,
+   "scan": "δι᾽",
+   "wh": "διʼ",
+   "status": "elision",
+   "contested_note": "",
+   "decision": {
+    "key": "v3w2:δι᾽",
+    "verdict": "confirmed",
+    "round": 2,
+    "ts": "2026-11-24T00:40Z",
+    "note": "elision-mark glyph class only (U+1FBD koronis vs U+02BC): typographic convention of the leaf's font, letters identical. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+   }
+  },
+  {
+   "key": "v3w3:αὐτοῦ",
+   "verse": 3,
+   "index": 3,
+   "scan": "αὐτοῦ",
+   "wh": "αὐτοῦ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v3w4:ἐγένετο,",
+   "verse": 3,
+   "index": 4,
+   "scan": "ἐγένετο,",
+   "wh": "ἐγένετο,",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v3w5:καὶ",
+   "verse": 3,
+   "index": 5,
+   "scan": "καὶ",
+   "wh": "καὶ",
+   "status": "match",
+   "contested_note": "One line read rendered the second conjunction as ἢ (against καὶ); low confidence on that pass, καὶ kept — flagged for next review."
+  },
+  {
+   "key": "v3w6:χωρὶς",
+   "verse": 3,
+   "index": 6,
+   "scan": "χωρὶς",
+   "wh": "χωρὶς",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v3w7:αὐτοῦ",
+   "verse": 3,
+   "index": 7,
+   "scan": "αὐτοῦ",
+   "wh": "αὐτοῦ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v3w8:ἐγένετο",
+   "verse": 3,
+   "index": 8,
+   "scan": "ἐγένετο",
+   "wh": "ἐγένετο",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v3w9:οὐδὲ",
+   "verse": 3,
+   "index": 9,
+   "scan": "οὐδὲ",
+   "wh": "οὐδὲ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v3w10:ἕν.",
+   "verse": 3,
+   "index": 10,
+   "scan": "ἕν.",
+   "wh": "ἕν.",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v3w11:ὃ",
+   "verse": 3,
+   "index": 11,
+   "scan": "ὃ",
+   "wh": null,
+   "status": "scan_only",
+   "contested_note": "",
+   "decision": {
+    "key": "v3w11:ὃ",
+    "verdict": "confirmed",
+    "round": 1,
+    "ts": "2026-11-24T00:10Z",
+    "note": "TR verse division: ὃ γέγονεν closes v3 on the leaf (WH attaches it to v4); scan_only is a verse-division diff only"
+   }
+  },
+  {
+   "key": "v3w12:γέγονεν.",
+   "verse": 3,
+   "index": 12,
+   "scan": "γέγονεν.",
+   "wh": null,
+   "status": "scan_only",
+   "contested_note": "",
+   "decision": {
+    "key": "v3w12:γέγονεν.",
+    "verdict": "confirmed",
+    "round": 1,
+    "ts": "2026-11-24T00:10Z",
+    "note": "TR verse division: ὃ γέγονεν closes v3 on the leaf (WH attaches it to v4)"
+   }
+  },
+  {
+   "key": "v4w1:Ἐν",
+   "verse": 4,
+   "index": 1,
+   "scan": "Ἐν",
+   "wh": "ἐν",
+   "status": "casing",
+   "contested_note": "",
+   "decision": {
+    "key": "v4w1:Ἐν",
+    "verdict": "confirmed",
+    "round": 2,
+    "ts": "2026-11-24T00:40Z",
+    "note": "sentence-initial capital after ὃ γέγονεν. (TR verse division); leaf capital confirmed. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+   }
+  },
+  {
+   "key": "v4w2:αὐτῷ",
+   "verse": 4,
+   "index": 2,
+   "scan": "αὐτῷ",
+   "wh": "αὐτῷ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v4w3:ζωὴ",
+   "verse": 4,
+   "index": 3,
+   "scan": "ζωὴ",
+   "wh": "ζωὴ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v4w4:ἦν,",
+   "verse": 4,
+   "index": 4,
+   "scan": "ἦν,",
+   "wh": "ἦν,",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v4w5:καὶ",
+   "verse": 4,
+   "index": 5,
+   "scan": "καὶ",
+   "wh": "καὶ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v4w6:ἡ",
+   "verse": 4,
+   "index": 6,
+   "scan": "ἡ",
+   "wh": "ἡ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v4w7:ζωὴ",
+   "verse": 4,
+   "index": 7,
+   "scan": "ζωὴ",
+   "wh": "ζωὴ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v4w8:ἦν",
+   "verse": 4,
+   "index": 8,
+   "scan": "ἦν",
+   "wh": "ἦν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v4w9:τὸ",
+   "verse": 4,
+   "index": 9,
+   "scan": "τὸ",
+   "wh": "τὸ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v4w10:φῶς",
+   "verse": 4,
+   "index": 10,
+   "scan": "φῶς",
+   "wh": "φῶς",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v4w11:τῶν",
+   "verse": 4,
+   "index": 11,
+   "scan": "τῶν",
+   "wh": "τῶν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v4w12:ἀνθρώπων:",
+   "verse": 4,
+   "index": 12,
+   "scan": "ἀνθρώπων:",
+   "wh": "ἀνθρώπων·",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v4Wh1:ὃ",
+   "verse": 4,
+   "index": -1,
+   "scan": null,
+   "wh": "ὃ",
+   "status": "wh_only",
+   "contested_note": "",
+   "decision": {
+    "key": "v4Wh1:ὃ",
+    "verdict": "confirmed",
+    "round": 1,
+    "ts": "2026-11-24T00:10Z",
+    "note": "same words present on the leaf under v3 — verse-division difference, not a text omission"
+   }
+  },
+  {
+   "key": "v4Wh2:γέγονεν",
+   "verse": 4,
+   "index": -2,
+   "scan": null,
+   "wh": "γέγονεν",
+   "status": "wh_only",
+   "contested_note": "",
+   "decision": {
+    "key": "v4Wh2:γέγονεν",
+    "verdict": "confirmed",
+    "round": 1,
+    "ts": "2026-11-24T00:10Z",
+    "note": "same words present on the leaf under v3 — verse-division difference, not a text omission"
+   }
+  },
+  {
+   "key": "v5w1:καὶ",
+   "verse": 5,
+   "index": 1,
+   "scan": "καὶ",
+   "wh": "καὶ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v5w2:τὸ",
+   "verse": 5,
+   "index": 2,
+   "scan": "τὸ",
+   "wh": "τὸ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v5w3:φῶς",
+   "verse": 5,
+   "index": 3,
+   "scan": "φῶς",
+   "wh": "φῶς",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v5w4:ἐν",
+   "verse": 5,
+   "index": 4,
+   "scan": "ἐν",
+   "wh": "ἐν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v5w5:τῇ",
+   "verse": 5,
+   "index": 5,
+   "scan": "τῇ",
+   "wh": "τῇ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v5w6:σκοτίᾳ",
+   "verse": 5,
+   "index": 6,
+   "scan": "σκοτίᾳ",
+   "wh": "σκοτίᾳ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v5w7:φαίνει,",
+   "verse": 5,
+   "index": 7,
+   "scan": "φαίνει,",
+   "wh": "φαίνει,",
+   "status": "match",
+   "contested_note": "DIFF (major): scan/tr reads present φαίνει; WH = ἔφαινε.",
+   "decision": {
+    "key": "v5w7:φαίνει,",
+    "verdict": "confirmed",
+    "round": 1,
+    "ts": "2026-11-24T00:10Z",
+    "note": "leaf and our WH file both read φαίνει; note's 'WH=ἔφαινε' refers to the critical apparatus, not our corpus — no page action"
+   }
+  },
+  {
+   "key": "v5w8:καὶ",
+   "verse": 5,
+   "index": 8,
+   "scan": "καὶ",
+   "wh": "καὶ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v5w9:ἡ",
+   "verse": 5,
+   "index": 9,
+   "scan": "ἡ",
+   "wh": "ἡ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v5w10:σκοτία",
+   "verse": 5,
+   "index": 10,
+   "scan": "σκοτία",
+   "wh": "σκοτία",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v5w11:αὐτὸ",
+   "verse": 5,
+   "index": 11,
+   "scan": "αὐτὸ",
+   "wh": "αὐτὸ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v5w12:οὐ",
+   "verse": 5,
+   "index": 12,
+   "scan": "οὐ",
+   "wh": "οὐ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v5w13:κατέλαβεν.",
+   "verse": 5,
+   "index": 13,
+   "scan": "κατέλαβεν.",
+   "wh": "κατέλαβεν.",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v6w1:Ἐγένετο",
+   "verse": 6,
+   "index": 1,
+   "scan": "Ἐγένετο",
+   "wh": "Ἐγένετο",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v6w2:ἄνθρωπος",
+   "verse": 6,
+   "index": 2,
+   "scan": "ἄνθρωπος",
+   "wh": "ἄνθρωπος",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v6w3:ἀπεσταλμένος",
+   "verse": 6,
+   "index": 3,
+   "scan": "ἀπεσταλμένος",
+   "wh": "ἀπεσταλμένος",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v6w4:παρὰ",
+   "verse": 6,
+   "index": 4,
+   "scan": "παρὰ",
+   "wh": "παρὰ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v6w5:Θεοῦ,",
+   "verse": 6,
+   "index": 5,
+   "scan": "Θεοῦ,",
+   "wh": "θεοῦ,",
+   "status": "casing",
+   "contested_note": "Capital theta on Θεοῦ; WH lowercase. Line-end abbreviation pass read ΘΥ with overline; line reads full θεοῦ — contested, see nomina_sacra.",
+   "decision": {
+    "key": "v6w5:Θεοῦ,",
+    "verdict": "confirmed",
+    "round": 2,
+    "ts": "2026-11-24T00:40Z",
+    "note": "capital theta confirmed; overline-vs-full contestation belongs to the nomen-sacra toggle question, not this token (page renders full spelling + ΘΥ̅ toggle). t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+   }
+  },
+  {
+   "key": "v6w6:ὄνομα",
+   "verse": 6,
+   "index": 6,
+   "scan": "ὄνομα",
+   "wh": "ὄνομα",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v6w7:αὐτῷ",
+   "verse": 6,
+   "index": 7,
+   "scan": "αὐτῷ",
+   "wh": "αὐτῷ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v6w8:Ἰωάννης.",
+   "verse": 6,
+   "index": 8,
+   "scan": "Ἰωάννης.",
+   "wh": "Ἰωάνης·",
+   "status": "variant",
+   "contested_note": "",
+   "decision": {
+    "key": "v6w8:Ἰωάννης.",
+    "verdict": "confirmed",
+    "round": 1,
+    "ts": "2026-11-24T00:10Z",
+    "note": "second-source full-block pass + prior 300-dpi line reads agree (t_717701c6 round 1); scan spells the name with double nu (WH Ἰωάνης)"
+   }
+  },
+  {
+   "key": "v7w1:Οὗτος",
+   "verse": 7,
+   "index": 1,
+   "scan": "Οὗτος",
+   "wh": "οὗτος",
+   "status": "casing",
+   "contested_note": "",
+   "decision": {
+    "key": "v7w1:Οὗτος",
+    "verdict": "confirmed",
+    "round": 2,
+    "ts": "2026-11-24T00:40Z",
+    "note": "sentence-initial capital; letters identical. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+   }
+  },
+  {
+   "key": "v7w2:ἦλθεν",
+   "verse": 7,
+   "index": 2,
+   "scan": "ἦλθεν",
+   "wh": "ἦλθεν",
+   "status": "match",
+   "contested_note": "Ink blot mid-line at ἦλθεν confirmed in second source; letters recoverable."
+  },
+  {
+   "key": "v7w3:εἰς",
+   "verse": 7,
+   "index": 3,
+   "scan": "εἰς",
+   "wh": "εἰς",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v7w4:μαρτυρίαν,",
+   "verse": 7,
+   "index": 4,
+   "scan": "μαρτυρίαν,",
+   "wh": "μαρτυρίαν,",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v7w5:ἵνα",
+   "verse": 7,
+   "index": 5,
+   "scan": "ἵνα",
+   "wh": "ἵνα",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v7w6:μαρτυρήσῃ",
+   "verse": 7,
+   "index": 6,
+   "scan": "μαρτυρήσῃ",
+   "wh": "μαρτυρήσῃ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v7w7:περὶ",
+   "verse": 7,
+   "index": 7,
+   "scan": "περὶ",
+   "wh": "περὶ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v7w8:τοῦ",
+   "verse": 7,
+   "index": 8,
+   "scan": "τοῦ",
+   "wh": "τοῦ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v7w9:φωτός,",
+   "verse": 7,
+   "index": 9,
+   "scan": "φωτός,",
+   "wh": "φωτός,",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v7w10:ἵνα",
+   "verse": 7,
+   "index": 10,
+   "scan": "ἵνα",
+   "wh": "ἵνα",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v7w11:πάντες",
+   "verse": 7,
+   "index": 11,
+   "scan": "πάντες",
+   "wh": "πάντες",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v7w12:πιστεύσωσιν",
+   "verse": 7,
+   "index": 12,
+   "scan": "πιστεύσωσιν",
+   "wh": "πιστεύσωσιν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v7w13:δι᾽",
+   "verse": 7,
+   "index": 13,
+   "scan": "δι᾽",
+   "wh": "διʼ",
+   "status": "elision",
+   "contested_note": "",
+   "decision": {
+    "key": "v7w13:δι᾽",
+    "verdict": "confirmed",
+    "round": 2,
+    "ts": "2026-11-24T00:40Z",
+    "note": "elision-mark glyph class only; letters identical. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+   }
+  },
+  {
+   "key": "v7w14:αὐτοῦ.",
+   "verse": 7,
+   "index": 14,
+   "scan": "αὐτοῦ.",
+   "wh": "αὐτοῦ.",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v8w1:Οὐκ",
+   "verse": 8,
+   "index": 1,
+   "scan": "Οὐκ",
+   "wh": "οὐκ",
+   "status": "casing",
+   "contested_note": "",
+   "decision": {
+    "key": "v8w1:Οὐκ",
+    "verdict": "confirmed",
+    "round": 2,
+    "ts": "2026-11-24T00:40Z",
+    "note": "sentence-initial capital; letters identical. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+   }
+  },
+  {
+   "key": "v8w2:ἦν",
+   "verse": 8,
+   "index": 2,
+   "scan": "ἦν",
+   "wh": "ἦν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v8w3:ἐκεῖνος",
+   "verse": 8,
+   "index": 3,
+   "scan": "ἐκεῖνος",
+   "wh": "ἐκεῖνος",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v8w4:τὸ",
+   "verse": 8,
+   "index": 4,
+   "scan": "τὸ",
+   "wh": "τὸ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v8w5:φῶς,",
+   "verse": 8,
+   "index": 5,
+   "scan": "φῶς,",
+   "wh": "φῶς,",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v8w6:ἀλλ᾽",
+   "verse": 8,
+   "index": 6,
+   "scan": "ἀλλ᾽",
+   "wh": "ἀλλʼ",
+   "status": "elision",
+   "contested_note": "",
+   "decision": {
+    "key": "v8w6:ἀλλ᾽",
+    "verdict": "confirmed",
+    "round": 2,
+    "ts": "2026-11-24T00:40Z",
+    "note": "elision-mark glyph class only; letters identical. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+   }
+  },
+  {
+   "key": "v8w7:ἵνα",
+   "verse": 8,
+   "index": 7,
+   "scan": "ἵνα",
+   "wh": "ἵνα",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v8w8:μαρτυρήσῃ",
+   "verse": 8,
+   "index": 8,
+   "scan": "μαρτυρήσῃ",
+   "wh": "μαρτυρήσῃ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v8w9:περὶ",
+   "verse": 8,
+   "index": 9,
+   "scan": "περὶ",
+   "wh": "περὶ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v8w10:τοῦ",
+   "verse": 8,
+   "index": 10,
+   "scan": "τοῦ",
+   "wh": "τοῦ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v8w11:φωτός.",
+   "verse": 8,
+   "index": 11,
+   "scan": "φωτός.",
+   "wh": "φωτός.",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v9w1:Ἦν",
+   "verse": 9,
+   "index": 1,
+   "scan": "Ἦν",
+   "wh": "Ἦν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v9w2:τὸ",
+   "verse": 9,
+   "index": 2,
+   "scan": "τὸ",
+   "wh": "τὸ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v9w3:φῶς",
+   "verse": 9,
+   "index": 3,
+   "scan": "φῶς",
+   "wh": "φῶς",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v9w4:τὸ",
+   "verse": 9,
+   "index": 4,
+   "scan": "τὸ",
+   "wh": "τὸ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v9w5:ἀληθινόν,",
+   "verse": 9,
+   "index": 5,
+   "scan": "ἀληθινόν,",
+   "wh": "ἀληθινὸν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v9w6:ὃ",
+   "verse": 9,
+   "index": 6,
+   "scan": "ὃ",
+   "wh": "ὃ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v9w7:φωτίζει",
+   "verse": 9,
+   "index": 7,
+   "scan": "φωτίζει",
+   "wh": "φωτίζει",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v9w8:πάντα",
+   "verse": 9,
+   "index": 8,
+   "scan": "πάντα",
+   "wh": "πάντα",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v9w9:ἄνθρωπον",
+   "verse": 9,
+   "index": 9,
+   "scan": "ἄνθρωπον",
+   "wh": "ἄνθρωπον",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v9w10:ἐρχόμενον",
+   "verse": 9,
+   "index": 10,
+   "scan": "ἐρχόμενον",
+   "wh": "ἐρχόμενον",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v9w11:εἰς",
+   "verse": 9,
+   "index": 11,
+   "scan": "εἰς",
+   "wh": "εἰς",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v9w12:τὸν",
+   "verse": 9,
+   "index": 12,
+   "scan": "τὸν",
+   "wh": "τὸν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v9w13:κόσμον.",
+   "verse": 9,
+   "index": 13,
+   "scan": "κόσμον.",
+   "wh": "κόσμον.",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v10w1:Ἐν",
+   "verse": 10,
+   "index": 1,
+   "scan": "Ἐν",
+   "wh": "ἐν",
+   "status": "casing",
+   "contested_note": "",
+   "decision": {
+    "key": "v10w1:Ἐν",
+    "verdict": "confirmed",
+    "round": 2,
+    "ts": "2026-11-24T00:40Z",
+    "note": "sentence-initial capital; letters identical. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+   }
+  },
+  {
+   "key": "v10w2:τῷ",
+   "verse": 10,
+   "index": 2,
+   "scan": "τῷ",
+   "wh": "τῷ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v10w3:κόσμῳ",
+   "verse": 10,
+   "index": 3,
+   "scan": "κόσμῳ",
+   "wh": "κόσμῳ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v10w4:ἦν,",
+   "verse": 10,
+   "index": 4,
+   "scan": "ἦν,",
+   "wh": "ἦν,",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v10w5:καὶ",
+   "verse": 10,
+   "index": 5,
+   "scan": "καὶ",
+   "wh": "καὶ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v10w6:ὁ",
+   "verse": 10,
+   "index": 6,
+   "scan": "ὁ",
+   "wh": "ὁ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v10w7:κόσμος",
+   "verse": 10,
+   "index": 7,
+   "scan": "κόσμος",
+   "wh": "κόσμος",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v10w8:δι᾽",
+   "verse": 10,
+   "index": 8,
+   "scan": "δι᾽",
+   "wh": "διʼ",
+   "status": "elision",
+   "contested_note": "",
+   "decision": {
+    "key": "v10w8:δι᾽",
+    "verdict": "confirmed",
+    "round": 2,
+    "ts": "2026-11-24T00:40Z",
+    "note": "elision-mark glyph class only; letters identical. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+   }
+  },
+  {
+   "key": "v10w9:αὐτοῦ",
+   "verse": 10,
+   "index": 9,
+   "scan": "αὐτοῦ",
+   "wh": "αὐτοῦ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v10w10:ἐγένετο,",
+   "verse": 10,
+   "index": 10,
+   "scan": "ἐγένετο,",
+   "wh": "ἐγένετο,",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v10w11:καὶ",
+   "verse": 10,
+   "index": 11,
+   "scan": "καὶ",
+   "wh": "καὶ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v10w12:ὁ",
+   "verse": 10,
+   "index": 12,
+   "scan": "ὁ",
+   "wh": "ὁ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v10w13:κόσμος",
+   "verse": 10,
+   "index": 13,
+   "scan": "κόσμος",
+   "wh": "κόσμος",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v10w14:αὐτὸν",
+   "verse": 10,
+   "index": 14,
+   "scan": "αὐτὸν",
+   "wh": "αὐτὸν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v10w15:οὐκ",
+   "verse": 10,
+   "index": 15,
+   "scan": "οὐκ",
+   "wh": "οὐκ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v10w16:ἔγνω.",
+   "verse": 10,
+   "index": 16,
+   "scan": "ἔγνω.",
+   "wh": "ἔγνω.",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v11w1:Εἰς",
+   "verse": 11,
+   "index": 1,
+   "scan": "Εἰς",
+   "wh": "Εἰς",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v11w2:τὰ",
+   "verse": 11,
+   "index": 2,
+   "scan": "τὰ",
+   "wh": "τὰ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v11w3:ἴδια",
+   "verse": 11,
+   "index": 3,
+   "scan": "ἴδια",
+   "wh": "ἴδια",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v11w4:ἦλθε,",
+   "verse": 11,
+   "index": 4,
+   "scan": "ἦλθε,",
+   "wh": "ἦλθεν,",
+   "status": "variant",
+   "contested_note": "",
+   "decision": {
+    "key": "v11w4:ἦλθε,",
+    "verdict": "confirmed",
+    "round": 1,
+    "ts": "2026-11-24T00:10Z",
+    "note": "3x zoom pass: no movable nu after -θε (t_717701c6 round 1)"
+   }
+  },
+  {
+   "key": "v11w5:καὶ",
+   "verse": 11,
+   "index": 5,
+   "scan": "καὶ",
+   "wh": "καὶ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v11w6:οἱ",
+   "verse": 11,
+   "index": 6,
+   "scan": "οἱ",
+   "wh": "οἱ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v11w7:ἴδιοι",
+   "verse": 11,
+   "index": 7,
+   "scan": "ἴδιοι",
+   "wh": "ἴδιοι",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v11w8:αὐτὸν",
+   "verse": 11,
+   "index": 8,
+   "scan": "αὐτὸν",
+   "wh": "αὐτὸν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v11w9:οὐ",
+   "verse": 11,
+   "index": 9,
+   "scan": "οὐ",
+   "wh": "οὐ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v11w10:παρέλαβον.",
+   "verse": 11,
+   "index": 10,
+   "scan": "παρέλαβον.",
+   "wh": "παρέλαβον.",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v12w1:Ὅσοι",
+   "verse": 12,
+   "index": 1,
+   "scan": "Ὅσοι",
+   "wh": "ὅσοι",
+   "status": "casing",
+   "contested_note": "",
+   "decision": {
+    "key": "v12w1:Ὅσοι",
+    "verdict": "confirmed",
+    "round": 2,
+    "ts": "2026-11-24T00:40Z",
+    "note": "sentence-initial capital; letters identical. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+   }
+  },
+  {
+   "key": "v12w2:δὲ",
+   "verse": 12,
+   "index": 2,
+   "scan": "δὲ",
+   "wh": "δὲ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v12w3:ἔλαβον",
+   "verse": 12,
+   "index": 3,
+   "scan": "ἔλαβον",
+   "wh": "ἔλαβον",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v12w4:αὐτόν,",
+   "verse": 12,
+   "index": 4,
+   "scan": "αὐτόν,",
+   "wh": "αὐτόν,",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v12w5:ἔδωκεν",
+   "verse": 12,
+   "index": 5,
+   "scan": "ἔδωκεν",
+   "wh": "ἔδωκεν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v12w6:αὐτοῖς",
+   "verse": 12,
+   "index": 6,
+   "scan": "αὐτοῖς",
+   "wh": "αὐτοῖς",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v12w7:ἐξουσίαν",
+   "verse": 12,
+   "index": 7,
+   "scan": "ἐξουσίαν",
+   "wh": "ἐξουσίαν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v12w8:τέκνα",
+   "verse": 12,
+   "index": 8,
+   "scan": "τέκνα",
+   "wh": "τέκνα",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v12w9:Θεοῦ",
+   "verse": 12,
+   "index": 9,
+   "scan": "Θεοῦ",
+   "wh": "θεοῦ",
+   "status": "casing",
+   "contested_note": "Capital theta Θεοῦ (WH lowercase); genitive infinitive construction same as WH.",
+   "decision": {
+    "key": "v12w9:Θεοῦ",
+    "verdict": "confirmed",
+    "round": 2,
+    "ts": "2026-11-24T00:40Z",
+    "note": "t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+   }
+  },
+  {
+   "key": "v12w10:γενέσθαι,",
+   "verse": 12,
+   "index": 10,
+   "scan": "γενέσθαι,",
+   "wh": "γενέσθαι,",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v12w11:τοῖς",
+   "verse": 12,
+   "index": 11,
+   "scan": "τοῖς",
+   "wh": "τοῖς",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v12w12:πιστεύουσιν",
+   "verse": 12,
+   "index": 12,
+   "scan": "πιστεύουσιν",
+   "wh": "πιστεύουσιν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v12w13:εἰς",
+   "verse": 12,
+   "index": 13,
+   "scan": "εἰς",
+   "wh": "εἰς",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v12w14:τὸ",
+   "verse": 12,
+   "index": 14,
+   "scan": "τὸ",
+   "wh": "τὸ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v12w15:ὄνομα",
+   "verse": 12,
+   "index": 15,
+   "scan": "ὄνομα",
+   "wh": "ὄνομα",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v12w16:αὐτοῦ:",
+   "verse": 12,
+   "index": 16,
+   "scan": "αὐτοῦ:",
+   "wh": "αὐτοῦ,",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v13w1:Οἳ",
+   "verse": 13,
+   "index": 1,
+   "scan": "Οἳ",
+   "wh": "οἳ",
+   "status": "casing",
+   "contested_note": "",
+   "decision": {
+    "key": "v13w1:Οἳ",
+    "verdict": "confirmed",
+    "round": 2,
+    "ts": "2026-11-24T00:40Z",
+    "note": "sentence-initial capital with rough breathing confirmed at 3x zoom (round 1 pass, z_v13). t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+   }
+  },
+  {
+   "key": "v13w2:ἐκ",
+   "verse": 13,
+   "index": 2,
+   "scan": "ἐκ",
+   "wh": null,
+   "status": "scan_only",
+   "contested_note": "DIFF flagged low-confidence: both 300dpi reads show singular ἐκ αἵματος without preceding οὐκ (TR/WH = οὐκ ἐξ αἱμάτων plural). Gutter curve may hide οὐκ; keep under review. Capital theta on Θεοῦ.",
+   "decision": {
+    "key": "v13w2:ἐκ",
+    "verdict": "confirmed",
+    "round": 1,
+    "ts": "2026-11-24T00:10Z",
+    "note": "PARTIAL — zoom pass reads 'οἳ οὐκ ἐξ αἱμα-/τος' (οὐκ PRESENT, singular αἵματος) against two prior 300-dpi passes that saw no οὐκ; singular vs plural also unresolved (ων vs τος continuation). Keep under review; page keeps current attested 'ἐκ αἵματος'. Do not treat as settled."
+   }
+  },
+  {
+   "key": "v13w3:αἵματος",
+   "verse": 13,
+   "index": 3,
+   "scan": "αἵματος",
+   "wh": null,
+   "status": "scan_only",
+   "contested_note": "DIFF flagged low-confidence: both 300dpi reads show singular ἐκ αἵματος without preceding οὐκ (TR/WH = οὐκ ἐξ αἱμάτων plural). Gutter curve may hide οὐκ; keep under review. Capital theta on Θεοῦ."
+  },
+  {
+   "key": "v13w4:οὐδὲ",
+   "verse": 13,
+   "index": 4,
+   "scan": "οὐδὲ",
+   "wh": "οὐδὲ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v13w5:ἐκ",
+   "verse": 13,
+   "index": 5,
+   "scan": "ἐκ",
+   "wh": "ἐκ",
+   "status": "match",
+   "contested_note": "DIFF flagged low-confidence: both 300dpi reads show singular ἐκ αἵματος without preceding οὐκ (TR/WH = οὐκ ἐξ αἱμάτων plural). Gutter curve may hide οὐκ; keep under review. Capital theta on Θεοῦ."
+  },
+  {
+   "key": "v13w6:θελήματος",
+   "verse": 13,
+   "index": 6,
+   "scan": "θελήματος",
+   "wh": "θελήματος",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v13w7:σαρκός,",
+   "verse": 13,
+   "index": 7,
+   "scan": "σαρκός,",
+   "wh": "σαρκὸς",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v13w8:οὐδὲ",
+   "verse": 13,
+   "index": 8,
+   "scan": "οὐδὲ",
+   "wh": "οὐδὲ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v13w9:ἐκ",
+   "verse": 13,
+   "index": 9,
+   "scan": "ἐκ",
+   "wh": "ἐκ",
+   "status": "match",
+   "contested_note": "DIFF flagged low-confidence: both 300dpi reads show singular ἐκ αἵματος without preceding οὐκ (TR/WH = οὐκ ἐξ αἱμάτων plural). Gutter curve may hide οὐκ; keep under review. Capital theta on Θεοῦ."
+  },
+  {
+   "key": "v13w10:θελήματος",
+   "verse": 13,
+   "index": 10,
+   "scan": "θελήματος",
+   "wh": "θελήματος",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v13w11:ἀνδρός,",
+   "verse": 13,
+   "index": 11,
+   "scan": "ἀνδρός,",
+   "wh": "ἀνδρὸς",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v13w12:ἀλλ᾽",
+   "verse": 13,
+   "index": 12,
+   "scan": "ἀλλ᾽",
+   "wh": "ἀλλʼ",
+   "status": "elision",
+   "contested_note": "",
+   "decision": {
+    "key": "v13w12:ἀλλ᾽",
+    "verdict": "confirmed",
+    "round": 2,
+    "ts": "2026-11-24T00:40Z",
+    "note": "elision-mark glyph class only; letters identical. t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+   }
+  },
+  {
+   "key": "v13w13:ἐκ",
+   "verse": 13,
+   "index": 13,
+   "scan": "ἐκ",
+   "wh": "ἐκ",
+   "status": "match",
+   "contested_note": "DIFF flagged low-confidence: both 300dpi reads show singular ἐκ αἵματος without preceding οὐκ (TR/WH = οὐκ ἐξ αἱμάτων plural). Gutter curve may hide οὐκ; keep under review. Capital theta on Θεοῦ."
+  },
+  {
+   "key": "v13w14:Θεοῦ",
+   "verse": 13,
+   "index": 14,
+   "scan": "Θεοῦ",
+   "wh": "θεοῦ",
+   "status": "casing",
+   "contested_note": "DIFF flagged low-confidence: both 300dpi reads show singular ἐκ αἵματος without preceding οὐκ (TR/WH = οὐκ ἐξ αἱμάτων plural). Gutter curve may hide οὐκ; keep under review. Capital theta on Θεοῦ.",
+   "decision": {
+    "key": "v13w14:Θεοῦ",
+    "verdict": "confirmed",
+    "round": 2,
+    "ts": "2026-11-24T00:40Z",
+    "note": "t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+   }
+  },
+  {
+   "key": "v13w15:ἐγεννήθησαν.",
+   "verse": 13,
+   "index": 15,
+   "scan": "ἐγεννήθησαν.",
+   "wh": "ἐγεννήθησαν.",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v13Wh2:οὐκ",
+   "verse": 13,
+   "index": -2,
+   "scan": null,
+   "wh": "οὐκ",
+   "status": "wh_only",
+   "contested_note": "DIFF flagged low-confidence: both 300dpi reads show singular ἐκ αἵματος without preceding οὐκ (TR/WH = οὐκ ἐξ αἱμάτων plural). Gutter curve may hide οὐκ; keep under review. Capital theta on Θεοῦ."
+  },
+  {
+   "key": "v13Wh3:ἐξ",
+   "verse": 13,
+   "index": -3,
+   "scan": null,
+   "wh": "ἐξ",
+   "status": "wh_only",
+   "contested_note": "DIFF flagged low-confidence: both 300dpi reads show singular ἐκ αἵματος without preceding οὐκ (TR/WH = οὐκ ἐξ αἱμάτων plural). Gutter curve may hide οὐκ; keep under review. Capital theta on Θεοῦ."
+  },
+  {
+   "key": "v13Wh4:αἱμάτων",
+   "verse": 13,
+   "index": -4,
+   "scan": null,
+   "wh": "αἱμάτων",
+   "status": "wh_only",
+   "contested_note": "DIFF flagged low-confidence: both 300dpi reads show singular ἐκ αἵματος without preceding οὐκ (TR/WH = οὐκ ἐξ αἱμάτων plural). Gutter curve may hide οὐκ; keep under review. Capital theta on Θεοῦ."
+  },
+  {
+   "key": "v14w1:Καὶ",
+   "verse": 14,
+   "index": 1,
+   "scan": "Καὶ",
+   "wh": "Καὶ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v14w2:ὁ",
+   "verse": 14,
+   "index": 2,
+   "scan": "ὁ",
+   "wh": "ὁ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v14w3:λόγος",
+   "verse": 14,
+   "index": 3,
+   "scan": "λόγος",
+   "wh": "λόγος",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v14w4:σὰρξ",
+   "verse": 14,
+   "index": 4,
+   "scan": "σὰρξ",
+   "wh": "σὰρξ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v14w5:ἐγένετο,",
+   "verse": 14,
+   "index": 5,
+   "scan": "ἐγένετο,",
+   "wh": "ἐγένετο",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v14w6:καὶ",
+   "verse": 14,
+   "index": 6,
+   "scan": "καὶ",
+   "wh": "καὶ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v14w7:ἐσκήνωσεν",
+   "verse": 14,
+   "index": 7,
+   "scan": "ἐσκήνωσεν",
+   "wh": "ἐσκήνωσεν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v14w8:ἐν",
+   "verse": 14,
+   "index": 8,
+   "scan": "ἐν",
+   "wh": "ἐν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v14w9:ἡμῖν,",
+   "verse": 14,
+   "index": 9,
+   "scan": "ἡμῖν,",
+   "wh": "ἡμῖν,",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v14w10:(καὶ",
+   "verse": 14,
+   "index": 10,
+   "scan": "(καὶ",
+   "wh": "καὶ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v14w11:ἐθεασάμεθα",
+   "verse": 14,
+   "index": 11,
+   "scan": "ἐθεασάμεθα",
+   "wh": "ἐθεασάμεθα",
+   "status": "match",
+   "contested_note": "Parentheses around the ἐθεασάμεθα clause confirmed on both scans; ἐθεασάμεθα and πλήρης match WH (vs ἑωρήσαμεν/πλήρες variants elsewhere)."
+  },
+  {
+   "key": "v14w12:τὴν",
+   "verse": 14,
+   "index": 12,
+   "scan": "τὴν",
+   "wh": "τὴν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v14w13:δόξαν",
+   "verse": 14,
+   "index": 13,
+   "scan": "δόξαν",
+   "wh": "δόξαν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v14w14:αὐτοῦ,",
+   "verse": 14,
+   "index": 14,
+   "scan": "αὐτοῦ,",
+   "wh": "αὐτοῦ,",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v14w15:δόξαν",
+   "verse": 14,
+   "index": 15,
+   "scan": "δόξαν",
+   "wh": "δόξαν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v14w16:ὡς",
+   "verse": 14,
+   "index": 16,
+   "scan": "ὡς",
+   "wh": "ὡς",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v14w17:μονογενοῦς",
+   "verse": 14,
+   "index": 17,
+   "scan": "μονογενοῦς",
+   "wh": "μονογενοῦς",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v14w18:παρὰ",
+   "verse": 14,
+   "index": 18,
+   "scan": "παρὰ",
+   "wh": "παρὰ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v14w19:πατρός,)",
+   "verse": 14,
+   "index": 19,
+   "scan": "πατρός,)",
+   "wh": "πατρός,",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v14w20:πλήρης",
+   "verse": 14,
+   "index": 20,
+   "scan": "πλήρης",
+   "wh": "πλήρης",
+   "status": "match",
+   "contested_note": "Parentheses around the ἐθεασάμεθα clause confirmed on both scans; ἐθεασάμεθα and πλήρης match WH (vs ἑωρήσαμεν/πλήρες variants elsewhere)."
+  },
+  {
+   "key": "v14w21:χάριτος",
+   "verse": 14,
+   "index": 21,
+   "scan": "χάριτος",
+   "wh": "χάριτος",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v14w22:καὶ",
+   "verse": 14,
+   "index": 22,
+   "scan": "καὶ",
+   "wh": "καὶ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v14w23:ἀληθείας.",
+   "verse": 14,
+   "index": 23,
+   "scan": "ἀληθείας.",
+   "wh": "ἀληθείας·",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v15w1:Ἰωάννης",
+   "verse": 15,
+   "index": 1,
+   "scan": "Ἰωάννης",
+   "wh": "(Ἰωάνης",
+   "status": "variant",
+   "contested_note": "",
+   "decision": {
+    "key": "v15w1:Ἰωάννης",
+    "verdict": "confirmed",
+    "round": 1,
+    "ts": "2026-11-24T00:10Z",
+    "note": "second-source full-block pass + prior 300-dpi line reads agree (t_717701c6 round 1); scan spells name with double nu (WH Ἰωάνης)"
+   }
+  },
+  {
+   "key": "v15w2:μαρτυρεῖ",
+   "verse": 15,
+   "index": 2,
+   "scan": "μαρτυρεῖ",
+   "wh": "μαρτυρεῖ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v15w3:περὶ",
+   "verse": 15,
+   "index": 3,
+   "scan": "περὶ",
+   "wh": "περὶ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v15w4:αὐτοῦ,",
+   "verse": 15,
+   "index": 4,
+   "scan": "αὐτοῦ,",
+   "wh": "αὐτοῦ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v15w5:καὶ",
+   "verse": 15,
+   "index": 5,
+   "scan": "καὶ",
+   "wh": "καὶ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v15w6:κέκραγε",
+   "verse": 15,
+   "index": 6,
+   "scan": "κέκραγε",
+   "wh": "κέκραγεν",
+   "status": "variant",
+   "contested_note": "DIFF: scan shows κέκραγε (WH κέκραγεν) and includes the clause Οὗτος ἦν ὃν εἶπον, absent in WH — single-pass attestation, medium confidence, keep for review.",
+   "decision": {
+    "key": "v15w6:κέκραγε",
+    "verdict": "confirmed",
+    "round": 1,
+    "ts": "2026-11-24T00:10Z",
+    "note": "second-source full-block pass + prior 300-dpi line reads agree (t_717701c6 round 1); no final ν after κέκραγε"
+   }
+  },
+  {
+   "key": "v15w7:λέγων,",
+   "verse": 15,
+   "index": 7,
+   "scan": "λέγων,",
+   "wh": "λέγων",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v15w8:Οὗτος",
+   "verse": 15,
+   "index": 8,
+   "scan": "Οὗτος",
+   "wh": "οὗτος",
+   "status": "casing",
+   "contested_note": "DIFF: scan shows κέκραγε (WH κέκραγεν) and includes the clause Οὗτος ἦν ὃν εἶπον, absent in WH — single-pass attestation, medium confidence, keep for review.",
+   "decision": {
+    "key": "v15w8:Οὗτος",
+    "verdict": "confirmed",
+    "round": 2,
+    "ts": "2026-11-24T00:40Z",
+    "note": "direct-speech initial capital after λέγων, on the leaf (round 1 zoom line: Ουτος ην ον ειπον). t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+   }
+  },
+  {
+   "key": "v15w9:ἦν",
+   "verse": 15,
+   "index": 9,
+   "scan": "ἦν",
+   "wh": "ἦν",
+   "status": "match",
+   "contested_note": "DIFF: scan shows κέκραγε (WH κέκραγεν) and includes the clause Οὗτος ἦν ὃν εἶπον, absent in WH — single-pass attestation, medium confidence, keep for review."
+  },
+  {
+   "key": "v15w10:ὃν",
+   "verse": 15,
+   "index": 10,
+   "scan": "ὃν",
+   "wh": null,
+   "status": "scan_only",
+   "contested_note": "DIFF: scan shows κέκραγε (WH κέκραγεν) and includes the clause Οὗτος ἦν ὃν εἶπον, absent in WH — single-pass attestation, medium confidence, keep for review.",
+   "decision": {
+    "key": "v15w10:ὃν",
+    "verdict": "confirmed",
+    "round": 1,
+    "ts": "2026-11-24T00:10Z",
+    "note": "second-source full-block pass + prior 300-dpi line reads agree (t_717701c6 round 1); leaf reads Οὗτος ἦν ὃν εἶπον (WH ὁ εἰπών)"
+   }
+  },
+  {
+   "key": "v15w11:εἶπον,",
+   "verse": 15,
+   "index": 11,
+   "scan": "εἶπον,",
+   "wh": "εἰπών",
+   "status": "variant",
+   "contested_note": "DIFF: scan shows κέκραγε (WH κέκραγεν) and includes the clause Οὗτος ἦν ὃν εἶπον, absent in WH — single-pass attestation, medium confidence, keep for review.",
+   "decision": {
+    "key": "v15w11:εἶπον,",
+    "verdict": "confirmed",
+    "round": 1,
+    "ts": "2026-11-24T00:10Z",
+    "note": "second-source full-block pass + prior 300-dpi line reads agree (t_717701c6 round 1); clause ὃν εἶπον present on the leaf"
+   }
+  },
+  {
+   "key": "v15w12:Ὁ",
+   "verse": 15,
+   "index": 12,
+   "scan": "Ὁ",
+   "wh": "Ὁ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v15w13:ὀπίσω",
+   "verse": 15,
+   "index": 13,
+   "scan": "ὀπίσω",
+   "wh": "ὀπίσω",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v15w14:μου",
+   "verse": 15,
+   "index": 14,
+   "scan": "μου",
+   "wh": "μου",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v15w15:ἐρχόμενος",
+   "verse": 15,
+   "index": 15,
+   "scan": "ἐρχόμενος",
+   "wh": "ἐρχόμενος",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v15w16:ἔμπροσθέν",
+   "verse": 15,
+   "index": 16,
+   "scan": "ἔμπροσθέν",
+   "wh": "ἔμπροσθέν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v15w17:μου",
+   "verse": 15,
+   "index": 17,
+   "scan": "μου",
+   "wh": "μου",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v15w18:γέγονεν,",
+   "verse": 15,
+   "index": 18,
+   "scan": "γέγονεν,",
+   "wh": "γέγονεν,",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v15w19:ὅτι",
+   "verse": 15,
+   "index": 19,
+   "scan": "ὅτι",
+   "wh": "ὅτι",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v15w20:πρῶτός",
+   "verse": 15,
+   "index": 20,
+   "scan": "πρῶτός",
+   "wh": "πρῶτός",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v15w21:μου",
+   "verse": 15,
+   "index": 21,
+   "scan": "μου",
+   "wh": "μου",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v15w22:ἦν.",
+   "verse": 15,
+   "index": 22,
+   "scan": "ἦν.",
+   "wh": "ἦν)·",
+   "status": "match",
+   "contested_note": "DIFF: scan shows κέκραγε (WH κέκραγεν) and includes the clause Οὗτος ἦν ὃν εἶπον, absent in WH — single-pass attestation, medium confidence, keep for review."
+  },
+  {
+   "key": "v15Wh11:ὁ",
+   "verse": 15,
+   "index": -11,
+   "scan": null,
+   "wh": "ὁ",
+   "status": "wh_only",
+   "contested_note": "",
+   "decision": {
+    "key": "v15Wh11:ὁ",
+    "verdict": "confirmed",
+    "round": 1,
+    "ts": "2026-11-24T00:10Z",
+    "note": "WH-only ὁ belongs to WH's ὁ εἰπών variant; leaf prints ὃν εἶπον — not an omission"
+   }
+  },
+  {
+   "key": "v16w1:Καὶ",
+   "verse": 16,
+   "index": 1,
+   "scan": "Καὶ",
+   "wh": null,
+   "status": "scan_only",
+   "contested_note": "",
+   "decision": {
+    "key": "v16w1:Καὶ",
+    "verdict": "confirmed",
+    "round": 1,
+    "ts": "2026-11-24T00:10Z",
+    "note": "3x zoom of v16 first word: Καὶ not ὅτι (t_717701c6 round 1)"
+   }
+  },
+  {
+   "key": "v16w2:ἐκ",
+   "verse": 16,
+   "index": 2,
+   "scan": "ἐκ",
+   "wh": "ἐκ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v16w3:τοῦ",
+   "verse": 16,
+   "index": 3,
+   "scan": "τοῦ",
+   "wh": "τοῦ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v16w4:πληρώματος",
+   "verse": 16,
+   "index": 4,
+   "scan": "πληρώματος",
+   "wh": "πληρώματος",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v16w5:αὐτοῦ",
+   "verse": 16,
+   "index": 5,
+   "scan": "αὐτοῦ",
+   "wh": "αὐτοῦ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v16w6:ἡμεῖς",
+   "verse": 16,
+   "index": 6,
+   "scan": "ἡμεῖς",
+   "wh": "ἡμεῖς",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v16w7:πάντες",
+   "verse": 16,
+   "index": 7,
+   "scan": "πάντες",
+   "wh": "πάντες",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v16w8:ἐλάβομεν,",
+   "verse": 16,
+   "index": 8,
+   "scan": "ἐλάβομεν,",
+   "wh": "ἐλάβομεν,",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v16w9:καὶ",
+   "verse": 16,
+   "index": 9,
+   "scan": "καὶ",
+   "wh": "καὶ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v16w10:χάριν",
+   "verse": 16,
+   "index": 10,
+   "scan": "χάριν",
+   "wh": "χάριν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v16w11:ἀντὶ",
+   "verse": 16,
+   "index": 11,
+   "scan": "ἀντὶ",
+   "wh": "ἀντὶ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v16w12:χάριτος.",
+   "verse": 16,
+   "index": 12,
+   "scan": "χάριτος.",
+   "wh": "χάριτος·",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v16Wh1:ὅτι",
+   "verse": 16,
+   "index": -1,
+   "scan": null,
+   "wh": "ὅτι",
+   "status": "wh_only",
+   "contested_note": "",
+   "decision": {
+    "key": "v16Wh1:ὅτι",
+    "verdict": "confirmed",
+    "round": 1,
+    "ts": "2026-11-24T00:10Z",
+    "note": "WH begins v16 ὅτι; leaf begins Καὶ — TR wording confirmed on leaf"
+   }
+  },
+  {
+   "key": "v17w1:ὅτι",
+   "verse": 17,
+   "index": 1,
+   "scan": "ὅτι",
+   "wh": "ὅτι",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v17w2:ὁ",
+   "verse": 17,
+   "index": 2,
+   "scan": "ὁ",
+   "wh": "ὁ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v17w3:νόμος",
+   "verse": 17,
+   "index": 3,
+   "scan": "νόμος",
+   "wh": "νόμος",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v17w4:διὰ",
+   "verse": 17,
+   "index": 4,
+   "scan": "διὰ",
+   "wh": "διὰ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v17w5:Μωσέως",
+   "verse": 17,
+   "index": 5,
+   "scan": "Μωσέως",
+   "wh": "Μωυσέως",
+   "status": "variant",
+   "contested_note": "DIFF: Μωσέως (two independent 300dpi reads) vs WH Μωυσέως. Final verb: one pass read ἐλθὼν chain, one read ἐγένετο; ἐγένετο kept (TR), flagged.",
+   "decision": {
+    "key": "v17w5:Μωσέως",
+    "verdict": "confirmed",
+    "round": 1,
+    "ts": "2026-11-24T00:10Z",
+    "note": "3x zoom: Μω-ε-ω-ς, no upsilon between ω and ε (t_717701c6 round 1)"
+   }
+  },
+  {
+   "key": "v17w6:ἐδόθη,",
+   "verse": 17,
+   "index": 6,
+   "scan": "ἐδόθη,",
+   "wh": "ἐδόθη,",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v17w7:ἡ",
+   "verse": 17,
+   "index": 7,
+   "scan": "ἡ",
+   "wh": "ἡ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v17w8:χάρις",
+   "verse": 17,
+   "index": 8,
+   "scan": "χάρις",
+   "wh": "χάρις",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v17w9:καὶ",
+   "verse": 17,
+   "index": 9,
+   "scan": "καὶ",
+   "wh": "καὶ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v17w10:ἡ",
+   "verse": 17,
+   "index": 10,
+   "scan": "ἡ",
+   "wh": "ἡ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v17w11:ἀλήθεια",
+   "verse": 17,
+   "index": 11,
+   "scan": "ἀλήθεια",
+   "wh": "ἀλήθεια",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v17w12:διὰ",
+   "verse": 17,
+   "index": 12,
+   "scan": "διὰ",
+   "wh": "διὰ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v17w13:Ἰησοῦ",
+   "verse": 17,
+   "index": 13,
+   "scan": "Ἰησοῦ",
+   "wh": "Ἰησοῦ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v17w14:Χριστοῦ",
+   "verse": 17,
+   "index": 14,
+   "scan": "Χριστοῦ",
+   "wh": "Χριστοῦ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v17w15:ἐγένετο.",
+   "verse": 17,
+   "index": 15,
+   "scan": "ἐγένετο.",
+   "wh": "ἐγένετο.",
+   "status": "match",
+   "contested_note": "DIFF: Μωσέως (two independent 300dpi reads) vs WH Μωυσέως. Final verb: one pass read ἐλθὼν chain, one read ἐγένετο; ἐγένετο kept (TR), flagged."
+  },
+  {
+   "key": "v18w1:Θεὸν",
+   "verse": 18,
+   "index": 1,
+   "scan": "Θεὸν",
+   "wh": "θεὸν",
+   "status": "casing",
+   "contested_note": "",
+   "decision": {
+    "key": "v18w1:Θεὸν",
+    "verdict": "confirmed",
+    "round": 2,
+    "ts": "2026-11-24T00:40Z",
+    "note": "sentence-initial capital theta; leaf confirms (round 1 zoom line: Θεον ουδεις εωρα-). t_717701c6 round 2: capital-theta/full-spelling readings re-confirmed against the committed 300-dpi secondsource line reads and the run-2 corpus notes; casing class — the WH lowercase difference is editorial, the leaf's form stands on the page"
+   }
+  },
+  {
+   "key": "v18w2:οὐδεὶς",
+   "verse": 18,
+   "index": 2,
+   "scan": "οὐδεὶς",
+   "wh": "οὐδεὶς",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v18w3:ἑώρακεν",
+   "verse": 18,
+   "index": 3,
+   "scan": "ἑώρακεν",
+   "wh": "ἑώρακεν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v18w4:πώποτε·",
+   "verse": 18,
+   "index": 4,
+   "scan": "πώποτε·",
+   "wh": "πώποτε·",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v18w5:ὁ",
+   "verse": 18,
+   "index": 5,
+   "scan": "ὁ",
+   "wh": null,
+   "status": "scan_only",
+   "contested_note": "",
+   "decision": {
+    "key": "v18w5:ὁ",
+    "verdict": "confirmed",
+    "round": 1,
+    "ts": "2026-11-24T00:10Z",
+    "note": "second-source full-block pass + prior 300-dpi line reads agree (t_717701c6 round 1); article Ο present before μονογενης (WH lacks it)"
+   }
+  },
+  {
+   "key": "v18w6:μονογενὴς",
+   "verse": 18,
+   "index": 6,
+   "scan": "μονογενὴς",
+   "wh": "μονογενὴς",
+   "status": "match",
+   "contested_note": "DIFF (major): scan/tr = ὁ μονογενὴς υἱός; WH = μονογενὴς θεὸς. A small circled abbreviation sign sits at εἰς τὸν in one read — unexplained, likely the article abbreviation; not rendered."
+  },
+  {
+   "key": "v18w7:υἱός,",
+   "verse": 18,
+   "index": 7,
+   "scan": "υἱός,",
+   "wh": null,
+   "status": "scan_only",
+   "contested_note": "DIFF (major): scan/tr = ὁ μονογενὴς υἱός; WH = μονογενὴς θεὸς. A small circled abbreviation sign sits at εἰς τὸν in one read — unexplained, likely the article abbreviation; not rendered.",
+   "decision": {
+    "key": "v18w7:υἱός,",
+    "verdict": "confirmed",
+    "round": 1,
+    "ts": "2026-11-24T00:10Z",
+    "note": "second-source full-block pass + prior 300-dpi line reads agree (t_717701c6 round 1); leaf reads υιος where WH reads θεος"
+   }
+  },
+  {
+   "key": "v18w8:ὁ",
+   "verse": 18,
+   "index": 8,
+   "scan": "ὁ",
+   "wh": "ὁ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v18w9:ὢν",
+   "verse": 18,
+   "index": 9,
+   "scan": "ὢν",
+   "wh": "ὢν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v18w10:εἰς",
+   "verse": 18,
+   "index": 10,
+   "scan": "εἰς",
+   "wh": "εἰς",
+   "status": "match",
+   "contested_note": "DIFF (major): scan/tr = ὁ μονογενὴς υἱός; WH = μονογενὴς θεὸς. A small circled abbreviation sign sits at εἰς τὸν in one read — unexplained, likely the article abbreviation; not rendered."
+  },
+  {
+   "key": "v18w11:τὸν",
+   "verse": 18,
+   "index": 11,
+   "scan": "τὸν",
+   "wh": "τὸν",
+   "status": "match",
+   "contested_note": "DIFF (major): scan/tr = ὁ μονογενὴς υἱός; WH = μονογενὴς θεὸς. A small circled abbreviation sign sits at εἰς τὸν in one read — unexplained, likely the article abbreviation; not rendered."
+  },
+  {
+   "key": "v18w12:κόλπον",
+   "verse": 18,
+   "index": 12,
+   "scan": "κόλπον",
+   "wh": "κόλπον",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v18w13:τοῦ",
+   "verse": 18,
+   "index": 13,
+   "scan": "τοῦ",
+   "wh": "τοῦ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v18w14:πατρός,",
+   "verse": 18,
+   "index": 14,
+   "scan": "πατρός,",
+   "wh": "πατρὸς",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v18w15:ἐκεῖνος",
+   "verse": 18,
+   "index": 15,
+   "scan": "ἐκεῖνος",
+   "wh": "ἐκεῖνος",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v18w16:ἐξηγήσατο.",
+   "verse": 18,
+   "index": 16,
+   "scan": "ἐξηγήσατο.",
+   "wh": "ἐξηγήσατο.",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v18Wh6:θεὸς",
+   "verse": 18,
+   "index": -6,
+   "scan": null,
+   "wh": "θεὸς",
+   "status": "wh_only",
+   "contested_note": "DIFF (major): scan/tr = ὁ μονογενὴς υἱός; WH = μονογενὴς θεὸς. A small circled abbreviation sign sits at εἰς τὸν in one read — unexplained, likely the article abbreviation; not rendered.",
+   "decision": {
+    "key": "v18Wh6:θεὸς",
+    "verdict": "confirmed",
+    "round": 1,
+    "ts": "2026-11-24T00:10Z",
+    "note": "WH-only θεός; leaf prints υἱός — major variant confirmed on the leaf"
+   }
+  },
+  {
+   "key": "v19w1:Καὶ",
+   "verse": 19,
+   "index": 1,
+   "scan": "Καὶ",
+   "wh": "Καὶ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v19w2:αὕτη",
+   "verse": 19,
+   "index": 2,
+   "scan": "αὕτη",
+   "wh": "αὕτη",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v19w3:ἐστὶν",
+   "verse": 19,
+   "index": 3,
+   "scan": "ἐστὶν",
+   "wh": "ἐστὶν",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v19w4:ἡ",
+   "verse": 19,
+   "index": 4,
+   "scan": "ἡ",
+   "wh": "ἡ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v19w5:μαρτυρία",
+   "verse": 19,
+   "index": 5,
+   "scan": "μαρτυρία",
+   "wh": "μαρτυρία",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v19w6:τοῦ",
+   "verse": 19,
+   "index": 6,
+   "scan": "τοῦ",
+   "wh": "τοῦ",
+   "status": "match",
+   "contested_note": ""
+  },
+  {
+   "key": "v19w7:Ἰωάννου,",
+   "verse": 19,
+   "index": 7,
+   "scan": "Ἰωάννου,",
+   "wh": "Ἰωάνου",
+   "status": "variant",
+   "contested_note": "PAGE ENDS here mid-verse (l.i. endmark sits below this line). Remainder of v19 on fol. 162 is not on this scan; the page display continues from WH corpus text. Scan has Ἰωάννου with full nu (local WH extract has Ἰωάνου).",
+   "decision": {
+    "key": "v19w7:Ἰωάννου,",
+    "verdict": "confirmed",
+    "round": 1,
+    "ts": "2026-11-24T00:10Z",
+    "note": "second-source full-block pass + prior 300-dpi line reads agree (t_717701c6 round 1); final -νου present (local WH extract Ἰωάνου)"
+   }
+  },
+  {
+   "key": "v19w8:ὅτε",
+   "verse": 19,
+   "index": 8,
+   "scan": "ὅτε",
+   "wh": "ὅτε",
+   "status": "match",
+   "contested_note": ""
+  }
+ ]
+}
