@@ -59,5 +59,22 @@ contradicts two earlier 300-dpi passes (no οὐκ) and the singular/plural
 αἵματος/αἱμάτων question is still unsettled. It stays contested for a
 human eye; the page keeps the current attested reading.
 
-Current counts: see `collation_cycle.py stats` (268 tokens tracked;
-223 exact matches; open = contested 12 + casing 9 + elision 5).
+## Round 2 (t_717701c6)
+
+22 mechanical items closed with evidence: 17 casing (capital theta and
+sentence-initial capitals — confirmed against the committed 300-dpi
+second-source reads; the WH lowercase difference is editorial, the
+leaf's form stands) and 5 elision-class (U+1FBD koronis vs U+02BC
+apostrophe — glyph convention of the leaf's font, letters identical).
+
+**State after two rounds** (`collation_cycle.py stats`, 2026-11-24):
+268 tokens tracked · 42 ledger decisions (rounds 1–2) · **open items 26
+→ 4**, all four being the one genuine unresolved v13 question
+(ἐκ/οὐκ/αἵματος vs WH οὐκ ἐξ αἱμάτων). The `next` call returns
+exactly those 4; `record`ing them (or a corpus `corrected` edit +
+rebuild) closes the page.
+
+Evidence shots: `qa-evidence/t7-scan-default.png` (default view
+unchanged), `t7-scan-side-by-side.png`, `t7-review-marks.png`,
+`t7-review-textblock.png`, `t7-live-scan-side-by-side.png` (live site,
+gate-authenticated, deploy e06b292).
